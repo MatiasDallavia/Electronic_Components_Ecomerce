@@ -1,13 +1,144 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.product:hover{
+  background-color: black;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.product-characteristic{
+  height: 100px;
+  background-color: white;
+  border: 1px solid #9c988f;
+
+
+}
+
+th{
+  height: 30px;
+  background-color: blue;
+  border: 1px solid #9c988f;
+}
+
+.ta{
+  border: 1px solid #9c988f;
+}
+
+
+.table-hover tbody tr:hover {
+  cursor: pointer; 
+  background-color: #c4bfaf; /* Cambia este color según tus preferencias */
+}
+
+
+
+
+.filters{
+  padding-top: 50px;
+}
+
+.filter-field{
+  margin: 10px;
+}
+
+.filter-submit{
+  padding: 100;
+  margin-right: 500px;
+}
+
+.type{
+  width: 150px;
+}
+
+
+.raiting{
+  width: 150px;
+}
+
+
+.mounting-surface{
+  width: 100px;
+}
+
+.carousel > .carousel-inner > .carousel-item > img{
+  width:1000; /* Yeap you can change the width and height*/
+  height:600px;
+}
+
+.carousel-item {
+  position: relative;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Ajusta el valor de alfa según tus necesidades, 0 es transparente, 1 es opaco */
+}
+
+.carousel-item img {
+  width: 100%;
+  height: auto;
+}
+
+
+
+
+.options {
+  display: flex;
+  justify-content: center;
+  margin: 5px;
+}
+
+.box-product {
+  text-align: center;
+  width: 160px;
+  height: 200px;
+  border: 2px solid grey;
+  margin: 7px;
+  overflow: hidden;
+  transition: transform 0.3s, z-index 0.3s;
+  display: flex;
+  align-items: center; /* Centra verticalmente el contenido dentro de la caja */
+  justify-content: center; /* Centra horizontalmente el contenido dentro de la caja */
+}
+
+.box-product:hover {
+  transform: scale(1.2);
+  z-index: 1;
+}
+
+.icon-product {
+  max-width: 100%;
+  max-height: 150px;
+  display: block;
+  margin: auto;
+}
+
+.log-form{
+  width: 400px;
+}
+
+.plus_minus_icon{
+  width: 15px;
+  height: 15px;
+}
+
+
+.mi-boton {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid #00457C;
+  color: #00457C; 
+  background-color: #fff;
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Efecto hover para resaltar el botón */
+.mi-boton:hover {
+  background-color: #00457C;
+  color: #fff;
 }
