@@ -1,9 +1,16 @@
 import React from 'react'
+import slideCapacitors from '../images/slide_capacitors.webp'
+import slideTransistors from '../images/slide_transitors.jpg'
+import slideCircuitBoard from '../images/slide_circuit_board.webp'
+import Carousel from 'react-bootstrap/Carousel';
+import CoverCarousel from './Carousel'
 
-function Home() {
+const Home = () => {
   return (
-    <div>Home</div>
-  )
-}
+    <>
+     <CoverCarousel/>        
+    </>
+  );
+};
 
-export default Home
+export default Home;
