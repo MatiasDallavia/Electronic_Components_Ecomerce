@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from 'react-router-dom';
+
 
 function Navbar() {
   return (
@@ -18,12 +20,12 @@ function Navbar() {
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Search Products</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Transistors</a></li>
-                            <li><a class="dropdown-item" href="#">Resistors</a></li>
-                            <li><a class="dropdown-item" href="#">Diode</a></li>
-                            <li><a class="dropdown-item" href="#">Capacitors</a></li>
-                            <li><a class="dropdown-item" href="#">Inductors</a></li>
+                        <ul className="dropdown-menu">
+                            <li><Link to="/product-search/transistors" className="dropdown-item">Transistors</Link></li>
+                            <li><Link to="/product-search/resistors" className="dropdown-item">Resistors</Link></li>
+                            <li><Link to="/product-search/diodes" className="dropdown-item">Diodes</Link></li>
+                            <li><Link to="/product-search/capacitors" className="dropdown-item">Capacitors</Link></li>
+                            <li><Link to="/product-search/inductors" className="dropdown-item">Inductors</Link></li>
                         </ul>
                     </li>
                 </ul>
