@@ -5,7 +5,7 @@ import DiodeFilter from './product_filters/DiodeFilter';
 import ResistorFilter from './product_filters/ResistorFilter';
 import InductorFilter from './product_filters/InductorFilter';
 import TransistorFilter from './product_filters/TransistorFilter'
-
+import ProductList from './ProductList';
 
 
 function SearchProducts() {
@@ -37,8 +37,9 @@ function SearchProducts() {
     return (
     
         <div class="container filters g-3">
-        {filter}
-        <button type="button" class="btn btn-primary submit">Search</button>
+            {filter}
+            <button type="button" class="btn btn-primary submit">Search</button>
+            <ProductList/>
         </div>
 
   )
