@@ -23,10 +23,8 @@ th{
 
 .table-hover tbody tr:hover {
   cursor: pointer; 
-  background-color: #c4bfaf; /* Cambia este color según tus preferencias */
+  background-color: #c4bfaf;
 }
-
-
 
 
 .filters{
@@ -34,7 +32,12 @@ th{
 }
 
 .filter-field{
-  margin: 10px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+}
+
+.filter-group{
+  margin-right: 30px;
 }
 
 .filter-submit{
