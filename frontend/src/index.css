@@ -10,15 +10,6 @@
 
 }
 
-th{
-  height: 30px;
-  background-color: blue;
-  border: 1px solid #9c988f;
-}
-
-.ta{
-  border: 1px solid #9c988f;
-}
 
 .image{
   width: 100px;
@@ -176,4 +167,53 @@ th{
 .mi-boton:hover {
   background-color: #00457C;
   color: #fff;
+}
+
+/* product view  */
+
+#pdf-icon {
+    width: 10%;
+    height: 10%;
+}
+#cover-image-product{
+    padding: 20px;
+    padding-bottom: 30px;
+}
+
+/* Ajustes de margen para reducir la distancia entre las columnas names y values */
+
+.main-attributes{
+  padding: 10px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+}
+.main-attributes td{
+  border-bottom: 1px solid #ddd;
+  border: 1px solid #ddd;
+  padding-left: 10px;
+  height: 40px;
+
+
+}
+.main-attributes th{
+  border-bottom: 1px solid black;
+  border-right: 1px solid #ddd;
+  text-align: center;
+  height: 40px;
+
+}
+.main-attributes table{
+  width: 100%;
+  padding: 50px;
+  margin-bottom: 50px;
+
+}
+
+.main-attributes{
+  height: 650px;
+  padding: 20px;
+}
+
+.product-attributes{
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+
 }
