@@ -15,12 +15,18 @@ function Navbar() {
   return (
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div class="container-fluid">
-            <Link to="/" class="navbar-brand">Electronic Components</Link>
+            <div class="navbar-brand">Electronic Components</div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto align-items-start"> 
+                <li class="nav-item">
+                    <Link to="/" className="nav-link mt-1 mt-md-0">Home</Link>
+                </li>
+                <li class="nav-item">
+                    <Link to="/login" className="nav-link mt-1 mt-md-0">Login</Link>
+                </li>
                     <li class="nav-item">
                         < div class="nav-link mt-1 mt-md-0" aria-disabled="true" onClick={redirectToCart}>
                             Cart
