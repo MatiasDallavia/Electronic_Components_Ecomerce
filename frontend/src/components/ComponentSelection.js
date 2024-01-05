@@ -4,7 +4,6 @@ import ResistorIcon from '../images/icons/resistor.jpeg'
 import CapacitorIcon from '../images/icons/capacitor.jpeg'
 import DiodeIcon from '../images/icons/diode.jpeg'
 import InductorIcon from '../images/icons/inductor.jpeg'
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 
