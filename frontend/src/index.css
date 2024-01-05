@@ -2,27 +2,22 @@
   background-color: black;
 }
 
-.product-characteristic{
+.table-row-product{
   height: 70px;
   background-color: white;
   border: 1px solid #9c988f;
-
-
 }
 
-
-.image{
-  width: 100px;
+.table-row-product.description{
+  width: 300px;
 }
 
-.in-stock{
+#products-table{
+  margin: 50px;
+}
+
+.table-row-product.image{
   width: 150px;
-}
-
-.product-table{
-  border-radius: 15px;
-  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5)
-
 }
 
 .image-product{

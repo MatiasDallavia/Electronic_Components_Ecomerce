@@ -12,18 +12,18 @@ function ProductTableRow() {
    
   return (
     <tr onClick={redirectModelView}>
-        <td class="product-characteristic image">
+        <td class="table-row-product image">
             <img src="components/resistor2.jpeg" class="image-product"/>
         </td>
 
-        <td class="product-characteristic description">Otto</td>
-        <td class="product-characteristic price">@mdo</td>
-        <td class="product-characteristic in-stock">@mdo</td>
-        <td class="product-characteristic package">package</td>
-        <td class="product-characteristic manufacturer">
+        <td class="table-row-product description">Otto</td>
+        <td class="table-row-product price">@mdo</td>
+        <td class="table-row-product in-stock">@mdo</td>
+        <td class="table-row-product package">package</td>
+        <td class="table-row-product manufacturer">
             <img src="fairchild.png" class="image-product"/>
         </td>
-        <td class="product-characteristic in-cart">
+        <td class="table-row-product in-cart">
             <input class="form-check-input in-cart-checkbox" type="checkbox" value="in-cart" checked/>
         </td>
     </tr>
