@@ -1,12 +1,10 @@
 import React from 'react'
 import Table from 'react-bootstrap/Table';
-import { Link } from "react-router-dom";
+import ProductTableRow from './ProductTableRow';
 
 
 function ProductList() {
-    const p = () => {
-        console.log("first")
-    }
+    
   return (
 
     <div class="container mt-5 mb-5">
@@ -23,67 +21,10 @@ function ProductList() {
         </tr>
       </thead>
       <tbody>
-        <tr>
-            <td class="product-characteristic image">
-                <img src="components/resistor2.jpeg" class="image-product"/>
-            </td>
-
-            <td class="product-characteristic description">Otto</td>
-            <td class="product-characteristic price">@mdo</td>
-            <td class="product-characteristic in-stock">@mdo</td>
-            <td class="product-characteristic package">package</td>
-            <td class="product-characteristic manufacturer">
-                <img src="fairchild.png" class="image-product"/>
-            </td>
-            <td class="product-characteristic in-cart">
-                <input class="form-check-input in-cart-checkbox" type="checkbox" value="in-cart" checked/>
-            </td>
-        </tr>
-        <tr>
-            <td class="product-characteristic image">
-                <img src="components/resistor2.jpeg" class="image-product"/>
-            </td>
-            <td class="product-characteristic description">Otto</td>
-            <td class="product-characteristic price">@mdo</td>
-            <td class="product-characteristic in-stock">@mdo</td>
-            <td class="product-characteristic package">package</td>
-            <td class="product-characteristic manufacturer">
-                <img src="fairchild.png" class="image-product"/>
-            </td>
-            <td class="product-characteristic in-cart">
-                <input class="form-check-input in-cart-checkbox" type="checkbox" value="in-cart" checked/>
-            </td>
-        </tr>
-        <tr>
-            <td class="product-characteristic image">
-                <img src="components/resistor2.jpeg" class="image-product"/>
-            </td>
-            <td class="product-characteristic description">Otto</td>
-            <td class="product-characteristic price">@mdo</td>
-            <td class="product-characteristic in-stock">@mdo</td>
-            <td class="product-characteristic package">package</td>
-            <td class="product-characteristic manufacturer">
-                <img src="fairchild.png" class="image-product"/>
-            </td>
-            <td class="product-characteristic in-cart">
-                <input class="form-check-input in-cart-checkbox" type="checkbox" value="in-cart" checked/>
-            </td>
-        </tr>
-        <tr>
-            <td class="product-characteristic image">
-                <img src="components/resistor2.jpeg" class="image-product"/>
-            </td>
-            <td class="product-characteristic description">Otto</td>
-            <td class="product-characteristic price">@mdo</td>
-            <td class="product-characteristic in-stock">@mdo</td>
-            <td class="product-characteristic package">package</td>
-            <td class="product-characteristic manufacturer">
-                <img src="fairchild.png" class="image-product"/>
-            </td>
-            <td class="product-characteristic in-cart">
-                <input class="form-check-input in-cart-checkbox" type="checkbox" value="in-cart" checked/>
-            </td>
-        </tr>
+        <ProductTableRow/>
+        <ProductTableRow/>
+        <ProductTableRow/>
+        <ProductTableRow/>        
       </tbody>
     </Table>
 

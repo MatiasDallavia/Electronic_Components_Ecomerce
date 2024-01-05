@@ -12,7 +12,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/product-search/:componentType" element={<SearchProducts />} />
+          <Route path="/product-search/:componentType" element={<SearchProducts/>} />
           <Route path="/product-view/:componentModel" element={<ProductView />} />
         </Routes>
     </div>
