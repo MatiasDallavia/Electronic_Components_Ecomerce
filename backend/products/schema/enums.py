@@ -1,6 +1,6 @@
 import graphene
 
-
+#TODO: deprecate some enums
 #BaseProductModel Enums
 class MountingTechnologyEnum(graphene.Enum):
     SMD = "SMD"

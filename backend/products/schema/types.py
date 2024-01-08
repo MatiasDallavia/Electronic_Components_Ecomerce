@@ -12,7 +12,7 @@ from products.models import (
 
 )
 
-from backend.products.schema.enums import (
+from products.enums import (
     BJTPackagesOptionsEnum,
     BJTTypesEnum,
     MOSFETPackagesOptionsEnum,
@@ -51,24 +51,24 @@ class BaseProductModelType(graphene.ObjectType):
     model = graphene.String()
     description = graphene.String()
     price = graphene.Float()
-    mounting_technology = graphene.Field(MountingTechnologyEnum)
+    mounting_technology = graphene.String()
     operating_temperature = graphene.Float()
     amount_available = graphene.Int()
-    manufacturer = graphene.Field(ManufacturerEnum)
+    manufacturer = graphene.String()
     is_active = graphene.Boolean()
 
 
 class BJTType(BaseProductModelType):
-    package = graphene.Field(BJTPackagesOptionsEnum)
-    bjt_type = graphene.Field(BJTTypesEnum)
-    ic_max = graphene.Float(required=True)
-    vce_saturation = graphene.Float(required=True)
-    dc_current_gain = graphene.Float(required=True)
+    package = graphene.String()
+    bjt_type = graphene.String()
+    ic_max = graphene.Float()
+    vce_saturation = graphene.Float()
+    dc_current_gain = graphene.Float()
 
 
 
 class MOSFETType(BaseProductModelType):
-    package = graphene.Field(MOSFETPackagesOptionsEnum)
+    package = graphene.String()
     vds = graphene.Float()
     drive_voltage = graphene.Float()
     rds_on = graphene.Float()
@@ -77,7 +77,7 @@ class MOSFETType(BaseProductModelType):
 
 
 class IGBTType(BaseProductModelType):
-    package = graphene.Field(IGBTPackagesOptionsEnum)
+    package = graphene.String()
     vc = graphene.Float()
     ic = graphene.Float()
     vce_on = graphene.Float()
