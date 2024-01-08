@@ -5,7 +5,7 @@ from .base_product_model import BaseProductModel
 
 class BJT(BaseProductModel):
     NPN = "NPM"
-    PNP = "PNM"
+    PNP = "PNP"
 
     BJT_TYPES = {
         NPN: "NPN",
