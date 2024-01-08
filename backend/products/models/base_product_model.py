@@ -1,4 +1,5 @@
 from django.db import models
+import uuid
 
 
 class BaseProductModel(models.Model):
@@ -25,6 +26,7 @@ class BaseProductModel(models.Model):
         (SIEMENS, "Siemens"),
         (SAMSUNG, "Samsung"),
     ]
+    product_id = models.UUIDField(default=uuid.uuid4, unique=True, editable=False,)
     model = models.CharField(max_length=20, null=False, blank=False)
     description = models.TextField(max_length=55, null=True, blank=True)
     price = models.DecimalField(
