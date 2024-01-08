@@ -2,7 +2,7 @@ import graphene
 from graphene_django.types import DjangoObjectType
 
 from products.types import BJTType, MOSFETType
-from .models import BJT, MOSFET
+from ..models import BJT, MOSFET
 
 
 from products.enums import BJTTypesEnum
