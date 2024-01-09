@@ -1,9 +1,6 @@
 import graphene
 from products.schema.enums import (
     TransistorTypesEnum,
-    MOSFETPackagesOptionsEnum,
-    BJTPackagesOptionsEnum,
-    IGBTPackagesOptionsEnum,
     BJTTypesEnum,
     ManufacturerEnum
 

@@ -1,10 +1,8 @@
 import graphene
 from products.models import BJT, IGBT, MOSFET, Capacitor, Diode, Inductor, Resistor
 from products.schema.enums import (
-    BJTPackagesOptionsEnum,
     BJTTypesEnum,
-    ManufacturerEnum,
-    MountingTechnologyEnum,
+    TransistorTypesEnum,
 )
 from products.schema.inputs import TransistorInput
 from products.schema.types import BJTType, IGBTType, MOSFETType, TransistorType
@@ -31,10 +29,13 @@ class Query(graphene.ObjectType):
 def query_transistor_list(transistor_type: str, inputs: dict):
     transistors = []
 
-    if transistor_type == "BJT":
+    if (
+        transistor_type == TransistorTypesEnum.BJT
+        or transistor_type == TransistorTypesEnum.ALL
+    ):
         filter_fields = clean_filter_kwargs(inputs["bjt_input"])
 
-        transistors = [
+        bjts = [
             BJTType(
                 id=obj.id,
                 model=obj.model,
@@ -52,11 +53,15 @@ def query_transistor_list(transistor_type: str, inputs: dict):
             )
             for obj in BJT.objects.filter(is_active=True, **filter_fields)
         ]
+        transistors += bjts
 
-    elif transistor_type == "MOSFET":
+    if (
+        transistor_type == TransistorTypesEnum.MOSFET
+        or transistor_type == TransistorTypesEnum.ALL
+    ):
         filter_fields = clean_filter_kwargs(inputs["mosfet_input"])
 
-        transistors = [
+        mosfets = [
             MOSFETType(
                 id=obj.id,
                 product_id=obj.product_id,
@@ -76,31 +81,37 @@ def query_transistor_list(transistor_type: str, inputs: dict):
             )
             for obj in MOSFET.objects.filter(is_active=True, **filter_fields)
         ]
-    elif transistor_type == "IGBT":
+        transistors += mosfets
+    print("-------")
+    if (
+        transistor_type == TransistorTypesEnum.IGBT
+        or transistor_type == TransistorTypesEnum.ALL
+    ):
+        print("ooo")
         filter_fields = clean_filter_kwargs(inputs["igbt_input"])
 
-        transistors = [
+        igbts = [
             IGBTType(
                 id=obj.id,
-                productId=obj.product_id,
                 model=obj.model,
                 description=obj.description,
                 price=obj.price,
-                mountingTechnology=obj.mounting_technology,
-                operatingTemperature=obj.operating_temperature,
-                amountAvailable=obj.amount_available,
+                mounting_technology=obj.mounting_technology,
+                operating_temperature=obj.operating_temperature,
+                amount_available=obj.amount_available,
                 manufacturer=obj.manufacturer,
-                isActive=obj.is_active,
                 package=obj.package,
                 vc=obj.vc,
                 ic=obj.ic,
-                vceOn=obj.vce_on,
-                powerMax=obj.power_max,
+                vce_on=obj.vce_on,
+                power_max=obj.power_max,
                 td=obj.td,
                 gc=obj.gc,
             )
             for obj in IGBT.objects.filter(is_active=True, **filter_fields)
         ]
+        transistors += igbts
+
     return transistors
 
 

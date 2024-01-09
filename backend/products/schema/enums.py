@@ -16,6 +16,7 @@ class ManufacturerEnum(graphene.Enum):
 
 #Transistor Types Enums
 class TransistorTypesEnum(graphene.Enum):
+    ALL = "ALL"
     BJT = "BJT"
     MOSFET = "MOSFET"
     IGBT = "IGBT"
