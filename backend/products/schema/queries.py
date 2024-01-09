@@ -1,17 +1,25 @@
+from enum import Enum
+from typing import List, Union
+
 import graphene
 from products.models import BJT, IGBT, MOSFET, Capacitor, Diode, Inductor, Resistor
 from products.schema.enums import BJTTypesEnum, TransistorTypesEnum
-from products.schema.inputs import TransistorInput
+from products.schema.inputs import (
+    CapacitorInput,
+    DiodeInput,
+    InductorInput,
+    ResistorInput,
+    TransistorInput,
+)
 from products.schema.types import (
     BJTType,
     CapacitorType,
-    DjangoObjectType,
+    DiodeType,
     IGBTType,
     InductorType,
     MOSFETType,
     ResistorType,
     TransistorType,
-    DiodeType
 )
 
 
@@ -21,43 +29,94 @@ class BJTInput(graphene.InputObjectType):
 
 
 class Query(graphene.ObjectType):
+    capacitor_list_query = graphene.List(CapacitorType, inputs=CapacitorInput())
+    diode_list_query = graphene.List(DiodeType, inputs=DiodeInput())
+    resistor_list_query = graphene.List(ResistorType, inputs=ResistorInput())
+    inductor_list_query = graphene.List(InductorType, inputs=InductorInput())
     transistor_list_query = graphene.List(TransistorType, inputs=TransistorInput())
-    capacitor_list_query = graphene.List(CapacitorType, inputs=TransistorInput())
-    diode_list_query = graphene.List(DiodeType, inputs=TransistorInput())
-    resistor_list_query = graphene.List(ResistorType, inputs=TransistorInput())
-    inductor_list_query = graphene.List(InductorType, inputs=TransistorInput())
-
-    def resolve_transistor_list_query(self, info, inputs):
-        transistor_type = inputs["transistor_type"]
-
-        transistors = query_transistor_list(transistor_type, inputs)
-
-        print("--")
-        # print(transistors)
-        return transistors
 
     def resolve_capacitor_list_query(self, info, inputs):
-        return Capacitor.objects.all()
+        filter_kwargs = clean_inputs(inputs)
+        return Capacitor.objects.filter(**filter_kwargs)
 
     def resolve_diode_list_query(self, info, inputs):
-        return Diode.objects.all()
+        filter_kwargs = clean_inputs(inputs)
+        return Diode.objects.filter(**filter_kwargs)
 
     def resolve_resistor_list_query(self, info, inputs):
-        return Resistor.objects.all()
+        filter_kwargs = clean_inputs(inputs)
+        return Resistor.objects.filter(**filter_kwargs)
 
     def resolve_inductor_list_query(self, info, inputs):
-        return Inductor.objects.all()
+        filter_kwargs = clean_inputs(inputs)
+        return Inductor.objects.filter(**filter_kwargs)
+
+    def resolve_transistor_list_query(self, info, inputs):
+        filter_kwargs = clean_inputs(inputs)
+        transistors = query_transistor_list(filter_kwargs)
+
+        return transistors
 
 
-def query_transistor_list(transistor_type: str, inputs: dict):
-    transistors = []
+def clean_inputs(inputs):
+    """
+    Clean input parameters by removing empty filter values and extracs the  actual
+    values from the Enums objets.
+
+    Args:
+        inputs (dict): Dictionary with input parameters from the queries.
+
+    Returns:
+        dict: dict with all the fields to filter the query to the db.
+    """
+    filter_kwargs = {}
+
+    for input_field, field_value in inputs.items():
+        if field_value is None:
+            continue
+
+        if isinstance(field_value, Enum):
+            filter_kwargs[input_field] = field_value.value
+
+        # for transistor_list_query
+        elif input_field in ["bjt_input", "mosfet_input", "igbt_input"]:
+            for transistor_field, transistor_field_value in field_value.items():
+                if transistor_field_value is None:
+                    continue
+                if isinstance(transistor_field_value, Enum):
+                    filter_kwargs[transistor_field] = transistor_field_value.value
+                else:
+                    filter_kwargs[transistor_field] = transistor_field_value
+
+        elif input_field == "model":
+            field_value = field_value.upper()
+            filter_kwargs[f"{input_field}__startswith"] = field_value
+
+        else:
+            filter_kwargs[input_field] = field_value
+
+    return filter_kwargs
+
+
+def query_transistor_list(
+    filter_kwargs: dict,
+) -> List[Union[BJTType, MOSFETType, IGBTType]]:
+    """
+    Perform a query to get the list of transistors with the provided filters. It will query either
+    BJT, MOSFET, IGBT or all of them based in the field 'transistor_type'
+
+    Args:
+        filter_kwargs (dict): Dictionary with filters for the query.
+
+    Returns:
+        List[Union[BJTType, MOSFETType, IGBTType]: List of of either: BJTType , MOSFETType, IGBTType.
+    """
+    transistor_type = filter_kwargs.pop("transistor_type")
 
     if (
         transistor_type == TransistorTypesEnum.BJT
         or transistor_type == TransistorTypesEnum.ALL
     ):
-        filter_fields = clean_filter_kwargs(inputs["bjt_input"])
-
         bjts = [
             BJTType(
                 id=obj.id,
@@ -74,7 +133,7 @@ def query_transistor_list(transistor_type: str, inputs: dict):
                 vce_saturation=obj.vce_saturation,
                 dc_current_gain=obj.dc_current_gain,
             )
-            for obj in BJT.objects.filter(is_active=True, **filter_fields)
+            for obj in BJT.objects.filter(is_active=True, **filter_kwargs)
         ]
         transistors += bjts
 
@@ -82,8 +141,6 @@ def query_transistor_list(transistor_type: str, inputs: dict):
         transistor_type == TransistorTypesEnum.MOSFET
         or transistor_type == TransistorTypesEnum.ALL
     ):
-        filter_fields = clean_filter_kwargs(inputs["mosfet_input"])
-
         mosfets = [
             MOSFETType(
                 id=obj.id,
@@ -102,17 +159,14 @@ def query_transistor_list(transistor_type: str, inputs: dict):
                 vgs=obj.vgs,
                 input_capacitance=obj.input_capacitance,
             )
-            for obj in MOSFET.objects.filter(is_active=True, **filter_fields)
+            for obj in MOSFET.objects.filter(is_active=True, **filter_kwargs)
         ]
         transistors += mosfets
-    print("-------")
+
     if (
         transistor_type == TransistorTypesEnum.IGBT
         or transistor_type == TransistorTypesEnum.ALL
     ):
-        print("ooo")
-        filter_fields = clean_filter_kwargs(inputs["igbt_input"])
-
         igbts = [
             IGBTType(
                 id=obj.id,
@@ -131,16 +185,8 @@ def query_transistor_list(transistor_type: str, inputs: dict):
                 td=obj.td,
                 gc=obj.gc,
             )
-            for obj in IGBT.objects.filter(is_active=True, **filter_fields)
+            for obj in IGBT.objects.filter(is_active=True, **filter_kwargs)
         ]
         transistors += igbts
 
     return transistors
-
-
-def clean_filter_kwargs(input_fields: dict) -> dict:
-    filter_fields = {field: value for field, value in input_fields.items() if value}
-    if "manufacturer" in filter_fields:
-        filter_fields["manufacturer"] = filter_fields["manufacturer"].value
-
-    return filter_fields
