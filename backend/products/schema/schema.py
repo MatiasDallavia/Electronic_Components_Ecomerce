@@ -5,7 +5,7 @@ from products.schema.types import BJTType, MOSFETType
 
 from ..models import BJT, MOSFET
 from products.schema.enums import BJTPackagesOptionsEnum, ManufacturerEnum, MountingTechnologyEnum
-
+from products.schema.queries import Query
 class TransistorType(graphene.Union):
     class Meta:
         types = (BJTType, MOSFETType)
@@ -16,7 +16,7 @@ class BJTInput(graphene.InputObjectType):
     bjt_type = graphene.Field(BJTTypesEnum)
 
 
-class Query(graphene.ObjectType):
+class PQuery(graphene.ObjectType):
     bjts = graphene.List(TransistorType, filters=BJTInput())
 
     def resolve_bjts(self, info, filters):

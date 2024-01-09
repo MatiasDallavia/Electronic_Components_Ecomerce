@@ -89,7 +89,7 @@ class IGBTType(BaseProductModelType):
 
 class TransistorType(graphene.Union):
     class Meta:
-        types = (BJTType, MOSFETType, IGBT)
+        types = (BJTType, MOSFETType, IGBTType)
 
 
 class BJTInput(graphene.InputObjectType):
