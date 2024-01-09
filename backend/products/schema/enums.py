@@ -14,6 +14,13 @@ class ManufacturerEnum(graphene.Enum):
     SAMSUNG = "Samsung"
 
 
+#Transistor Types Enums
+class TransistorTypesEnum(graphene.Enum):
+    BJT = "BJT"
+    MOSFET = "MOSFET"
+    IGBT = "IGBT"
+
+
 #BJT Enums
 class BJTTypesEnum(graphene.Enum):
     NPN = "NPN"
