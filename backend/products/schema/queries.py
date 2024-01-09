@@ -1,11 +1,18 @@
 import graphene
 from products.models import BJT, IGBT, MOSFET, Capacitor, Diode, Inductor, Resistor
-from products.schema.enums import (
-    BJTTypesEnum,
-    TransistorTypesEnum,
-)
+from products.schema.enums import BJTTypesEnum, TransistorTypesEnum
 from products.schema.inputs import TransistorInput
-from products.schema.types import BJTType, IGBTType, MOSFETType, TransistorType
+from products.schema.types import (
+    BJTType,
+    CapacitorType,
+    DjangoObjectType,
+    IGBTType,
+    InductorType,
+    MOSFETType,
+    ResistorType,
+    TransistorType,
+    DiodeType
+)
 
 
 class BJTInput(graphene.InputObjectType):
@@ -15,6 +22,10 @@ class BJTInput(graphene.InputObjectType):
 
 class Query(graphene.ObjectType):
     transistor_list_query = graphene.List(TransistorType, inputs=TransistorInput())
+    capacitor_list_query = graphene.List(CapacitorType, inputs=TransistorInput())
+    diode_list_query = graphene.List(DiodeType, inputs=TransistorInput())
+    resistor_list_query = graphene.List(ResistorType, inputs=TransistorInput())
+    inductor_list_query = graphene.List(InductorType, inputs=TransistorInput())
 
     def resolve_transistor_list_query(self, info, inputs):
         transistor_type = inputs["transistor_type"]
@@ -24,6 +35,18 @@ class Query(graphene.ObjectType):
         print("--")
         # print(transistors)
         return transistors
+
+    def resolve_capacitor_list_query(self, info, inputs):
+        return Capacitor.objects.all()
+
+    def resolve_diode_list_query(self, info, inputs):
+        return Diode.objects.all()
+
+    def resolve_resistor_list_query(self, info, inputs):
+        return Resistor.objects.all()
+
+    def resolve_inductor_list_query(self, info, inputs):
+        return Inductor.objects.all()
 
 
 def query_transistor_list(transistor_type: str, inputs: dict):
