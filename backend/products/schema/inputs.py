@@ -60,7 +60,7 @@ class IGBTInput(graphene.InputObjectType):
     power_max = graphene.Float()
 
 
-class TransistorInput(graphene.InputObjectType):
+class TransistorInput(BaseInput):
     transistor_type = graphene.Field(TransistorTypesEnum)
     bjt_input = graphene.Field(BJTInput)
     mosfet_input = graphene.Field(MOSFETInput)
