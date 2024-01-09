@@ -12,7 +12,7 @@ from products.models import (
 
 )
 
-from products.enums import (
+from products.schema.enums import (
     BJTPackagesOptionsEnum,
     BJTTypesEnum,
     MOSFETPackagesOptionsEnum,
