@@ -98,3 +98,8 @@ class CapacitorPackagesOptionsEnum(graphene.Enum):
     P104 = "104"
     P103 = "103"          
 
+class ComponentModelListEnum(graphene.Enum):
+    diode = "Diode"
+    bjt = "BJT"
+    mosfet = "MOSFET"
+    igbt = "IGBT"
