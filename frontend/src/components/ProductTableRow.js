@@ -10,9 +10,8 @@ import inductor220 from '../images/components/A_220.jpeg'
 import inductor330 from '../images/components/A_330.jpg'
 
 
-function ProductTableRow({props}) {
+function ProductTableRow({product}) {
   const navigate = useNavigate();
-  console.log(props[0]?.package)
 
   const redirectModelView = () =>{
     navigate("/product-view/23")
@@ -21,20 +20,20 @@ function ProductTableRow({props}) {
   return (
     <tr onClick={redirectModelView}>
         <td class="table-row-product image">
-          {props?.package == 'A_2220' && <img src={inductor220} class="image-product"/>}
-          {props?.package == 'A_330' && <img src={inductor330} class="image-product"/>}
-          {props?.package == 'A_101' && <img src={inductor101} class="image-product"/>}
+          {product?.package == 'A_2220' && <img src={inductor220} class="image-product"/>}
+          {product?.package == 'A_330' && <img src={inductor330} class="image-product"/>}
+          {product?.package == 'A_101' && <img src={inductor101} class="image-product"/>}
 
         </td>
-        <td class="table-row-product description">{props?.description}</td>
-        <td class="table-row-product price">{props?.price}</td>
-        <td class="table-row-product in-stock">{props?.amountAvailable}</td>
-        <td class="table-row-product package">{props?.package}</td>
+        <td class="table-row-product description">{product?.description}</td>
+        <td class="table-row-product price">{product?.price}</td>
+        <td class="table-row-product in-stock">{product?.amountAvailable}</td>
+        <td class="table-row-product package">{product?.package}</td>
         <td class="table-row-product manufacturer">
-            {props?.manufacturer == 'INFINEON' && <img src={InfineonLogo} class="image-product"/>}
-            {props?.manufacturer == 'FAIRCHILD' && <img src={fairchildLogo} class="image-product"/>}
-            {props?.manufacturer == 'TEXAS_INSTRUMENTS' && <img src={texasInstrumentsLogo} class="image-product"/>}
-            {props?.manufacturer == 'SEIMENS' && <img src={seimensLogo} class="image-product"/>}
+            {product?.manufacturer == 'INFINEON' && <img src={InfineonLogo} class="image-product"/>}
+            {product?.manufacturer == 'FAIRCHILD' && <img src={fairchildLogo} class="image-product"/>}
+            {product?.manufacturer == 'TEXAS_INSTRUMENTS' && <img src={texasInstrumentsLogo} class="image-product"/>}
+            {product?.manufacturer == 'SEIMENS' && <img src={seimensLogo} class="image-product"/>}
         </td>
         <td class="table-row-product in-cart">
             <input class="form-check-input in-cart-checkbox" type="checkbox" value="in-cart" checked/>

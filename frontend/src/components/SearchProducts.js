@@ -6,9 +6,15 @@ import ResistorFilter from './product_filters/ResistorFilter';
 import InductorFilter from './product_filters/InductorFilter';
 import TransistorFilter from './product_filters/TransistorFilter'
 import ProductList from './ProductList';
+import {GET_INDUCTORS, InductorInput} from '../graphql/InductorListQuery.js';
+import { useQuery, gql } from '@apollo/client';
+
+
+
 
 
 function SearchProducts() {
+
 
     let filter;
     const { componentType } = useParams();
@@ -33,13 +39,22 @@ function SearchProducts() {
         filter = <TransistorFilter/>;
             
     }
+
+    const { loading, error, data } = useQuery(GET_INDUCTORS, {variables: InductorInput});
+    console.log(loading)
+    console.log("---------------------------")
+    const products = data?.inductorListQuery
+    console.log("$$$$$")
+  
+    if (loading) return <p>Cargando...</p>;
+    if (error) return <p>Error: {error.message}</p>;    
         
     return (
     
         <div class="container filters g-3">
             {filter}
             <button type="button" class="btn btn-primary submit">Search</button>
-            <ProductList/>
+            <ProductList products={products} />
         </div>
 
   )

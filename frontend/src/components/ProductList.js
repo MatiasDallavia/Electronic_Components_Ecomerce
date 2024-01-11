@@ -3,8 +3,12 @@ import Table from 'react-bootstrap/Table';
 import ProductTableRow from './ProductTableRow';
 import Paginatior from './Paginatior';
 
-function ProductList() {
-    
+
+
+
+function ProductList({products}) {
+
+
   return (
 
     <div className="container d-flex flex-column align-items-center">
@@ -21,10 +25,12 @@ function ProductList() {
             </tr>
         </thead>
         <tbody>
-            <ProductTableRow/>
-            <ProductTableRow/>
-            <ProductTableRow/>
-            <ProductTableRow/>        
+            {products.map((product) => (
+
+              <ProductTableRow product={product}/>
+
+            ))}
+   
         </tbody>
         </Table>
 
