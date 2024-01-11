@@ -1,55 +1,35 @@
-import React from 'react'
+import React, { useState } from 'react';
+import BJTFilter from './BJTFilter';
+import MOSFETFilter from './MOSFETFilter';
+import IGBTFilter from './IGBTFilter';
 
 function TransistorFilter() {
+  const [transistorType, setTransistorType] = useState('BJT');
+
+  const handleTypeChange = (event) => {
+    setTransistorType(event.target.value);
+  };
+
   return (
-            <div class="d-flex flex-row align-items-center">
-            <div class="filter-group">
-                <label for="typeSelect">Type:</label>
-                <select id="typeSelect" class="form-select filter-field type transistor">
-                    <option>BJT</option>
-                    <option>MOSFETs</option>
-                    <option>IGBT</option>
-                </select>
-            </div>
+    <div className="container mt-4 d-flex flex-wrap">
+      <div className="filter-group me-3">
+        <label htmlFor="typePNP" className="filter-label">Transistor Type:</label>
+        <select
+          id="typePNP"
+          className="form-select filter-field type transistor"
+          onChange={handleTypeChange}
+        >
+          <option value="BJT">BJT</option>
+          <option value="MOSFET">MOSFET</option>
+          <option value="IGBT">IGBT</option>
+        </select>
+      </div>
 
-            <div class="filter-group">
-                <label for="typePNP">Type PNP/NPN:</label>
-                <select id="typePNP" class="form-select filter-field type transistor">
-                    <option>PNP</option>
-                    <option>NPN</option>
-                </select>
-            </div>
-
-            <div class="filter-group">
-                <label for="ratingPower">Rating Power:</label>
-                <select id="ratingPower" class="form-select filter-field raiting power">
-                    <option>10</option>
-                    <option>15</option>
-                    <option>20</option>
-                    <option>25</option>
-                </select>
-            </div>
-
-            <div class="filter-group">
-                <label for="mountingSurface">Mounting Surface:</label>
-                <select id="mountingSurface" class="form-select filter-field mounting-surface">
-                    <option>THT</option>
-                    <option>SMD</option>
-                </select>
-            </div>
-
-            <div class="filter-group">
-                <label for="manufacturerSelect">Manufacturer:</label>
-                <select id="manufacturerSelect" class="form-select filter-field manufacturer">
-                    <option>Infineon</option>
-                    <option>Texas Instruments</option>
-                    <option>Siemens</option>
-                    <option>Samsung</option>
-                    <option>Fairchild</option>
-                </select>
-            </div>
-        </div>
-  )
+      {transistorType === 'BJT' && <BJTFilter />}
+      {transistorType === 'MOSFET' && <MOSFETFilter />}
+      {transistorType === 'IGBT' && <IGBTFilter />}
+    </div>
+  );
 }
 
-export default TransistorFilter
+export default TransistorFilter;
