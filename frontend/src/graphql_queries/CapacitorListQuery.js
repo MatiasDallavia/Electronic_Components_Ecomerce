@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 const GET_CAPACITORS = gql`
-    query Resistors($inputs: ResistorInput!){
-        resistorListQuery(inputs: $inputs) {
+    query Capacitors($inputs: CapacitorInput!){
+        capacitorListQuery(inputs: $inputs) {
     
             id
             productId
@@ -23,10 +23,9 @@ const capacitorInput = {
       model: null,
       mountingTechnology: null,
       manufacturer: null,
-      inductorType: null,
-      coreMaterial: null,
-      inductance: null,
-      current: null 
+      capacitorType: null,
+      capacitance: null,
+      voltage: null
     }
   }
   
