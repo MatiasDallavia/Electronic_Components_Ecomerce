@@ -41,17 +41,17 @@ function SearchProducts() {
       productInput = ResistorInput;
       break;
     case 'capacitors':
-      filter = <CapacitorFilter />;
+      filter = <CapacitorFilter queryVariables={queryVariables} setQueryVariables={setQueryVariables}/>;
       PRODUCT_QUERY = GET_CAPACITORS;
       productInput = capacitorInput;
       break;
     case 'diodes':
-      filter = <DiodeFilter />;
+      filter = <DiodeFilter queryVariables={queryVariables} setQueryVariables={setQueryVariables}/>;
       PRODUCT_QUERY = GET_DIODES;
       productInput = diodeInput;
       break;
     case 'inductors':
-      filter = <InductorFilter />;
+      filter = <InductorFilter queryVariables={queryVariables} setQueryVariables={setQueryVariables}/>;
       PRODUCT_QUERY = GET_INDUCTORS;
       productInput = InductorInput;
       break;
