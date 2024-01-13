@@ -19,6 +19,16 @@ function SearchProducts() {
   let productInput;
   let PRODUCT_QUERY;
 
+  const inputVariables = {
+    resistors: ResistorInput,
+    transistors: TransistorInput,
+    capacitors: capacitorInput,
+    inductors: InductorInput,
+    diodes: diodeInput,
+  }
+
+  const [queryVariables, setQueryVariables] = useState(inputVariables[componentType]);
+
   switch (componentType) {
     case 'transistors':
       filter = <TransistorFilter />;
@@ -26,7 +36,7 @@ function SearchProducts() {
       productInput = TransistorInput;
       break;
     case 'resistors':
-      filter = <ResistorFilter />;
+      filter = <ResistorFilter queryVariables={queryVariables} setQueryVariables={setQueryVariables}/>;
       PRODUCT_QUERY = GET_RESISTORS;
       productInput = ResistorInput;
       break;
@@ -50,17 +60,18 @@ function SearchProducts() {
       productInput = TransistorInput;
   }
 
-  const [queryVariables, setQueryVariables] = useState(productInput);
-
   const [queryProducts, { loading, error, data }] = useLazyQuery(PRODUCT_QUERY);
 
   useEffect(() => {
+    console.log("FIRST QUERY")
     // Realizar la consulta al cargar la página
     queryProducts({ variables: queryVariables });
-  }, [queryProducts, queryVariables]);
+  }, []);
 
 
   const handleSearch = () => {
+    console.log("QUERY")
+    console.log(queryVariables)
     queryProducts({ variables: queryVariables });
     console.log(error)
     console.log(data)
