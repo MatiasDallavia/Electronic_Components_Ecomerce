@@ -31,7 +31,7 @@ function SearchProducts() {
 
   switch (componentType) {
     case 'transistors':
-      filter = <TransistorFilter />;
+      filter = <TransistorFilter queryVariables={queryVariables} setQueryVariables={setQueryVariables}/>;
       PRODUCT_QUERY = GET_TRANSISTORS;
       productInput = TransistorInput;
       break;

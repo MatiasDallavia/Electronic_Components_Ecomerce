@@ -1,17 +1,32 @@
 import React from 'react'
 
-function BJTFilter() {
-  return (
+
+
+
+
+function BJTFilter({handleInputChange, queryVariables, setQueryVariables}) {
+    
+
+    return (
     <>
         <div class="filter-group me-3">
             <label for="model" class="filter-label">Model:</label>
-            <input class="form-control filter-field" type="text" placeholder="Default input"/>
+            <input 
+                class="form-control filter-field"
+                type="text" 
+                placeholder="Default input"
+                onChange={(e) => handleInputChange('diodeType', e.target.value)}
+            />
         </div>
 
 
         <div class="filter-group me-3">
             <label for="typePNP" class="filter-label">Type PNP/NPN:</label>
-            <select id="typePNP" class="form-select filter-field type transistor">
+            <select 
+                id="typePNP" 
+                class="form-select filter-field type transistor"
+                onChange={(e) => handleInputChange('diodeType', e.target.value)}
+            >
                 <option>PNP</option>
                 <option>NPN</option>
             </select>
@@ -19,7 +34,12 @@ function BJTFilter() {
 
         <div class="filter-group me-3">
             <label for="dcCurrentGain" class="filter-label">DC Current Gain:</label>
-            <input class="form-control filter-field" type="text" placeholder="Default input"/>
+            <input 
+                class="form-control filter-field"  
+                type="text" 
+                placeholder="Default input"
+                onChange={(e) => handleInputChange('diodeType', e.target.value)}
+            />
         </div>
 
         <div class="filter-group me-3">
@@ -27,24 +47,7 @@ function BJTFilter() {
             <input class="form-control filter-field" type="text" placeholder="Default input"/>
         </div>
 
-        <div class="filter-group me-3">
-            <label for="mountingSurface" class="filter-label">Mounting Surface:</label>
-            <select id="mountingSurface" class="form-select filter-field mounting-surface">
-                <option>THT</option>
-                <option>SMD</option>
-            </select>
-        </div>
 
-        <div class="filter-group">
-            <label for="manufacturerSelect" class="filter-label">Manufacturer:</label>
-            <select id="manufacturerSelect" class="form-select filter-field manufacturer">
-                <option>Infineon</option>
-                <option>Texas Instruments</option>
-                <option>Siemens</option>
-                <option>Samsung</option>
-                <option>Fairchild</option>
-            </select>
-        </div>
     </>
   )
 }
