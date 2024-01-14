@@ -14,7 +14,6 @@ function DiodeFilter({ queryVariables, setQueryVariables}) {
             value = null
         }
 
-        console.log("1: ", queryVariables)
         setQueryVariables({
           ...queryVariables,
           inputs: {

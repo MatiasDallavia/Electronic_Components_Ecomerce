@@ -4,28 +4,17 @@ import React from 'react'
 
 
 
-function BJTFilter({handleInputChange, queryVariables, setQueryVariables}) {
+function BJTFilter({handleNestedFieldChange}) {
     
 
     return (
     <>
         <div class="filter-group me-3">
-            <label for="model" class="filter-label">Model:</label>
-            <input 
-                class="form-control filter-field"
-                type="text" 
-                placeholder="Default input"
-                onChange={(e) => handleInputChange('diodeType', e.target.value)}
-            />
-        </div>
-
-
-        <div class="filter-group me-3">
             <label for="typePNP" class="filter-label">Type PNP/NPN:</label>
             <select 
                 id="typePNP" 
                 class="form-select filter-field type transistor"
-                onChange={(e) => handleInputChange('diodeType', e.target.value)}
+                onChange={handleNestedFieldChange('bjtInput','bjtType')}
             >
                 <option>PNP</option>
                 <option>NPN</option>
@@ -38,13 +27,18 @@ function BJTFilter({handleInputChange, queryVariables, setQueryVariables}) {
                 class="form-control filter-field"  
                 type="text" 
                 placeholder="Default input"
-                onChange={(e) => handleInputChange('diodeType', e.target.value)}
+                onChange={handleNestedFieldChange('bjtInput', 'dcCurrentGain')}
             />
         </div>
 
         <div class="filter-group me-3">
             <label for="icMax" class="filter-label">Current Collector Max(IC):</label>
-            <input class="form-control filter-field" type="text" placeholder="Default input"/>
+            <input 
+                class="form-control filter-field" 
+                type="text" 
+                placeholder="Default input"
+                onChange={handleNestedFieldChange('bjtInput', 'icMax')}
+            />
         </div>
 
 

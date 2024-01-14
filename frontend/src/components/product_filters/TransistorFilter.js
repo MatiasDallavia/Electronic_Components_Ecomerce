@@ -6,24 +6,24 @@ import IGBTFilter from './IGBTFilter';
 function TransistorFilter({queryVariables, setQueryVariables}) {
   const [transistorType, setTransistorType] = useState('BJT');
 
-  const handleTypeChange = (event) => {
-    setTransistorType(event.target.value);
-  };
+
+  const transistorFilterChange = (transistorType) => {
+    setTransistorType(transistorType)
+  }
 
 
   const handleInputChange = (inputName, value) => {
-    console.log("HANDLE")
+
     if (value === "null" || value === "ALL"){
         value = null
     }
-    if (!isNaN(value)){
+    if (!isNaN(value) && inputName !== "model"){
         value = Number(value)
     }
     if (value === 0){
         value = null
     }
 
-    console.log("1: ", queryVariables)
     setQueryVariables({
       ...queryVariables,
       inputs: {
@@ -31,7 +31,30 @@ function TransistorFilter({queryVariables, setQueryVariables}) {
         [inputName]: value
       }
     });
-    console.log(queryVariables)
+  };
+
+  const handleNestedFieldChange = (inputName, transistorTypefield) => (e) => {
+
+    
+    let value = e.target.value;
+
+    if (value === "null" || value === "ALL" || value === 0){
+      value = null
+    }
+    if (!isNaN(value)){
+        value = Number(value)
+    }
+
+
+    setQueryVariables((prevQueryVariables) => ({
+      inputs: {
+        ...prevQueryVariables.inputs,
+        [inputName]: {
+          ...prevQueryVariables.inputs[inputName],
+          [transistorTypefield]: value
+        }
+      }
+    }));
   };
 
 
@@ -42,7 +65,10 @@ function TransistorFilter({queryVariables, setQueryVariables}) {
         <select
           id="typePNP"
           className="form-select filter-field type transistor"
-          onChange={(e) => handleInputChange('diodeType', e.target.value)}
+          onChange={(e) => {
+            handleInputChange('transistorType', e.target.value)
+            transistorFilterChange(e.target.value)
+          }}
           >
           <option value="BJT">BJT</option>
           <option value="MOSFET">MOSFET</option>
@@ -50,9 +76,20 @@ function TransistorFilter({queryVariables, setQueryVariables}) {
         </select>
       </div>
 
-      {transistorType === 'BJT' && <BJTFilter handleInputChange={handleInputChange} queryVariables={queryVariables} setQueryVariables={setQueryVariables}/>}
-      {transistorType === 'MOSFET' && <MOSFETFilter />}
-      {transistorType === 'IGBT' && <IGBTFilter />}
+
+      <div class="filter-group me-3">
+            <label for="model" class="filter-label">Model:</label>
+            <input 
+                class="form-control filter-field"
+                type="text" 
+                placeholder="Default input"
+                onChange={(e) => handleInputChange('model', e.target.value)}
+            />
+      </div>
+
+      {transistorType === 'BJT' && <BJTFilter handleNestedFieldChange={handleNestedFieldChange}/>}
+      {transistorType === 'MOSFET' && <MOSFETFilter handleNestedFieldChange={handleNestedFieldChange}/>}
+      {transistorType === 'IGBT' && <IGBTFilter handleNestedFieldChange={handleNestedFieldChange}/>}
 
       <div class="filter-group me-3">
             <label for="mountingSurface" class="filter-label">Mounting Surface:</label>
@@ -69,7 +106,11 @@ function TransistorFilter({queryVariables, setQueryVariables}) {
 
         <div class="filter-group">
             <label for="manufacturerSelect" class="filter-label">Manufacturer:</label>
-            <select id="manufacturerSelect" class="form-select filter-field manufacturer">
+            <select 
+              id="manufacturerSelect" 
+              class="form-select filter-field manufacturer"
+              onChange={(e) => handleInputChange('manufacturer', e.target.value)}
+            >
                 <option value="ALL">All</option>                
                 <option value="INFINEON">Infineon</option>
                 <option value="TEXAS_INSTRUMENTS">Texas Instruments</option>
