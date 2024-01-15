@@ -22,7 +22,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="transistor">
             <Route path="search/" element={<SearchTransistor/>} />
-            <Route path="view/:transistorComponentID" element={<ProductView />} />
+            <Route path="view/:transistorType/:transistorComponentID" element={<ProductView />} />
           </Route>
           <Route path="resistor">
             <Route path="search/" element={<SearchResistor/>} />
@@ -40,11 +40,7 @@ function App() {
             <Route path="search/" element={<SearchDiode/>} />
             <Route path="view/:diodeComponentID" element={<ProductView />} />
           </Route>
-
-
           
-          <Route path="/product-search/:componentType" element={<SearchProducts/>} />
-          <Route path="/view/:componentModel" element={<ProductView />} />
           <Route path="/login" element={<Login/>} />
           <Route path="/register" element={<Register/>} />
           <Route path="/cart" element={<Cart/>} />

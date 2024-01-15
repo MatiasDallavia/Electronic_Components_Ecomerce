@@ -13,12 +13,24 @@ import inductor330 from '../images/components/A_330.jpg'
 function ProductTableRow({product}) {
   const navigate = useNavigate();
 
-  const redirectModelView = () =>{
-    navigate("/product-view/23")
+  const redirectModelView = (productType ,productID) =>{
+    console.log("productType:", productType);
+
+    const transistorTypes = ["bjt", "mosfet", "igbt"];
+    console.log("transistorTypes:", transistorTypes);
+  
+    if (transistorTypes.includes(productType)) {
+      console.log("dentro");
+      navigate(`/transistor/view/${productType}/${productID}`);
+    } else {
+      console.log("first");
+      console.log(productType, productID);
+      navigate(`/${productType}/view/${productID}`);
+    }
   }
 
   return (
-    <tr onClick={redirectModelView}>
+    <tr onClick={() => redirectModelView(product?.componentType, product?.id)}>
         <td class="table-row-product image">
           {product?.package == 'A_2220' && <img src={inductor220} class="image-product"/>}
           {product?.package == 'A_330' && <img src={inductor330} class="image-product"/>}

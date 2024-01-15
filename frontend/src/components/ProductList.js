@@ -26,9 +26,7 @@ function ProductList({products}) {
         </thead>
         <tbody>
             {products.map((product) => (
-
               <ProductTableRow product={product}/>
-
             ))}
    
         </tbody>
