@@ -12,8 +12,7 @@ function ComponentSelection() {
   const navigate = useNavigate();
 
   function redirectSearchComponent(component){
-    console.log(`/product-search/${component}`)
-    navigate(`/product-search/${component}`)
+    navigate(`${component}/search`)
   }
     
   return (
@@ -22,20 +21,20 @@ function ComponentSelection() {
             <h2>What type of Component Are You Looking For?</h2>
         
             <div class="d-flex justify-content-center flex-md-row flex-column m-5 options">
-                <div class="box-product" onClick={() => redirectSearchComponent("transistors")}>
+                <div class="box-product" onClick={() => redirectSearchComponent("transistor")}>
                     <div class="component-content transistor">
                         <img src={TransistorIcon} class="icon-product" />
                         <p class="component-name">Transistor</p>
                     </div>
                 </div>
-                <div class="box-product" onClick={() => redirectSearchComponent("resistors")}>
+                <div class="box-product" onClick={() => redirectSearchComponent("resistor")}>
                     <div class="component-content resistor">
                         <img src={ResistorIcon} style={{marginBottom: "35px"}} class="icon-product img-fluid" />
                         <p class="component-name">Resistor</p>
                     </div>
                 </div>
                 <div class="box-product">
-                    <div class="component-content capacitor" onClick={() => redirectSearchComponent("capacitors")}>
+                    <div class="component-content capacitor" onClick={() => redirectSearchComponent("capacitor")}>
                         <img src={CapacitorIcon} class="icon-product img-fluid" />
                         <p class="component-name">Capacitor</p>
                     </div>

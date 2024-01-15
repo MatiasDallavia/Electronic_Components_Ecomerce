@@ -36,11 +36,11 @@ function Navbar() {
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Search Products</a>
                         <ul className="dropdown-menu">
-                            <li><Link to="/product-search/transistors" className="dropdown-item">Transistors</Link></li>
-                            <li><Link to="/product-search/resistors" className="dropdown-item">Resistors</Link></li>
-                            <li><Link to="/product-search/diodes" className="dropdown-item">Diodes</Link></li>
-                            <li><Link to="/product-search/capacitors" className="dropdown-item">Capacitors</Link></li>
-                            <li><Link to="/product-search/inductors" className="dropdown-item">Inductors</Link></li>
+                            <li><Link to="/transistor/search" className="dropdown-item">Transistors</Link></li>
+                            <li><Link to="/resistor/search" className="dropdown-item">Resistors</Link></li>
+                            <li><Link to="/diodes/search" className="dropdown-item">Diodes</Link></li>
+                            <li><Link to="/capacitor/search" className="dropdown-item">Capacitors</Link></li>
+                            <li><Link to="/inductor/search" className="dropdown-item">Inductors</Link></li>
                         </ul>
                     </li>
                 </ul>
