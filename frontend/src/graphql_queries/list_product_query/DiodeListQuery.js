@@ -17,7 +17,7 @@ const GET_LIST_DIODES = gql`
 const diodeListInput = {
         inputs: {
           model: null,
-          mountingTechnology: "SMD",
+          mountingTechnology: null,
           manufacturer: null,
           diodeType: null,
           dcReverse: null,
