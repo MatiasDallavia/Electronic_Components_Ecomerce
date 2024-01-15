@@ -21,7 +21,7 @@
 }
 
 .image-product{
-  width: 130px;
+  width: 100px;
   height: 70px;
 }
 
@@ -180,6 +180,7 @@
 #cover-image-product{
     padding: 20px;
     padding-bottom: 30px;
+    width: 300px;
 }
 
 /* Ajustes de margen para reducir la distancia entre las columnas names y values */

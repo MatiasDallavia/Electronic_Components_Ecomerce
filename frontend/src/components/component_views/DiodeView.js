@@ -5,7 +5,7 @@ import { useQuery } from '@apollo/client';
 import { GET_SINGLE_DIODE, singleDiodeInput } from '../../graphql_queries/single_product_query/SingleDiodeQuery';
 import ProductCharacteristicRow from './ProductCharacteristicRow';
 
-import inductor330 from '../../images/components/A_330.jpg'
+import {diodeImages} from "../../images/components/diodePackages"
 
 import { parseComponentAttributeText } from '../../uitls';
 
@@ -13,22 +13,11 @@ import { parseComponentAttributeText } from '../../uitls';
 
 
 function DiodeView() {
- 
-  const ToggleInCart = (e) => {
-        console.log("FUNC")
-        const button = e.target
-        console.log(button.innerHTML)
-        if (button.className === "btn btn-success btn-lg btn-block"){
-            button.className = "btn btn-warning btn-lg btn-block"
-            button.innerHTML = "Remove from Cart"
-        } else{
-            button.className = "btn btn-success btn-lg btn-block"
-            button.innerHTML = "Add to Cart"
-        }
-  }
+
+  const [cartButton, serInCart] = useState(false)
+
 
   const { diodeComponentID } = useParams();
-  console.log(diodeComponentID)
   singleDiodeInput.inputs.id = diodeComponentID 
   const { loading, error, data } = useQuery(GET_SINGLE_DIODE, {variables: singleDiodeInput});
 
@@ -43,6 +32,7 @@ function DiodeView() {
     return null;
     }).filter(Boolean);
 
+
   return (
     <div class="container pt-5">
 
@@ -51,35 +41,45 @@ function DiodeView() {
             
                 <div class="container d-flex flex-column align-items-center justify-content-between main-attributes">
                         <div>
-                        <img id="cover-image-product" src={inductor330}/>
+                        <img id="cover-image-product" src={diodeImages[diode.package]}/>
 
                         <table>
                             <tr>
-                            <td class="ModelCell">Model</td>
-                            <th class="ModelCell">{diode.model}</th>
+                                <td class="ModelCell">Model</td>
+                                <th class="ModelCell">{diode.model}</th>
                             </tr>
                             <tr>
-                            <td>Price</td>
-                            <td>${diode.price}</td>
+                                <td>Price</td>
+                                <td>${diode.price}</td>
                             </tr>
                             <tr>
-                            <td>Units Available</td>
-                            <td>{diode.amountAvailable}</td>
+                                <td>Units Available</td>
+                                <td>{diode.amountAvailable}</td>
                             </tr>
                             <tr>
-                            <td>Component Type</td>
-                            <td>Diode</td>
+                                <td>Component Type</td>
+                                <td>Diode</td>
                             </tr>
                         </table>
                     </div>
-                    <div>
-                        <label class=" d-flex flex-column align-items-center">Added to cart !</label>
+                        {cartButton === false && 
                         <button 
                             type="button" 
                             class="btn btn-success btn-lg btn-block"
-                            onClick={(e) => ToggleInCart(e)}
-                        >Block level button</button>
-                    </div>
+                            onClick={(e) => serInCart(true)}
+                        >
+                            Add to Cart
+                        </button>
+                        }
+                        {cartButton === true && 
+                        <button 
+                            type="button" 
+                            class="btn btn-warning btn-lg btn-block"
+                            onClick={(e) => serInCart(false)}
+                        >
+                            Remove from Cart
+                        </button>
+                        }
                 </div>
         </div>
         <div class="col-8">
