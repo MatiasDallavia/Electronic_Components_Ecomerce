@@ -14,6 +14,7 @@ const GET_CAPACITORS = gql`
             amountAvailable
             manufacturer
             package
+            componentType
         
         }
     }`;

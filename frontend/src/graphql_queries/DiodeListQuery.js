@@ -17,6 +17,7 @@ const GET_DIODES = gql`
             dcReverse
             current
             reverseRecovery
+            componentType
         }
     }`;
 

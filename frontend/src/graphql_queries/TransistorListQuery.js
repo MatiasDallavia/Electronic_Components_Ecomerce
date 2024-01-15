@@ -18,7 +18,8 @@ query Transistors($inputs: TransistorInput!){
         bjtType
         icMax
         vceSaturation
-        dcCurrentGain  
+        dcCurrentGain
+        componentType  
         }
         ... on MOSFETType {
                 id
@@ -37,6 +38,7 @@ query Transistors($inputs: TransistorInput!){
                 rdsOn
                 vgs
                 inputCapacitance
+                componentType
         }
         ... on IGBTType{
             package
@@ -46,6 +48,7 @@ query Transistors($inputs: TransistorInput!){
             powerMax
             td
             gc
+            componentType
         
         }
     }

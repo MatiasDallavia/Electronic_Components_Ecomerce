@@ -13,6 +13,7 @@ const GET_RESISTORS = gql`
             amountAvailable
             manufacturer
             package
+            componentType
         
         }
     }`;

@@ -10,7 +10,8 @@ query GetInductors($inputs: InductorInput!){
       mountingTechnology
       amountAvailable
       manufacturer
-      package    
+      package
+      componentType    
   }
 }`;
 
