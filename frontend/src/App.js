@@ -8,6 +8,7 @@ import SearchCapacitor from "./components/search_components/SearchCapacitor";
 import SearchInductor from "./components/search_components/SearchInductor";
 import SearchResistor from "./components/search_components/SearchResistor";
 import SearchTransistor from "./components/search_components/SearchTransistor";
+import DiodeView from "./components/component_views/DiodeView.js"
 import ProductView from "./components/ProductView";
 import Login from "./components/Login";
 import Register from "./components/Register";
@@ -37,7 +38,7 @@ function App() {
           </Route>
           <Route path="diode">
             <Route path="search/" element={<SearchDiode/>} />
-            <Route path="view/:diodeComponentID" element={<ProductView />} />
+            <Route path="view/:diodeComponentID" element={<DiodeView />} />
           </Route>
           
           <Route path="/login" element={<Login/>} />

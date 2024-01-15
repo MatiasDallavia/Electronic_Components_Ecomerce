@@ -1,20 +1,21 @@
 import React from 'react'
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-import { GET_SINGLE_INDUCTOR, singleInductorInput } from '../graphql_queries/single_product_query/SingleInductorQuery'; 
-import { GET_SINGLE_CAPACITOR, SingleCapacitorInput } from '../graphql_queries/single_product_query/SingleCapacitorQuery'; 
-import { GET_SINGLE_DIODE, singleDiodeInput } from '../graphql_queries/single_product_query/SingleDiodeQuery'; 
-import { GET_SINGLE_RESISTOR, singleResistorInput } from '../graphql_queries/single_product_query/SingleResistorQuery'; 
-import { GET_SINGLE_TRANSISTOR, singleTransistorInput } from '../graphql_queries/single_product_query/SingleTransistorQuery'; 
-
-import zenerImage from '../images/components/zener.jpeg'
+import { GET_SINGLE_DIODE, singleDiodeInput } from '../../graphql_queries/single_product_query/SingleDiodeQuery';
+import ProductCharacteristicRow from './ProductCharacteristicRow';
 
 
-function ProductView() {
+
+function DiodeView() {
 
   const { componentModel } = useParams();
   console.log("params: ",componentModel)
-
+  singleDiodeInput.inputs.id = 10 
+  const { loading, error, data } = useQuery(GET_SINGLE_DIODE, {singleDiodeInput});
+  console.log(data)
+  const diode = data ? data.diodeListQuery : [];
+  console.log(diode)
+  console.log(error)
 
   return (
     <div class="container pt-5">
@@ -24,7 +25,7 @@ function ProductView() {
             
                 <div class="container d-flex flex-column align-items-center justify-content-between main-attributes">
                         <div>
-                        <img id="cover-image-product" src={zenerImage}/>
+                        <img id="cover-image-product" src="..."/>
 
                         <table>
                             <tr>
@@ -63,26 +64,7 @@ function ProductView() {
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>Vrrm</td>
-                    <td>23</td>
-                </tr>
-                <tr>
-                    <td>Vr</td>
-                    <td>23</td>
-                </tr>
-                <tr>
-                    <td>Vrwm</td>
-                    <td>23</td>
-                </tr>
-                <tr>
-                    <td>Io</td>
-                    <td>Smith</td>
-                </tr>
-                <tr>
-                    <td>Cj</td>
-                    <td>Johnson</td>
-                </tr>
+                    <ProductCharacteristicRow attribute={23} value={23}/>
                 </tbody>
             </table>
             </div>
@@ -91,4 +73,4 @@ function ProductView() {
   )
 }
 
-export default ProductView
+export default DiodeView
