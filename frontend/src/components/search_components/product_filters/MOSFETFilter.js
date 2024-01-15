@@ -1,6 +1,7 @@
 import React from 'react'
+import { handleNestedFieldChange } from '../../../uitls';
 
-function MOSFETFilter({handleNestedFieldChange}) {
+function MOSFETFilter({setQueryVariables}) {
   return (
     <>
 
@@ -10,7 +11,7 @@ function MOSFETFilter({handleNestedFieldChange}) {
               class="form-control filter-field" 
               type="text" 
               placeholder="Default input"
-              onChange={handleNestedFieldChange('mosfetInput','vds')}
+              onChange={handleNestedFieldChange(setQueryVariables, 'mosfetInput','vds')}
             />
         </div>
 
@@ -19,7 +20,7 @@ function MOSFETFilter({handleNestedFieldChange}) {
             <input 
               class="form-control filter-field" 
               type="text" placeholder="Default input"
-              onChange={handleNestedFieldChange('mosfetInput','rdsOn')}
+              onChange={handleNestedFieldChange(setQueryVariables, 'mosfetInput','rdsOn')}
             />
         </div>
 
@@ -29,7 +30,7 @@ function MOSFETFilter({handleNestedFieldChange}) {
               class="form-control filter-field" 
               type="text" 
               placeholder="Default input"
-              onChange={handleNestedFieldChange('mosfetInput','driveVoltage')}
+              onChange={handleNestedFieldChange(setQueryVariables, 'mosfetInput','driveVoltage')}
             />
         </div>
   

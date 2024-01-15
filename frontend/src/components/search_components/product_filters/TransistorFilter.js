@@ -2,60 +2,9 @@ import React, { useState } from 'react';
 import BJTFilter from './BJTFilter';
 import MOSFETFilter from './MOSFETFilter';
 import IGBTFilter from './IGBTFilter';
+import { handleInputChange } from '../../../uitls';
 
-function TransistorFilter({queryVariables, setQueryVariables}) {
-  const [transistorType, setTransistorType] = useState('BJT');
-
-
-  const transistorFilterChange = (transistorType) => {
-    setTransistorType(transistorType)
-  }
-
-
-  const handleInputChange = (inputName, value) => {
-    console.log(value)
-
-    if (!isNaN(value) && inputName !== "model"){
-        value = Number(value)
-    }
-    if (value === "ALL" || value === 0){
-      value = null
-  }
-
-    setQueryVariables({
-      ...queryVariables,
-      inputs: {
-        ...queryVariables.inputs,
-        [inputName]: value
-      }
-    });
-  };
-
-  const handleNestedFieldChange = (inputName, transistorTypefield) => (e) => {
-
-    
-    let value = e.target.value;
-    console.log(transistorTypefield, typeof(value))
-    console.log(value === "")
-
-    if (!isNaN(value)){
-        value = Number(value)
-    }
-    if (value === "ALL" || value === 0){
-      value = null
-    }
-
-    setQueryVariables((prevQueryVariables) => ({
-      inputs: {
-        ...prevQueryVariables.inputs,
-        [inputName]: {
-          ...prevQueryVariables.inputs[inputName],
-          [transistorTypefield]: value
-        }
-      }
-    }));
-  };
-
+function TransistorFilter({transistorType, transistorTypeFilterChange, setQueryVariables}) {
 
   return (
     <div className="container mt-4 d-flex flex-wrap">
@@ -65,8 +14,8 @@ function TransistorFilter({queryVariables, setQueryVariables}) {
           id="typePNP"
           className="form-select filter-field type transistor"
           onChange={(e) => {
-            handleInputChange('transistorType', e.target.value)
-            transistorFilterChange(e.target.value)
+            handleInputChange(setQueryVariables, 'transistorType', e.target.value)
+            transistorTypeFilterChange(e.target.value)
           }}
           >
           <option value="BJT">BJT</option>
@@ -82,20 +31,23 @@ function TransistorFilter({queryVariables, setQueryVariables}) {
                 class="form-control filter-field"
                 type="text" 
                 placeholder="Default input"
-                onChange={(e) => handleInputChange('model', e.target.value)}
+                onChange={(e) => handleInputChange(setQueryVariables, 'model', e.target.value)}
             />
       </div>
 
-      {transistorType === 'BJT' && <BJTFilter handleNestedFieldChange={handleNestedFieldChange}/>}
-      {transistorType === 'MOSFET' && <MOSFETFilter handleNestedFieldChange={handleNestedFieldChange}/>}
-      {transistorType === 'IGBT' && <IGBTFilter handleNestedFieldChange={handleNestedFieldChange}/>}
+      {transistorType === 'BJT' && 
+      <BJTFilter setQueryVariables={setQueryVariables}/>}
+      {transistorType === 'MOSFET' &&
+      <MOSFETFilter setQueryVariables={setQueryVariables}/>}
+      {transistorType === 'IGBT' && 
+      <IGBTFilter setQueryVariables={setQueryVariables}/>}
 
       <div class="filter-group me-3">
             <label for="mountingSurface" class="filter-label">Mounting Surface:</label>
             <select 
                 id="mountingSurface" 
                 class="form-select filter-field mounting-surface"
-                onChange={(e) => handleInputChange('mountingTechnology', e.target.value)}
+                onChange={(e) => handleInputChange(setQueryVariables, 'mountingTechnology', e.target.value)}
             >
                 <option value="ALL">All</option>
                 <option value="THT">THT</option>
@@ -108,7 +60,7 @@ function TransistorFilter({queryVariables, setQueryVariables}) {
             <select 
               id="manufacturerSelect" 
               class="form-select filter-field manufacturer"
-              onChange={(e) => handleInputChange('manufacturer', e.target.value)}
+              onChange={(e) => handleInputChange(setQueryVariables, 'manufacturer', e.target.value)}
             >
                 <option value="ALL">All</option>                
                 <option value="INFINEON">Infineon</option>

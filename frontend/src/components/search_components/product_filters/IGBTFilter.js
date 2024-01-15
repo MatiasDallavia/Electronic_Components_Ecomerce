@@ -1,6 +1,8 @@
 import React from 'react'
+import { handleNestedFieldChange } from '../../../uitls';
 
-function IGBTFilter({handleNestedFieldChange}) {
+
+function IGBTFilter({setQueryVariables}) {
   return (
     <>
 
@@ -10,7 +12,7 @@ function IGBTFilter({handleNestedFieldChange}) {
                 class="form-control filter-field" 
                 type="text" 
                 placeholder="Default input"
-                onChange={handleNestedFieldChange('igbtInput','vc')}
+                onChange={handleNestedFieldChange(setQueryVariables, 'igbtInput','vc')}
                 />
         </div>
 
@@ -20,7 +22,7 @@ function IGBTFilter({handleNestedFieldChange}) {
                 class="form-control filter-field" 
                 type="text" 
                 placeholder="Default input"
-                onChange={handleNestedFieldChange('igbtInput','ic')}
+                onChange={handleNestedFieldChange(setQueryVariables, 'igbtInput','ic')}
             />
         </div>
 
@@ -30,7 +32,7 @@ function IGBTFilter({handleNestedFieldChange}) {
                 class="form-control filter-field" 
                 type="text" 
                 placeholder="Default input"
-                onChange={handleNestedFieldChange('igbtInput','powerMax')}
+                onChange={handleNestedFieldChange(setQueryVariables, 'igbtInput','powerMax')}
             />
         </div>
   

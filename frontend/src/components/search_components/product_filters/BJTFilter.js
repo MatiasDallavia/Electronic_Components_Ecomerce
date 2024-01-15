@@ -1,10 +1,9 @@
 import React from 'react'
+import { handleNestedFieldChange } from '../../../uitls';
 
 
 
-
-
-function BJTFilter({handleNestedFieldChange}) {
+function BJTFilter({setQueryVariables}) {
     
 
     return (
@@ -14,7 +13,7 @@ function BJTFilter({handleNestedFieldChange}) {
             <select 
                 id="typePNP" 
                 class="form-select filter-field type transistor"
-                onChange={handleNestedFieldChange('bjtInput','bjtType')}
+                onChange={handleNestedFieldChange(setQueryVariables, 'bjtInput', 'bjtType')}
             >
                 <option value="ALL">All</option>
                 <option value="PNP">PNP</option>
@@ -28,7 +27,7 @@ function BJTFilter({handleNestedFieldChange}) {
                 class="form-control filter-field"  
                 type="text" 
                 placeholder="Default input"
-                onChange={handleNestedFieldChange('bjtInput', 'dcCurrentGain')}
+                onChange={handleNestedFieldChange(setQueryVariables, 'bjtInput', 'dcCurrentGain')}
             />
         </div>
 
@@ -38,7 +37,7 @@ function BJTFilter({handleNestedFieldChange}) {
                 class="form-control filter-field" 
                 type="text" 
                 placeholder="Default input"
-                onChange={handleNestedFieldChange('bjtInput', 'icMax')}
+                onChange={handleNestedFieldChange(setQueryVariables, 'bjtInput', 'icMax')}
             />
         </div>
 

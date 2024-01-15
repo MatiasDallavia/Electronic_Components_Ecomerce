@@ -10,6 +10,19 @@ function SearchTransistor() {
     const [queryProducts, { loading, error, data }] = useLazyQuery(GET_TRANSISTORS);
     const [queryVariables, setQueryVariables] = useState(TransistorInput);
 
+    const [transistorType, setTransistorType] = useState('BJT');
+
+    const transistorTypeFilterChange = (transistorType) => {
+        setTransistorType(transistorType)
+        setQueryVariables((prevQueryVariables) => ({
+            ...prevQueryVariables,
+            inputs: {
+            ...prevQueryVariables.inputs,
+            "transistorType" : transistorType
+            }
+        }));
+      }
+    
 
     useEffect(() => {
       console.log("FIRST QUERY")
@@ -17,7 +30,7 @@ function SearchTransistor() {
       queryProducts({ variables: queryVariables });
       console.log(error);
       console.log(data);
-    }, []);
+    }, [transistorType]);
     
   
     const handleSearch = () => {
@@ -32,7 +45,12 @@ function SearchTransistor() {
     console.log(products)
   return (
     <div className="container filters g-3">
-      <TransistorFilter queryVariables={queryVariables} setQueryVariables={setQueryVariables}/>
+      <TransistorFilter 
+            transistorType={transistorType}
+            transistorTypeFilterChange={transistorTypeFilterChange}
+            queryVariables={queryVariables} 
+            setQueryVariables={setQueryVariables}
+        />
       <button type="button" className="btn btn-primary submit" onClick={handleSearch}>
         Search
       </button>

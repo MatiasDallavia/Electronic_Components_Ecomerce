@@ -2,7 +2,7 @@ import React from 'react'
 import {useState, useEffect} from 'react'
 
 
-function ResistorFilter({queryVariables, setQueryVariables}) {
+function ResistorFilter({setQueryVariables}) {
 
 
     const handleInputChange = (inputName, value) => {
@@ -14,35 +14,14 @@ function ResistorFilter({queryVariables, setQueryVariables}) {
         if (value === "All" || value === 0){
             value = null
         }
-
-
-        switch (value) {
-            case "Infineon":
-            value = "INFINEON"
-            break;
-            case "Texas Instruments":
-            value = "TEXAS_INSTRUMENTS"
-            break;
-            case "Siemens":
-            value = "TEXAS_INSTRUMENTS"        
-            break;
-            case "Samsung":
-            value = "SAMSUNG"        
-            break;
-            case "Fairchild":
-            value = "FAIRCHILD"        
-            break;                                                              
-        }
-
         
-        setQueryVariables({
-          ...queryVariables,
+        setQueryVariables((prevQueryVariables) => ({
+          ...prevQueryVariables,
           inputs: {
-            ...queryVariables.inputs,
+            ...prevQueryVariables.inputs,
             [inputName]: value
           }
-        });
-        console.log(queryVariables)
+        }));
       };
 
   return (
@@ -84,7 +63,7 @@ function ResistorFilter({queryVariables, setQueryVariables}) {
                 class="form-select filter-field mounting-surface"
                 onChange={(e) => handleInputChange('mountingTechnology', e.target.value)}
                 >
-                <option>All</option>                    
+                <option value="ALL">All</option>                    
                 <option>THT</option>
                 <option>SMD</option>
             </select>
@@ -97,12 +76,12 @@ function ResistorFilter({queryVariables, setQueryVariables}) {
                 class="form-select filter-field manufacturer"
                 onChange={(e) => handleInputChange('manufacturer', e.target.value)}
                 >
-                <option>All</option>
-                <option>Infineon</option>
-                <option>Texas Instruments</option>
-                <option>Siemens</option>
-                <option>Samsung</option>
-                <option>Fairchild</option>
+                <option value="ALL">All</option>                
+                <option value="INFINEON">Infineon</option>
+                <option value="TEXAS_INSTRUMENTS">Texas Instruments</option>
+                <option value="SIEMENS">Siemens</option>
+                <option value="SAMSUNG">Samsung</option>
+                <option value="FAIRCHILD">Fairchild</option>
             </select>
         </div>
     
