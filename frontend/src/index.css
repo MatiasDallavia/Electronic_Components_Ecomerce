@@ -196,7 +196,7 @@
 
 
 }
-.main-attributes th{
+.main-attributes .ModelCell{
   border-bottom: 1px solid black;
   border-right: 1px solid #ddd;
   text-align: center;
@@ -204,14 +204,14 @@
 
 }
 .main-attributes table{
-  width: 100%;
+  width: 300px;
   padding: 50px;
   margin-bottom: 50px;
 
 }
 
 .main-attributes{
-  height: 650px;
+  height: 600px;
   padding: 20px;
 }
 
