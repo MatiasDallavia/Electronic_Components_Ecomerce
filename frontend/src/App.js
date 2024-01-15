@@ -3,7 +3,6 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
-import SearchProducts from "./components/SearchProducts";
 import SearchDiode from "./components/search_components/SearchDiode";
 import SearchCapacitor from "./components/search_components/SearchCapacitor";
 import SearchInductor from "./components/search_components/SearchInductor";
