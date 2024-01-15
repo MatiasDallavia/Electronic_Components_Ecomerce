@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { GET_DIODES, diodeInput } from '../../graphql_queries/DiodeListQuery';
-import DiodeFilter from '../product_filters/DiodeFilter';
+import DiodeFilter from './product_filters/DiodeFilter';
 import { useLazyQuery } from '@apollo/client';
 import ProductList from '../ProductList';
 

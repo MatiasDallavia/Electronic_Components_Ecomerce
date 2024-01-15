@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { GET_CAPACITORS, capacitorInput } from '../../graphql_queries/CapacitorListQuery';
-import CapacitorFilter from '../product_filters/CapacitorFilter';
+import CapacitorFilter from './product_filters/CapacitorFilter';
 import { useLazyQuery } from '@apollo/client';
 import ProductList from '../ProductList';
 

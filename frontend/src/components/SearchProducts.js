@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import CapacitorFilter from './product_filters/CapacitorFilter';
-import DiodeFilter from './product_filters/DiodeFilter';
-import ResistorFilter from './product_filters/ResistorFilter';
-import InductorFilter from './product_filters/InductorFilter';
-import TransistorFilter from './product_filters/TransistorFilter';
+import CapacitorFilter from './search_components/product_filters/CapacitorFilter.js';
+import DiodeFilter from './search_components/product_filters/DiodeFilter.js';
+import ResistorFilter from './search_components/product_filters/ResistorFilter.js';
+import InductorFilter from './search_components/product_filters/InductorFilter.js';
+import TransistorFilter from './search_components/product_filters/TransistorFilter.js';
 import ProductList from './ProductList';
 import { GET_INDUCTORS, InductorInput } from '../graphql_queries/InductorListQuery.js';
 import { GET_CAPACITORS, capacitorInput } from '../graphql_queries/CapacitorListQuery.js';

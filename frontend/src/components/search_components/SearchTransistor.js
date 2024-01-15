@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { GET_TRANSISTORS, TransistorInput } from '../../graphql_queries/TransistorListQuery';
-import TransistorFilter from '../product_filters/TransistorFilter';
+import TransistorFilter from './product_filters/TransistorFilter';
 import { useLazyQuery } from '@apollo/client';
 import ProductList from '../ProductList';
 
