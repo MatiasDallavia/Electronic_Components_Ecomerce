@@ -3,6 +3,9 @@ import C680uf from "../680uf.jpeg"
 import C10uf from "../10uf.webp"
 import P103 from "../103.jpg"
 import P104 from "./104.jpeg"
+import  P2220 from "../P2220.webp"
+import ELECTROLYTIC_SMD from "../ELECTROLYTIC_SMD.jpg"
+
 
 
 const capacitorImages = {
@@ -11,6 +14,8 @@ const capacitorImages = {
   C10: C10uf,
   C103: P103,
   C104: P104,
+  P2220: P2220,
+  ELECTROLYTIC_SMD: ELECTROLYTIC_SMD,
 };
 
 export {capacitorImages}
