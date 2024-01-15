@@ -6,11 +6,11 @@ import ResistorFilter from './search_components/product_filters/ResistorFilter.j
 import InductorFilter from './search_components/product_filters/InductorFilter.js';
 import TransistorFilter from './search_components/product_filters/TransistorFilter.js';
 import ProductList from './ProductList';
-import { GET_INDUCTORS, InductorInput } from '../graphql_queries/InductorListQuery.js';
-import { GET_CAPACITORS, capacitorInput } from '../graphql_queries/CapacitorListQuery.js';
-import { GET_RESISTORS, ResistorInput } from '../graphql_queries/ResistorListQuery.js';
-import { GET_TRANSISTORS, TransistorInput } from '../graphql_queries/TransistorListQuery.js';
-import { GET_DIODES, diodeInput } from '../graphql_queries/DiodeListQuery.js';
+import { GET_INDUCTORS, InductorInput } from '../graphql_queries/list_query/InductorListQuery.js';
+import { GET_CAPACITORS, capacitorInput } from '../graphql_queries/list_query/CapacitorListQuery.js';
+import { GET_RESISTORS, ResistorInput } from '../graphql_queries/list_query/ResistorListQuery.js';
+import { GET_TRANSISTORS, TransistorInput } from '../graphql_queries/list_query/TransistorListQuery.js';
+import { GET_DIODES, diodeInput } from '../graphql_queries/list_query/DiodeListQuery.js';
 import { useLazyQuery } from '@apollo/client';
 
 function SearchProducts() {

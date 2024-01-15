@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLazyQuery } from '@apollo/client';
 import ProductList from '../ProductList';
-import { GET_INDUCTORS, InductorInput } from '../../graphql_queries/InductorListQuery';
+import { GET_INDUCTORS, InductorInput } from '../../graphql_queries/list_query/InductorListQuery';
 import InductorFilter from './product_filters/InductorFilter';
 
 
