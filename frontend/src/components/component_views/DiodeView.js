@@ -5,7 +5,7 @@ import { useQuery } from '@apollo/client';
 import { GET_SINGLE_DIODE, singleDiodeInput } from '../../graphql_queries/single_product_query/SingleDiodeQuery';
 import ProductCharacteristicRow from './ProductCharacteristicRow';
 
-import {diodeImages} from "../../images/components/diodePackages"
+import {diodeImages} from "../../images/components/component_images_objects/diodePackages"
 
 import { parseComponentAttributeText } from '../../uitls';
 
