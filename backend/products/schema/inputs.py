@@ -13,6 +13,7 @@ from products.schema.enums import (
 
 
 class BaseInput(graphene.InputObjectType):
+    id = graphene.ID()
     model = graphene.String()
     mounting_technology = graphene.Field(MountingTechnologyEnum)
     manufacturer = graphene.Field(ManufacturerEnum)
