@@ -13,16 +13,14 @@ function TransistorFilter({queryVariables, setQueryVariables}) {
 
 
   const handleInputChange = (inputName, value) => {
+    console.log(value)
 
-    if (value === "null" || value === "ALL"){
-        value = null
-    }
     if (!isNaN(value) && inputName !== "model"){
         value = Number(value)
     }
-    if (value === 0){
-        value = null
-    }
+    if (value === "ALL" || value === 0){
+      value = null
+  }
 
     setQueryVariables({
       ...queryVariables,
@@ -37,14 +35,15 @@ function TransistorFilter({queryVariables, setQueryVariables}) {
 
     
     let value = e.target.value;
+    console.log(transistorTypefield, typeof(value))
+    console.log(value === "")
 
-    if (value === "null" || value === "ALL" || value === 0){
-      value = null
-    }
     if (!isNaN(value)){
         value = Number(value)
     }
-
+    if (value === "ALL" || value === 0){
+      value = null
+    }
 
     setQueryVariables((prevQueryVariables) => ({
       inputs: {

@@ -7,13 +7,11 @@ function ResistorFilter({queryVariables, setQueryVariables}) {
 
     const handleInputChange = (inputName, value) => {
         console.log("HANDLE")
-        if (value === "All" || value === ""){
-            value = null
-        }
+
         if (!isNaN(value)){
             value = Number(value)
         }
-        if (value === 0){
+        if (value === "All" || value === 0){
             value = null
         }
 

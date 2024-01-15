@@ -3,16 +3,15 @@ import React from 'react'
 function CapacitorFilter({ queryVariables, setQueryVariables}) {
 
     const handleInputChange = (inputName, value) => {
-        console.log("HANDLE")
-        if (value === "null" || value === "ALL"){
-            value = null
-        }
+        console.log("HANDLE", value)
+  
         if (!isNaN(value)){
             value = Number(value)
         }
-        if (value === 0){
+        if (value === 0 || value === "ALL"){
             value = null
-        }
+        }        
+
 
         
         setQueryVariables({
@@ -49,7 +48,7 @@ function CapacitorFilter({ queryVariables, setQueryVariables}) {
                 class="form-select filter-field type raiting"
                 onChange={(e) => handleInputChange('capacitance', e.target.value)}    
             >
-                <option valuen="null">All</option>                
+                <option value="ALL">All</option>                
                 <option value="100">100uF</option>
                 <option value="1000">1000uF</option>
             </select>
@@ -62,7 +61,7 @@ function CapacitorFilter({ queryVariables, setQueryVariables}) {
                 class="form-select filter-field raiting voltage"
                 onChange={(e) => handleInputChange('voltage', e.target.value)}
             >
-                <option value="null">All</option>                
+                <option value="ALL">All</option>                
                 <option>10</option>
                 <option>15</option>
                 <option>20</option>

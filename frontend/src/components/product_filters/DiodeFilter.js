@@ -4,13 +4,11 @@ function DiodeFilter({ queryVariables, setQueryVariables}) {
 
     const handleInputChange = (inputName, value) => {
         console.log("HANDLE")
-        if (value === "null" || value === "ALL"){
-            value = null
-        }
+
         if (!isNaN(value)){
             value = Number(value)
         }
-        if (value === 0){
+        if (value === 0 || value === "ALL"){
             value = null
         }
 

@@ -16,8 +16,9 @@ function BJTFilter({handleNestedFieldChange}) {
                 class="form-select filter-field type transistor"
                 onChange={handleNestedFieldChange('bjtInput','bjtType')}
             >
-                <option>PNP</option>
-                <option>NPN</option>
+                <option value="ALL">All</option>
+                <option value="PNP">PNP</option>
+                <option value="NPN">NPN</option>
             </select>
         </div>
 
