@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLazyQuery } from '@apollo/client';
 import ProductList from '../ProductList';
-import { GET_INDUCTORS, InductorInput } from '../../graphql_queries/list_query/InductorListQuery';
+import { GET_LIST_INDUCTORS, InductorListInput } from '../../graphql_queries/list_product_query/InductorListQuery';
 import InductorFilter from './product_filters/InductorFilter';
 
 
@@ -9,8 +9,8 @@ import InductorFilter from './product_filters/InductorFilter';
 function SearchInductor() {
 
 
-    const [queryProducts, { loading, error, data }] = useLazyQuery(GET_INDUCTORS);
-    const [queryVariables, setQueryVariables] = useState(InductorInput);
+    const [queryProducts, { loading, error, data }] = useLazyQuery(GET_LIST_INDUCTORS);
+    const [queryVariables, setQueryVariables] = useState(InductorListInput);
 
 
     useEffect(() => {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { GET_TRANSISTORS, TransistorInput } from '../../graphql_queries/list_query/TransistorListQuery';
+import { GET_LIST_TRANSISTORS, TransistorListInput } from '../../graphql_queries/list_product_query/TransistorListQuery';
 import TransistorFilter from './product_filters/TransistorFilter';
 import { useLazyQuery } from '@apollo/client';
 import ProductList from '../ProductList';
@@ -7,8 +7,8 @@ import ProductList from '../ProductList';
 function SearchTransistor() {
 
 
-    const [queryProducts, { loading, error, data }] = useLazyQuery(GET_TRANSISTORS);
-    const [queryVariables, setQueryVariables] = useState(TransistorInput);
+    const [queryProducts, { loading, error, data }] = useLazyQuery(GET_LIST_TRANSISTORS);
+    const [queryVariables, setQueryVariables] = useState(TransistorListInput);
 
     const [transistorType, setTransistorType] = useState('BJT');
 

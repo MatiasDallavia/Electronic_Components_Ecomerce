@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { GET_DIODES, diodeInput } from '../../graphql_queries/list_query/DiodeListQuery';
+import { GET_LIST_DIODES, diodeListInput } from '../../graphql_queries/list_product_query/DiodeListQuery';
 import DiodeFilter from './product_filters/DiodeFilter';
 import { useLazyQuery } from '@apollo/client';
 import ProductList from '../ProductList';
 
-console.log(GET_DIODES)
 
 function SearchDiode() {
 
 
-    const [queryProducts, { loading, error, data }] = useLazyQuery(GET_DIODES);
-    const [queryVariables, setQueryVariables] = useState(diodeInput);
+    const [queryProducts, { loading, error, data }] = useLazyQuery(GET_LIST_DIODES);
+    const [queryVariables, setQueryVariables] = useState(diodeListInput);
 
 
     useEffect(() => {

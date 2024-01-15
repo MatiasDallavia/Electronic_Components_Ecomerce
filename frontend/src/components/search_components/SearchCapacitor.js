@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { GET_CAPACITORS, capacitorInput } from '../../graphql_queries/list_query/CapacitorListQuery';
+import { GET_LIST_CAPACITORS, capacitorListInput } from '../../graphql_queries/list_product_query/CapacitorListQuery';
 import CapacitorFilter from './product_filters/CapacitorFilter';
 import { useLazyQuery } from '@apollo/client';
 import ProductList from '../ProductList';
@@ -8,8 +8,8 @@ import ProductList from '../ProductList';
 function SearchCapacitor() {
 
 
-    const [queryProducts, { loading, error, data }] = useLazyQuery(GET_CAPACITORS);
-    const [queryVariables, setQueryVariables] = useState(capacitorInput);
+    const [queryProducts, { loading, error, data }] = useLazyQuery(GET_LIST_CAPACITORS);
+    const [queryVariables, setQueryVariables] = useState(capacitorListInput);
 
 
     useEffect(() => {
