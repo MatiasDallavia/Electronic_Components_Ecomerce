@@ -61,20 +61,24 @@ class BaseProductModelType(graphene.ObjectType):
     operating_temperature = graphene.Float()
     amount_available = graphene.Int()
     manufacturer = graphene.String()
+    package = graphene.String()
+
+    def resolve_package(self, info):
+        return self.package.replace("-","_")
+
 
 class BJTType(BaseProductModelType, ProductTypeField):
-    package = graphene.String()
     bjt_type = graphene.String()
     ic_max = graphene.Float()
     vce_saturation = graphene.Float()
     dc_current_gain = graphene.Float()
 
     def resolve_component_type(self, info):
-        return "bjt"
+        return "BJT"
+
 
 
 class MOSFETType(BaseProductModelType, ProductTypeField):
-    package = graphene.String()
     vds = graphene.Float()
     drive_voltage = graphene.Float()
     rds_on = graphene.Float()
@@ -82,11 +86,10 @@ class MOSFETType(BaseProductModelType, ProductTypeField):
     input_capacitance = graphene.Float()
 
     def resolve_component_type(self, info):
-        return "mosfet"
+        return "MOSFET"
 
 
 class IGBTType(BaseProductModelType, ProductTypeField):
-    package = graphene.String()
     vc = graphene.Float()
     ic = graphene.Float()
     vce_on = graphene.Float()
@@ -95,7 +98,7 @@ class IGBTType(BaseProductModelType, ProductTypeField):
     gc = graphene.Float()
 
     def resolve_component_type(self, info):
-        return "igbt"
+        return "IGBT"
 
 
 class TransistorType(graphene.Union):
