@@ -11,11 +11,37 @@ from products.schema.enums import (
 )
 
 
+class BaseProductModelType(graphene.ObjectType):
+    id = graphene.ID()
+    product_id = graphene.UUID()
+    model = graphene.String()
+    description = graphene.String()
+    price = graphene.Float()
+    mounting_technology = graphene.String()
+    operating_temperature = graphene.String()
+    amount_available = graphene.Int()
+    manufacturer = graphene.String()
+    package = graphene.String()
+
+    def resolve_package(self, info):
+        return self.package.replace("-", "_")
+
+    def resolve_operating_temperature(self, info):
+        if self.operating_temperature.is_integer():
+            return f"{int(self.operating_temperature)} C°"
+        return f"{self.operating_temperature} C°"
+
 class ProductTypeField(graphene.ObjectType):
     component_type = graphene.String()
 
 
-class CapacitorType(DjangoObjectType, ProductTypeField):
+class CapacitorType(DjangoObjectType, BaseProductModelType, ProductTypeField):
+    capacitor_type = graphene.String()
+    capacitance = graphene.String()
+    tolerance = graphene.String()
+    voltage = graphene.String()
+    esr = graphene.String()
+
     class Meta:
         model = Capacitor
         fields = "__all__"
@@ -23,6 +49,25 @@ class CapacitorType(DjangoObjectType, ProductTypeField):
     def resolve_component_type(self, info):
         return "capacitor"
 
+    def resolve_capacitor_type(self, info):
+        capacitor_type = self.capacitor_type.lower()
+        return capacitor_type.capitalize() + " Capacitor"
+    
+    def resolve_capacitance(self, info):
+        capacitor_type = self.capacitor_type
+        capacitance = int(self.capacitance)
+        if capacitor_type == "CERAMIC":
+            return f"{capacitance}nF"
+        return f"{capacitance}pF"
+    
+    def resolve_tolerance(self, info):
+        return f"{int(self.tolerance)}%"
+
+    def resolve_voltage(self, info):
+        return check_voltage_notation(self.voltage)
+
+    def resolve_esr(self, info):
+        return check_ohm_notation(self.esr)          
 
 class ResistorType(DjangoObjectType, ProductTypeField):
     resistance = graphene.String()
@@ -44,6 +89,9 @@ class ResistorType(DjangoObjectType, ProductTypeField):
 
     def resolve_power(self, info):
         return check_power_notation(self.power) 
+    
+    def resolve_operating_temperature(self, info):
+        return f"{int(self.operating_temperature)}C°"    
 
 
 class DiodeType(DjangoObjectType, ProductTypeField):
@@ -76,24 +124,6 @@ class InductorType(DjangoObjectType, ProductTypeField):
     def resolve_component_type(self, info):
         return "inductor"
 
-
-class BaseProductModelType(graphene.ObjectType):
-    id = graphene.ID()
-    product_id = graphene.UUID()
-    model = graphene.String()
-    description = graphene.String()
-    price = graphene.Float()
-    mounting_technology = graphene.String()
-    operating_temperature = graphene.String()
-    amount_available = graphene.Int()
-    manufacturer = graphene.String()
-    package = graphene.String()
-
-    def resolve_package(self, info):
-        return self.package.replace("-", "_")
-
-    def resolve_operating_temperature(self, info):
-        return f"{self.operating_temperature} C°"
 
 
 class BJTType(BaseProductModelType, ProductTypeField):
@@ -138,7 +168,7 @@ class MOSFETType(BaseProductModelType, ProductTypeField):
         return check_voltage_notation(self.vds)
 
     def resolve_input_capacitance(self, info):
-        return f"{int(self.vds)} pF"
+        return f"{int(self.vds)}pF"
 
 
 class IGBTType(BaseProductModelType, ProductTypeField):
@@ -165,10 +195,10 @@ class IGBTType(BaseProductModelType, ProductTypeField):
         return check_power_notation(self.power) 
 
     def resolve_gc(self, info):
-        return f"{int(self.gc)} nC"
+        return f"{int(self.gc)}nC"
 
     def resolve_td(self, info):
-        return f"{int(self.td)} ns"
+        return f"{int(self.td)}ns"
 
 
 class TransistorType(graphene.Union):
@@ -182,9 +212,9 @@ def check_ampere_notation(field_number):
             field_number = f"{field_number}".split(".")[0]
         else:
             field_number = f"{field_number}"
-        return field_number + " A"
+        return field_number + "A"
     else:
-        return convert_to_mili(field_number) + " mA"
+        return convert_to_mili(field_number) + "mA"
 
 
 def check_voltage_notation(field_number):
@@ -193,9 +223,9 @@ def check_voltage_notation(field_number):
             field_number = f"{field_number}".split(".")[0]
         else:
             field_number = f"{field_number}"
-        return field_number + " V"
+        return field_number + "V"
     else:
-        return convert_to_mili(field_number) + " mV"
+        return convert_to_mili(field_number) + "mV"
 
 
 def check_ohm_notation(field_number):
@@ -205,16 +235,16 @@ def check_ohm_notation(field_number):
             field_number = f"{field_number}".split(".")[0]
         else:
             field_number = f"{field_number}"
-        return field_number + " kΩ"
+        return field_number + "kΩ"
 
     if field_number >= 1.0:
         if field_number.is_integer():
             field_number = f"{field_number}".split(".")[0]
         else:
             field_number = f"{field_number}"
-        return field_number + " Ω"
+        return field_number + "Ω"
     else:
-        return convert_to_mili(field_number) + " mΩ"
+        return convert_to_mili(field_number) + "mΩ"
 
 
 def check_power_notation(field_number):
@@ -224,16 +254,35 @@ def check_power_notation(field_number):
             field_number = f"{field_number}".split(".")[0]
         else:
             field_number = f"{field_number}"
-        return field_number + " kW"
+        return field_number + "kW"
 
     if field_number >= 1.0:
         if field_number.is_integer():
             field_number = f"{field_number}".split(".")[0]
         else:
             field_number = f"{field_number}"
-        return field_number + " W"
+        return field_number + "W"
     else:
-        return convert_to_mili(field_number) + " mW"
+        return convert_to_mili(field_number) + "mW"
+    
+
+def check_power_notation(field_number):
+    if field_number >= 1000:
+        field_number = int(field_number) * pow(10, -3)
+        if field_number.is_integer():
+            field_number = f"{field_number}".split(".")[0]
+        else:
+            field_number = f"{field_number}"
+        return field_number + "kW"
+
+    if field_number >= 1.0:
+        if field_number.is_integer():
+            field_number = f"{field_number}".split(".")[0]
+        else:
+            field_number = f"{field_number}"
+        return field_number + "W"
+    else:
+        return convert_to_mili(field_number) + "mW"
 
 
 def convert_to_mili(field_number):
