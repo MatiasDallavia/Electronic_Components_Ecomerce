@@ -61,8 +61,6 @@ class BaseProductModelType(graphene.ObjectType):
     operating_temperature = graphene.Float()
     amount_available = graphene.Int()
     manufacturer = graphene.String()
-    is_active = graphene.Boolean()
-
 
 class BJTType(BaseProductModelType, ProductTypeField):
     package = graphene.String()
