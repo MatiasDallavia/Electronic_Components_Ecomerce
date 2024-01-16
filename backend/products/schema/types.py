@@ -96,11 +96,37 @@ class DiodeType(BaseProductModelType, ProductTypeField):
 
 
 class InductorType(BaseProductModelType, ProductTypeField):
+    inductor_type = graphene.String()
+    core_material = graphene.String()
+    inductance = graphene.String()
+    current = graphene.String()
+    vr = graphene.String()
 
     def resolve_component_type(self, info):
         return "inductor"
 
+    def resolve_inductor_type(self, info):
+        inductor_type = self.inductor_type.lower()
+        return inductor_type.capitalize()
+    
+    def resolve_current(self, info):
+        return check_ampere_notation(self.current)
 
+    def resolve_core_material(self, info):
+        core_material = self.core_material.lower()
+        return core_material.capitalize()
+
+    def resolve_inductance(self, info):
+        inductance = int(self.inductance)
+        if self.package == "P2220" :
+            return f"{inductance}nH"
+        return f"{inductance}mH"
+    
+    def resolve_vr(self, info):
+        return f"{int(self.vr)}mV"
+               
+
+           
 
 class BJTType(BaseProductModelType, ProductTypeField):
     bjt_type = graphene.String()
