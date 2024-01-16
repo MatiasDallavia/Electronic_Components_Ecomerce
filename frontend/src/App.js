@@ -13,7 +13,6 @@ import ResistorView from "./components/component_views/ResistorView.js";
 import InductorView from "./components/component_views/InductorView.js";
 import CapacitorView from "./components/component_views/CapacitorView.js";
 import TransistorView from "./components/component_views/TransistorView.js";
-import ProductView from "./components/ProductView";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Cart from "./components/Cart";

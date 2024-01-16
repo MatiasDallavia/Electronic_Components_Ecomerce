@@ -38,7 +38,7 @@ function Navbar() {
                         <ul className="dropdown-menu">
                             <li><Link to="/transistor/search" className="dropdown-item">Transistors</Link></li>
                             <li><Link to="/resistor/search" className="dropdown-item">Resistors</Link></li>
-                            <li><Link to="/diodes/search" className="dropdown-item">Diodes</Link></li>
+                            <li><Link to="/diode/search" className="dropdown-item">Diodes</Link></li>
                             <li><Link to="/capacitor/search" className="dropdown-item">Capacitors</Link></li>
                             <li><Link to="/inductor/search" className="dropdown-item">Inductors</Link></li>
                         </ul>
