@@ -16,7 +16,7 @@ function ProductTableRow({product}) {
   const redirectModelView = (productType ,productID) =>{
     console.log("productType:", productType);
 
-    const transistorTypes = ["bjt", "mosfet", "igbt"];
+    const transistorTypes = ["BJT", "MOSFET", "IGBT"];
     console.log("transistorTypes:", transistorTypes);
   
     if (transistorTypes.includes(productType)) {

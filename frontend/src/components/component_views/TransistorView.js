@@ -20,7 +20,7 @@ function TransistorView() {
   const { transistorType, transistorComponentID } = useParams();
   console.log(transistorType, transistorComponentID)
   singleTransistorInput.inputs.id = transistorComponentID 
-  singleTransistorInput.inputs.transistorType = transistorType.toUpperCase() 
+  singleTransistorInput.inputs.transistorType = transistorType
   console.log(singleTransistorInput)
 
   const { loading, error, data } = useQuery(GET_SINGLE_TRANSISTOR, {variables: singleTransistorInput});
@@ -29,11 +29,10 @@ function TransistorView() {
   const excludedFields = new Set(['__typename', 'componentType', 'model', 'price', 'amountAvailable']);
 
   const transistor = data ? data.transistorListQuery[0] : [];
-
+    console.log("2")
   console.log(transistor.package)
   
   let transistorPackage = transistor.package
-    console.log(transistorPackage.toUpperCase())
   const transistorAttributes = Object.keys(transistor).map((key) => {
     if (!excludedFields.has(key)) {
         return [key,transistor[key]];
