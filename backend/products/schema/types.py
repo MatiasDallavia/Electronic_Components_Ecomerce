@@ -25,12 +25,25 @@ class CapacitorType(DjangoObjectType, ProductTypeField):
 
 
 class ResistorType(DjangoObjectType, ProductTypeField):
+    resistance = graphene.String()
+    tolerance = graphene.String()
+    power = graphene.String()
+
     class Meta:
         model = Resistor
         fields = "__all__"
 
     def resolve_component_type(self, info):
         return "resistor"
+    
+    def resolve_resistance(self, info):
+        return check_ohm_notation(self.resistance)
+
+    def resolve_tolerance(self, info):
+        return f"{int(self.tolerance)} %"
+
+    def resolve_power(self, info):
+        return check_power_notation(self.power) 
 
 
 class DiodeType(DjangoObjectType, ProductTypeField):
@@ -149,7 +162,7 @@ class IGBTType(BaseProductModelType, ProductTypeField):
         return check_ampere_notation(self.ic)
 
     def resolve_power_max(self, info):
-        return f"{int(self.power_max)} W"
+        return check_power_notation(self.power) 
 
     def resolve_gc(self, info):
         return f"{int(self.gc)} nC"
@@ -186,6 +199,14 @@ def check_voltage_notation(field_number):
 
 
 def check_ohm_notation(field_number):
+    if field_number >= 1000:
+        field_number = int(field_number) * pow(10, -3)
+        if field_number.is_integer():
+            field_number = f"{field_number}".split(".")[0]
+        else:
+            field_number = f"{field_number}"
+        return field_number + " kΩ"
+
     if field_number >= 1.0:
         if field_number.is_integer():
             field_number = f"{field_number}".split(".")[0]
@@ -194,6 +215,25 @@ def check_ohm_notation(field_number):
         return field_number + " Ω"
     else:
         return convert_to_mili(field_number) + " mΩ"
+
+
+def check_power_notation(field_number):
+    if field_number >= 1000:
+        field_number = int(field_number) * pow(10, -3)
+        if field_number.is_integer():
+            field_number = f"{field_number}".split(".")[0]
+        else:
+            field_number = f"{field_number}"
+        return field_number + " kW"
+
+    if field_number >= 1.0:
+        if field_number.is_integer():
+            field_number = f"{field_number}".split(".")[0]
+        else:
+            field_number = f"{field_number}"
+        return field_number + " W"
+    else:
+        return convert_to_mili(field_number) + " mW"
 
 
 def convert_to_mili(field_number):
