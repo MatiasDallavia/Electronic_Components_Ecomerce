@@ -12,6 +12,7 @@ import DiodeView from "./components/component_views/DiodeView.js"
 import ResistorView from "./components/component_views/ResistorView.js";
 import InductorView from "./components/component_views/InductorView.js";
 import CapacitorView from "./components/component_views/CapacitorView.js";
+import TransistorView from "./components/component_views/TransistorView.js";
 import ProductView from "./components/ProductView";
 import Login from "./components/Login";
 import Register from "./components/Register";
@@ -25,7 +26,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="transistor">
             <Route path="search/" element={<SearchTransistor/>} />
-            <Route path="view/:transistorType/:transistorComponentID" element={<ProductView />} />
+            <Route path="view/:transistorType/:transistorComponentID" element={<TransistorView />} />
           </Route>
           <Route path="resistor">
             <Route path="search/" element={<SearchResistor/>} />

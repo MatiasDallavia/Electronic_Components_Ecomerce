@@ -26,7 +26,6 @@ query Transistors($inputs: TransistorInput!){
             operatingTemperature
             amountAvailable
             manufacturer
-            isActive
             package
             vds
             driveVoltage
