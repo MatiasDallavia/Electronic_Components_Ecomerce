@@ -1,15 +1,4 @@
 import graphene
-from graphene_django.types import DjangoObjectType
-from products.models import BJT, IGBT, MOSFET, Capacitor, Diode, Inductor, Resistor
-from products.schema.enums import (
-    BJTPackagesOptionsEnum,
-    BJTTypesEnum,
-    IGBTPackagesOptionsEnum,
-    ManufacturerEnum,
-    MOSFETPackagesOptionsEnum,
-    MountingTechnologyEnum,
-)
-
 
 class BaseProductModelType(graphene.ObjectType):
     id = graphene.ID()
@@ -35,16 +24,13 @@ class ProductTypeField(graphene.ObjectType):
     component_type = graphene.String()
 
 
-class CapacitorType(DjangoObjectType, BaseProductModelType, ProductTypeField):
+class CapacitorType(BaseProductModelType, ProductTypeField):
     capacitor_type = graphene.String()
     capacitance = graphene.String()
     tolerance = graphene.String()
     voltage = graphene.String()
     esr = graphene.String()
 
-    class Meta:
-        model = Capacitor
-        fields = "__all__"
 
     def resolve_component_type(self, info):
         return "capacitor"
@@ -69,14 +55,11 @@ class CapacitorType(DjangoObjectType, BaseProductModelType, ProductTypeField):
     def resolve_esr(self, info):
         return check_ohm_notation(self.esr)          
 
-class ResistorType(DjangoObjectType, ProductTypeField):
+class ResistorType(BaseProductModelType, ProductTypeField):
     resistance = graphene.String()
     tolerance = graphene.String()
     power = graphene.String()
 
-    class Meta:
-        model = Resistor
-        fields = "__all__"
 
     def resolve_component_type(self, info):
         return "resistor"
@@ -94,14 +77,10 @@ class ResistorType(DjangoObjectType, ProductTypeField):
         return f"{int(self.operating_temperature)}C°"    
 
 
-class DiodeType(DjangoObjectType, ProductTypeField):
+class DiodeType(BaseProductModelType, ProductTypeField):
     current = graphene.String()
     dc_reverse = graphene.String()
     reverse_recovery = graphene.String()
-
-    class Meta:
-        model = Diode
-        fields = "__all__"
 
     def resolve_component_type(self, info):
         return "diode"
@@ -116,10 +95,7 @@ class DiodeType(DjangoObjectType, ProductTypeField):
         return check_ampere_notation(self.reverse_recovery)
 
 
-class InductorType(DjangoObjectType, ProductTypeField):
-    class Meta:
-        model = Inductor
-        fields = "__all__"
+class InductorType(BaseProductModelType, ProductTypeField):
 
     def resolve_component_type(self, info):
         return "inductor"
