@@ -58,7 +58,7 @@ class BaseProductModelType(graphene.ObjectType):
     description = graphene.String()
     price = graphene.Float()
     mounting_technology = graphene.String()
-    operating_temperature = graphene.Float()
+    operating_temperature = graphene.String()
     amount_available = graphene.Int()
     manufacturer = graphene.String()
     package = graphene.String()
@@ -66,36 +66,49 @@ class BaseProductModelType(graphene.ObjectType):
     def resolve_package(self, info):
         return self.package.replace("-","_")
 
+    def resolve_operating_temperature(self, info):
+        return f"{self.operating_temperature} C°"   
+
 
 class BJTType(BaseProductModelType, ProductTypeField):
     bjt_type = graphene.String()
-    ic_max = graphene.Float()
-    vce_saturation = graphene.Float()
-    dc_current_gain = graphene.Float()
+    ic_max = graphene.String()
+    vce_saturation = graphene.String()
+    dc_current_gain = graphene.String()
 
     def resolve_component_type(self, info):
         return "BJT"
+    
+    def resolve_ic_max(self, info):
+        value = check_ampere_intiger(self.ic_max)
+        return value
+    
+    def resolve_dc_current_gain(self, info):
+        return int(self.dc_current_gain)    
+
+    def resolve_vce_saturation(self, info):
+        return convert_to_mili(self.vce_saturation) + " mV"        
 
 
 
 class MOSFETType(BaseProductModelType, ProductTypeField):
-    vds = graphene.Float()
-    drive_voltage = graphene.Float()
-    rds_on = graphene.Float()
-    vgs = graphene.Float()
-    input_capacitance = graphene.Float()
+    vds = graphene.String()
+    drive_voltage = graphene.String()
+    rds_on = graphene.String()
+    vgs = graphene.String()
+    input_capacitance = graphene.String()
 
     def resolve_component_type(self, info):
         return "MOSFET"
 
 
 class IGBTType(BaseProductModelType, ProductTypeField):
-    vc = graphene.Float()
-    ic = graphene.Float()
-    vce_on = graphene.Float()
-    power_max = graphene.Float()
-    td = graphene.Float()
-    gc = graphene.Float()
+    vc = graphene.String()
+    ic = graphene.String()
+    vce_on = graphene.String()
+    power_max = graphene.String()
+    td = graphene.String()
+    gc = graphene.String()
 
     def resolve_component_type(self, info):
         return "IGBT"
@@ -104,3 +117,17 @@ class IGBTType(BaseProductModelType, ProductTypeField):
 class TransistorType(graphene.Union):
     class Meta:
         types = (BJTType, MOSFETType, IGBTType)
+
+
+def check_ampere_intiger(field_number):
+    if field_number >= 1.0:
+        if {field_number} .is_integer(): 
+            field_number = field_number.split(".")[0]
+        return f"{field_number} A" 
+    else:    
+        return convert_to_mili(field_number) + " mA" 
+
+
+def convert_to_mili(field_number):
+    return f"{float(field_number) * pow(10, 3)}".split(".")[0]
+
