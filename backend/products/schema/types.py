@@ -80,14 +80,13 @@ class BJTType(BaseProductModelType, ProductTypeField):
         return "BJT"
     
     def resolve_ic_max(self, info):
-        value = check_ampere_intiger(self.ic_max)
-        return value
+        return check_ampere_notation(self.ic_max)
     
     def resolve_dc_current_gain(self, info):
         return int(self.dc_current_gain)    
 
     def resolve_vce_saturation(self, info):
-        return convert_to_mili(self.vce_saturation) + " mV"        
+        return check_voltage_notation(self.vce_saturation)        
 
 
 
@@ -101,6 +100,20 @@ class MOSFETType(BaseProductModelType, ProductTypeField):
     def resolve_component_type(self, info):
         return "MOSFET"
 
+    def resolve_rds_on(self, info):
+        return check_ohm_notation(self.rds_on)
+    
+    def resolve_vgs(self, info):
+        return check_voltage_notation(self.vgs)
+
+    def resolve_drive_voltage(self, info):
+        return check_voltage_notation(self.drive_voltage)   
+
+    def resolve_vds(self, info):
+        return check_voltage_notation(self.vds)     
+
+    def resolve_input_capacitance(self, info):
+        return f"{int(self.vds)} pF"              
 
 class IGBTType(BaseProductModelType, ProductTypeField):
     vc = graphene.String()
@@ -119,13 +132,31 @@ class TransistorType(graphene.Union):
         types = (BJTType, MOSFETType, IGBTType)
 
 
-def check_ampere_intiger(field_number):
+def check_ampere_notation(field_number):
     if field_number >= 1.0:
-        if {field_number} .is_integer(): 
-            field_number = field_number.split(".")[0]
-        return f"{field_number} A" 
+        if field_number.is_integer(): 
+            field_number = f"{field_number}".split(".")[0]
+        return field_number + " A" 
     else:    
         return convert_to_mili(field_number) + " mA" 
+    
+
+def check_voltage_notation(field_number):
+    if field_number >= 1.0:
+        if field_number.is_integer(): 
+            field_number = f"{field_number}".split(".")[0]
+        return field_number + " V" 
+    else:    
+        return convert_to_mili(field_number) + " mV"    
+
+
+def check_ohm_notation(field_number):
+    if field_number >= 1.0:
+        if field_number.is_integer(): 
+            field_number = f"{field_number}".split(".")[0]
+        return field_number + " Ω" 
+    else:    
+        return convert_to_mili(field_number) + " mΩ"     
 
 
 def convert_to_mili(field_number):
