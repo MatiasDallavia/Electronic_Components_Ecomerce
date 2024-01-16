@@ -50,7 +50,7 @@ function TransistorView() {
                         <div>
                         <img 
                             id="cover-image-product" 
-                            src={transistorImages["TO_220"]}
+                            src={transistorImages[transistor.package]}
                         />
 
                         <table>
