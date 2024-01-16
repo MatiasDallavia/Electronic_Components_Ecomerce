@@ -126,7 +126,25 @@ class IGBTType(BaseProductModelType, ProductTypeField):
     def resolve_component_type(self, info):
         return "IGBT"
 
+    def resolve_vc(self, info):
+        return check_voltage_notation(self.vc) 
 
+    def resolve_vce_on(self, info):
+        return check_voltage_notation(self.vc) 
+
+    def resolve_ic(self, info):
+        return check_ampere_notation(self.ic) 
+
+    def resolve_power_max(self, info):
+        return f"{int(self.power_max)} W" 
+
+    def resolve_gc(self, info):
+        return f"{int(self.gc)} nC"
+    
+    def resolve_td(self, info):
+        return f"{int(self.td)} ns"    
+    
+    
 class TransistorType(graphene.Union):
     class Meta:
         types = (BJTType, MOSFETType, IGBTType)
