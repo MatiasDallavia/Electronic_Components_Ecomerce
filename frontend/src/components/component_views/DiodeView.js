@@ -32,7 +32,9 @@ function DiodeView() {
     return null;
     }).filter(Boolean);
 
-
+    let packageImage;
+    const componentPackage = diode.package
+    console.log(componentPackage)
   return (
     <div class="container pt-5">
 

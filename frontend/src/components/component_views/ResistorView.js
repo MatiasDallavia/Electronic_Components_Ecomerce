@@ -21,7 +21,7 @@ function ResistorView() {
   singleResistorInput.inputs.id = resistorComponentID 
   const { loading, error, data } = useQuery(GET_SINGLE_RESISTOR, {variables: singleResistorInput});
 
-  const excludedFields = new Set(['__typename', 'componentType', 'model', 'price', 'amountAvailable']);
+  const excludedFields = new Set(['__typename', 'package', 'componentType', 'model', 'price', 'amountAvailable']);
 
   const resistor = data ? data.resistorListQuery[0] : [];
 
@@ -32,7 +32,8 @@ function ResistorView() {
     return null;
     }).filter(Boolean);
 
-
+    console.log(resistor.package)
+    console.log(resistor.power)
   return (
     <div class="container pt-5">
 
@@ -44,12 +45,16 @@ function ResistorView() {
                         <img 
                             id="cover-image-product" 
                             src={
-                                resistor.power > 9 && resistor.mountingTechnology === "THT" ? resistorImages["Watt10"] :
-                                resistor.power > 4 && resistor.mountingTechnology === "THT" ? resistorImages["Watt5"] :
-                                resistor.power > 1 && resistor.mountingTechnology === "THT" ? resistorImages["Watt3"] :
-                                resistor.power > 0 && resistor.mountingTechnology === "THT" ? resistorImages["quarterWatt"] :
-                                resistor.mountingTechnology === "SMD" ? resistorImages[resistor.package] :
+                                resistor.mountingTechnology === "THT" ? (
+                                    resistor.power === "250mW" ? resistorImages.quarterWatt :
+                                    resistor.power === "5W" ? resistorImages.Watt5 :
+                                    null
+                                ):
+                                (    
+                                resistor.package == "0402" ? resistorImages.A_0402 :
+                                resistor.package == "0603" ? resistorImages.A_0603 :
                                 null
+                                )
                             }
                         />
 

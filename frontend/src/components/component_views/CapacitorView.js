@@ -35,17 +35,34 @@ function CapacitorView() {
 
     let image
    if (capacitor.package === "BULK" ) {
-    const capacitance = capacitor.capacitance
-    if (capacitance > 1000) {
-        image = capacitorImages["C1000"];
-    } else if (capacitance > 680) {
-        image = capacitorImages["C680"];
-    } else if (capacitance > 10) {
-        image = capacitorImages["C10"];
+    if (capacitor.mountingTechnology === "THT"){
+
+        const capacitance = capacitor.capacitance
+        if (capacitance === "1000pF") {
+            image = capacitorImages.C1000;
+        } else if (capacitance > "680uF") {
+            image = capacitorImages.C680;
+        } else{
+            image = capacitorImages.C10
+        }
+      }
+    else{
+        image = capacitorImages.ELECTROLYTIC_SMD
     }
+
    }
-   if (capacitor.capacitorType === "CERAMIC" && capacitor.mountingTechnology === "THT"){
-        image = capacitorImages[capacitor.package]
+   console.log(typeof(capacitor.package))
+   if (capacitor.capacitorType === "Ceramic Capacitor" ){
+        if (capacitor.mountingTechnology === "THT"){
+            if (capacitor.package === "104"){
+                image = capacitorImages.C104
+            }
+            if (capacitor.package === "103"){
+                image = capacitorImages.C103
+            }
+      } else{
+            image = capacitorImages.P2220
+      }
     }
    
     console.log(image)

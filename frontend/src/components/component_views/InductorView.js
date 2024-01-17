@@ -19,9 +19,10 @@ function InductorView() {
 
   const { inductorComponentID } = useParams();
   singleInductorInput.inputs.id = inductorComponentID 
-  const { loading, error, data } = useQuery(GET_SINGLE_INDUCTOR, {variables: singleInductorInput});
+  console.log(singleInductorInput)
 
-  const excludedFields = new Set(['__typename', 'componentType', 'model', 'price', 'amountAvailable']);
+  const { loading, error, data } = useQuery(GET_SINGLE_INDUCTOR, {variables: singleInductorInput});
+  const excludedFields = new Set(['__typename', 'package', 'componentType', 'model', 'price', 'amountAvailable']);
 
   const inductor = data ? data.inductorListQuery[0] : [];
 
@@ -32,7 +33,26 @@ function InductorView() {
     return null;
     }).filter(Boolean);
 
-    
+    let packageImage;
+    const componentPackage = inductor.package
+    switch (componentPackage){
+        case "DIL":
+            packageImage = inductorImages.DIL
+        break
+        case "2220":
+            packageImage = inductorImages.P2220
+        break
+        case "330":
+            packageImage = inductorImages.P330
+        break
+        case "220":
+            packageImage = inductorImages.P220
+        break
+        case "101":
+            packageImage = inductorImages.P101
+        break
+    }
+    console.log(packageImage)
   return (
     <div class="container pt-5">
 
@@ -43,7 +63,7 @@ function InductorView() {
                         <div>
                         <img 
                             id="cover-image-product" 
-                            src={inductorImages[inductor.package]}
+                            src={packageImage}
                         />
 
                         <table>
