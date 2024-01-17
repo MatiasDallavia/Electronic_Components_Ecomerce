@@ -7,109 +7,87 @@ import ProductCharacteristicRow from './ProductCharacteristicRow';
 
 import {transistorImages} from "../../images/components/component_images_objects/transistorImages"
 
-import { parseComponentAttributeText } from '../../uitls';
-
-
+import { parseComponentAttributeText } from '../../utils/callbacks';
 
 
 function TransistorView() {
-
-  const [cartButton, serInCart] = useState(false)
-
-
-  const { transistorType, transistorComponentID } = useParams();
-  console.log(transistorType, transistorComponentID)
-  singleTransistorInput.inputs.id = transistorComponentID 
-  singleTransistorInput.inputs.transistorType = transistorType
-  console.log(singleTransistorInput)
-
-  const { loading, error, data } = useQuery(GET_SINGLE_TRANSISTOR, {variables: singleTransistorInput});
-
-  const excludedFields = new Set(['__typename', 'componentType', 'model', 'price', 'amountAvailable']);
-
-  const transistor = data ? data.transistorListQuery[0] : [];
-    console.log("2")
-  console.log(transistor.package)
+    const [cartButton, setInCart] = useState(false);
+    const { transistorType, transistorComponentID } = useParams();
+    const singleTransistorInput = { inputs: { id: transistorComponentID, transistorType } };
+    const { loading, error, data } = useQuery(GET_SINGLE_TRANSISTOR, { variables: singleTransistorInput });
   
-  let transistorPackage = transistor.package
-  console.log(transistorPackage)
-  const transistorAttributes = Object.keys(transistor).map((key) => {
-    if (!excludedFields.has(key)) {
-        return [key,transistor[key]];
-    }
-    return null;
-    }).filter(Boolean);
-
-  return (
-    <div class="container pt-5">
-
-        <div class="row">
-        <div class="col-4" >
-            
-                <div class="container d-flex flex-column align-items-center justify-content-between main-attributes">
-                        <div>
-                        <img 
-                            id="cover-image-product" 
-                            src={transistorImages[transistor.package]}
-                        />
-
-                        <table>
-                            <tr>
-                                <td>Price</td>
-                                <td>${transistor.price}</td>
-                            </tr>
-                            <tr>
-                                <td>Units Available</td>
-                                <td>{transistor.amountAvailable}</td>
-                            </tr>
-                            <tr>
-                                <td>Component Type</td>
-                                <td>transistor</td>
-                            </tr>
-                        </table>
-                    </div>
-                        {cartButton === false && 
-                        <button 
-                            type="button" 
-                            class="btn btn-success btn-lg btn-block"
-                            onClick={(e) => serInCart(true)}
-                        >
-                            Add to Cart
-                        </button>
-                        }
-                        {cartButton === true && 
-                        <button 
-                            type="button" 
-                            class="btn btn-warning btn-lg btn-block"
-                            onClick={(e) => serInCart(false)}
-                        >
-                            Remove from Cart
-                        </button>
-                        }
-                </div>
-        </div>
-        <div class="col-8">
-            <table class="table table-no-hover table-no-border table-striped product-attributes">
-                <thead>
-                <tr class="table-dark">
-                    <th scope="col" colspan="2">Product Attributes</th>
-                </tr>
-                </thead>
-                <tbody>
-                    {
-                       transistorAttributes.map((attr) => (
-                            <ProductCharacteristicRow 
-                                attribute={parseComponentAttributeText(attr[0])} 
-                                value={attr[1]}
-                            />
-                        ))
-                    }
-                </tbody>
-            </table>
+    const transistor = data ? data.transistorListQuery[0] : {};
+    const excludedFields = new Set(['__typename', 'componentType', 'model', 'price', 'amountAvailable']);
+    const transistorAttributes = Object.keys(transistor)
+      .filter((key) => !excludedFields.has(key))
+      .map((key) => [key, transistor[key]])
+      .filter(Boolean);
+  
+    const { package: transistorPackage, price, amountAvailable } = transistor;
+  
+    return (
+      <div className="container pt-5">
+        <div className="row">
+          <div className="col-4">
+            <div className="container d-flex flex-column align-items-center justify-content-between main-attributes">
+              <div>
+                <img id="cover-image-product" src={transistorImages[transistorPackage]} alt="Transistor" />
+                <table>
+                  <tr>
+                    <td>Price</td>
+                    <td>${price}</td>
+                  </tr>
+                  <tr>
+                    <td>Units Available</td>
+                    <td>{amountAvailable}</td>
+                  </tr>
+                  <tr>
+                    <td>Component Type</td>
+                    <td>transistor</td>
+                  </tr>
+                </table>
+              </div>
+              {cartButton === false && (
+                <button
+                  type="button"
+                  className="btn btn-success btn-lg btn-block"
+                  onClick={() => setInCart(true)}
+                >
+                  Add to Cart
+                </button>
+              )}
+              {cartButton === true && (
+                <button
+                  type="button"
+                  className="btn btn-warning btn-lg btn-block"
+                  onClick={() => setInCart(false)}
+                >
+                  Remove from Cart
+                </button>
+              )}
             </div>
+          </div>
+          <div className="col-8">
+            <table className="table table-no-hover table-no-border table-striped product-attributes">
+              <thead>
+                <tr className="table-dark">
+                  <th scope="col" colSpan="2">Product Attributes</th>
+                </tr>
+              </thead>
+              <tbody>
+                {transistorAttributes.map(([attr, value]) => (
+                  <ProductCharacteristicRow
+                    key={attr}
+                    attribute={parseComponentAttributeText(attr)}
+                    value={value}
+                  />
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
-    </div>
-  )
-}
-
-export default TransistorView
+      </div>
+    );
+  }
+  
+  export default TransistorView;

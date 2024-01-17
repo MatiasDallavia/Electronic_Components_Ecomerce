@@ -8,7 +8,7 @@ import ELECTROLYTIC_SMD from "../ELECTROLYTIC_SMD.jpg"
 
 
 
-const capacitorImages = {
+const capacitorPackages = {
   C1000: C1000uf,
   C680: C680uf,
   C10: C10uf,
@@ -18,4 +18,4 @@ const capacitorImages = {
   ELECTROLYTIC_SMD: ELECTROLYTIC_SMD,
 };
 
-export {capacitorImages}
+export {capacitorPackages}

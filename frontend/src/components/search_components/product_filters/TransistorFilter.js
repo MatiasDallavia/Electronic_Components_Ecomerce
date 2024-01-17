@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import BJTFilter from './BJTFilter';
 import MOSFETFilter from './MOSFETFilter';
 import IGBTFilter from './IGBTFilter';
-import { handleInputChange } from '../../../uitls';
+import { handleInputChange } from '../../../utils/callbacks';
+
 
 function TransistorFilter({transistorType, transistorTypeFilterChange, setQueryVariables}) {
 
