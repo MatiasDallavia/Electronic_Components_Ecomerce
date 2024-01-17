@@ -11,6 +11,7 @@ class BaseProductModelType(graphene.ObjectType):
     amount_available = graphene.Int()
     manufacturer = graphene.String()
     package = graphene.String()
+    component_type = graphene()
 
     def resolve_package(self, info):
         return self.package.replace("-", "_")
@@ -20,11 +21,9 @@ class BaseProductModelType(graphene.ObjectType):
             return f"{int(self.operating_temperature)} C°"
         return f"{self.operating_temperature} C°"
 
-class ProductTypeField(graphene.ObjectType):
-    component_type = graphene.String()
 
 
-class CapacitorType(BaseProductModelType, ProductTypeField):
+class CapacitorType(BaseProductModelType):
     capacitor_type = graphene.String()
     capacitance = graphene.String()
     tolerance = graphene.String()
@@ -55,7 +54,7 @@ class CapacitorType(BaseProductModelType, ProductTypeField):
     def resolve_esr(self, info):
         return check_ohm_notation(self.esr)          
 
-class ResistorType(BaseProductModelType, ProductTypeField):
+class ResistorType(BaseProductModelType):
     resistance = graphene.String()
     tolerance = graphene.String()
     power = graphene.String()
@@ -76,11 +75,11 @@ class ResistorType(BaseProductModelType, ProductTypeField):
     def resolve_operating_temperature(self, info):
         return f"{int(self.operating_temperature)}C°"    
 
-
-class DiodeType(BaseProductModelType, ProductTypeField):
+class DiodeType(BaseProductModelType):
     current = graphene.String()
     dc_reverse = graphene.String()
     reverse_recovery = graphene.String()
+    diode_type = graphene.String()
 
     def resolve_component_type(self, info):
         return "diode"
@@ -93,9 +92,12 @@ class DiodeType(BaseProductModelType, ProductTypeField):
 
     def resolve_reverse_recovery(self, info):
         return check_ampere_notation(self.reverse_recovery)
+    
+    def resolve_diode_type(self, info):
+        diode_type = self.diode_type.lower()
+        return self.diode_type.capitalize()
 
-
-class InductorType(BaseProductModelType, ProductTypeField):
+class InductorType(BaseProductModelType):
     inductor_type = graphene.String()
     core_material = graphene.String()
     inductance = graphene.String()
@@ -128,7 +130,7 @@ class InductorType(BaseProductModelType, ProductTypeField):
 
            
 
-class BJTType(BaseProductModelType, ProductTypeField):
+class BJTType(BaseProductModelType):
     bjt_type = graphene.String()
     ic_max = graphene.String()
     vce_saturation = graphene.String()
@@ -147,7 +149,7 @@ class BJTType(BaseProductModelType, ProductTypeField):
         return check_voltage_notation(self.vce_saturation)
 
 
-class MOSFETType(BaseProductModelType, ProductTypeField):
+class MOSFETType(BaseProductModelType):
     vds = graphene.String()
     drive_voltage = graphene.String()
     rds_on = graphene.String()
@@ -173,7 +175,7 @@ class MOSFETType(BaseProductModelType, ProductTypeField):
         return f"{int(self.vds)}pF"
 
 
-class IGBTType(BaseProductModelType, ProductTypeField):
+class IGBTType(BaseProductModelType):
     vc = graphene.String()
     ic = graphene.String()
     vce_on = graphene.String()
@@ -194,7 +196,7 @@ class IGBTType(BaseProductModelType, ProductTypeField):
         return check_ampere_notation(self.ic)
 
     def resolve_power_max(self, info):
-        return check_power_notation(self.power) 
+        return check_power_notation(self.power_max) 
 
     def resolve_gc(self, info):
         return f"{int(self.gc)}nC"
