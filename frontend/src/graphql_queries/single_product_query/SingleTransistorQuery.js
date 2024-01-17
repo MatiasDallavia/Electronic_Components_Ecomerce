@@ -42,7 +42,6 @@ query Transistors($inputs: TransistorInput!){
             amountAvailable
             manufacturer
             package          
-            package
             vc
             ic
             vceOn

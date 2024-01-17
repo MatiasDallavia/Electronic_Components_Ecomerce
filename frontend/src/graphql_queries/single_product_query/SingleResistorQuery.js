@@ -11,7 +11,6 @@ const GET_SINGLE_RESISTOR = gql`
             amountAvailable
             manufacturer
             package
-            resistorType
             resistance
             tolerance
             power

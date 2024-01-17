@@ -16,7 +16,6 @@ query GetInductors($inputs: InductorInput!){
       inductance
       current
       vr
-      rr 
   }
 }`;
 
