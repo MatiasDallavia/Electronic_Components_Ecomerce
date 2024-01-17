@@ -11,7 +11,7 @@ class BaseProductModelType(graphene.ObjectType):
     amount_available = graphene.Int()
     manufacturer = graphene.String()
     package = graphene.String()
-    component_type = graphene()
+    component_type = graphene.String()
 
     def resolve_package(self, info):
         return self.package.replace("-", "_")
