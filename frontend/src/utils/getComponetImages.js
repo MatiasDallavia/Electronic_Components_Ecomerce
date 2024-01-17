@@ -37,7 +37,7 @@ function getCapacitorImage(capacitor) {
       const capacitance = capacitor.capacitance;
       if (capacitance === "1000pF") {
         return capacitorPackages.C1000;
-      } else if (capacitance > "680uF") {
+      } else if (capacitance === "680uF") {
         return capacitorPackages.C680;
       } else {
         return capacitorPackages.C10;

@@ -10,6 +10,9 @@ const GET_LIST_CAPACITORS = gql`
             amountAvailable
             manufacturer
             package
+            capacitance
+            capacitorType
+            mountingTechnology
             componentType
         }
     }`;

@@ -11,6 +11,8 @@ const GET_LIST_RESISTORS = gql`
             manufacturer
             package
             componentType
+            power
+            mountingTechnology
             }
         }`;
 
