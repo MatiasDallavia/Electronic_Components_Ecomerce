@@ -6,9 +6,10 @@ import ProductCharacteristicRow from './ProductCharacteristicRow';
 
 import { diodeImages } from "../../images/components/component_images_objects/diodePackages";
 import { parseComponentAttributeText } from '../../utils/callbacks';
+import { addToCart, removeFromCart, isComponentInCart } from '../../utils/cartFunctions';
+
 
 function DiodeView() {
-  const [cartButton, setInCart] = useState(false);
   const { diodeComponentID } = useParams();
   singleDiodeInput.inputs.id = diodeComponentID;
 
@@ -21,6 +22,9 @@ function DiodeView() {
     .map(([key, value]) => [key, value]);
 
   const packageImage = diodeImages[diode.package];
+
+  const isInCart = isComponentInCart("diode", diodeComponentID);
+  const [cartButton, setInCart] = useState(isInCart);    
 
   return (
     <div className="container pt-5">
@@ -50,24 +54,24 @@ function DiodeView() {
                 </tbody>
               </table>
             </div>
-            {cartButton === false && 
-              <button 
-                type="button" 
-                className="btn btn-success btn-lg btn-block"
-                onClick={() => setInCart(true)}
-              >
-                Add to Cart
-              </button>
-            }
-            {cartButton === true && 
-              <button 
-                type="button" 
-                className="btn btn-warning btn-lg btn-block"
-                onClick={() => setInCart(false)}
-              >
-                Remove from Cart
-              </button>
-            }
+            {cartButton === false && (
+                <button
+                  type="button"
+                  className="btn btn-success btn-lg btn-block"
+                  onClick={() => { setInCart(true); addToCart("diode", diodeComponentID);}}
+                >
+                  Add to Cart
+                </button>
+              )}
+              {cartButton === true && (
+                <button
+                  type="button"
+                  className="btn btn-warning btn-lg btn-block"
+                  onClick={() => { setInCart(false); removeFromCart("diode", diodeComponentID);}}
+                >
+                  Remove from Cart
+                </button>
+              )}
           </div>
         </div>
         <div className="col-8">
