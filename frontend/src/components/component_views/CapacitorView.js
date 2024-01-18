@@ -7,9 +7,11 @@ import ProductCharacteristicRow from './ProductCharacteristicRow';
 import { parseComponentAttributeText } from '../../utils/callbacks';
 import { getCapacitorImage } from '../../utils/getComponetImages';
 
+import { addToCart, removeFromCart, isComponentInCart } from '../../utils/cartFunctions';
+
+
 
 function CapacitorView() {
-  const [cartButton, setInCart] = useState(false);
   const { capacitorComponentID } = useParams();
   SingleCapacitorInput.inputs.id = capacitorComponentID;
   const { loading, error, data } = useQuery(GET_SINGLE_CAPACITOR, { variables: SingleCapacitorInput });
@@ -21,6 +23,9 @@ function CapacitorView() {
     .map(([key, value]) => [key, value]);
 
   let image = getCapacitorImage(capacitor);
+
+  const isInCart = isComponentInCart("capacitor", capacitorComponentID);
+  const [cartButton, setInCart] = useState(isInCart);    
 
   return (
     <div className="container pt-5">
@@ -45,23 +50,23 @@ function CapacitorView() {
               </table>
             </div>
             {cartButton === false && (
-              <button
-                type="button"
-                className="btn btn-success btn-lg btn-block"
-                onClick={() => setInCart(true)}
-              >
-                Add to Cart
-              </button>
-            )}
-            {cartButton === true && (
-              <button
-                type="button"
-                className="btn btn-warning btn-lg btn-block"
-                onClick={() => setInCart(false)}
-              >
-                Remove from Cart
-              </button>
-            )}
+                <button
+                  type="button"
+                  className="btn btn-success btn-lg btn-block"
+                  onClick={() => { setInCart(true); addToCart("capacitor", capacitorComponentID);}}
+                >
+                  Add to Cart
+                </button>
+              )}
+              {cartButton === true && (
+                <button
+                  type="button"
+                  className="btn btn-warning btn-lg btn-block"
+                  onClick={() => { setInCart(false); removeFromCart("capacitor", capacitorComponentID);}}
+                >
+                  Remove from Cart
+                </button>
+              )}
           </div>
         </div>
         <div className="col-8">
