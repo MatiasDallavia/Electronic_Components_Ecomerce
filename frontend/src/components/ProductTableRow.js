@@ -16,6 +16,7 @@ import { getCapacitorImage } from '../utils/getComponetImages';
 
 function ProductTableRow({product}) {
   const navigate = useNavigate();
+  const [ inCart, setInCart ] = useState(false)
 
   const redirectModelView = (productType ,productID) =>{
     console.log("productType:", productType);
@@ -32,6 +33,12 @@ function ProductTableRow({product}) {
       navigate(`/${productType}/view/${productID}`);
     }
   }
+
+  const getProductInCart = () => {
+    inCart = setInCart[!inCart];
+  }
+
+
   console.log(product?.componentType)
   console.log(product?.package)
   console.log(transistorImages[product?.package])
@@ -67,6 +74,7 @@ function ProductTableRow({product}) {
         <td class="table-row-product description">{product?.description}</td>
         <td class="table-row-product price">{product?.price}</td>
         <td class="table-row-product in-stock">{product?.amountAvailable}</td>
+        <td class="table-row-product mounting-technology">{product?.mountingTechnology}</td>
         <td class="table-row-product package">{product?.package}</td>
         <td class="table-row-product manufacturer">
             {product?.manufacturer == 'Infineon' && <img src={InfineonLogo} class="image-product"/>}
@@ -75,9 +83,7 @@ function ProductTableRow({product}) {
             {product?.manufacturer == 'Siemens' && <img src={seimensLogo} class="image-product"/>}
             {product?.manufacturer == 'Samsung' && <img src={SamsungLogo} class="image-product"/>}
         </td>
-        <td class="table-row-product in-cart">
-            <input class="form-check-input in-cart-checkbox" type="checkbox" value="in-cart" checked/>
-        </td>
+
     </tr>
   )
 }

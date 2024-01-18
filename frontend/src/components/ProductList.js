@@ -15,13 +15,13 @@ function ProductList({products}) {
         <Table bordered hover product-table id="products-table">
         <thead>
             <tr>
-                <th scope="col">Product</th>
-                <th scope="col">Description</th>
-                <th scope="col">Price</th>
-                <th scope="col">Units Available</th>
-                <th scope="col">Package</th>
-                <th scope="col">Manufacturer</th>
-                <th scope="col">In Cart</th>
+                <th className="title" scope="col">Product</th>
+                <th className="title"  scope="col">Description</th>
+                <th className="title"  scope="col">Price</th>
+                <th className="" scope="col">Units Available</th>
+                <th className="" scope="col">Mounting Technology</th>
+                <th className="" scope="col">Package</th>
+                <th className="" scope="col">Manufacturer</th>
             </tr>
         </thead>
         <tbody>

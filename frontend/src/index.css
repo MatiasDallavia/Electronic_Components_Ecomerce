@@ -14,7 +14,18 @@
 
 #products-table{
   margin: 50px;
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 1.0em;
+  font-family: sans-serif;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
+
+.title{
+  text-align: center;
+  
+}
+
 
 .table-row-product.image{
   width: 150px;
@@ -26,14 +37,26 @@
 }
 
 .in-cart{
-  width: 10%;
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
 }
 
-.in-cart-checkbox{
-  display: flex;
-  justify-content: center;
-  align-items: center;  width: 24px;
-  height: 24px;
+.table-row-product.in-stock{
+  width: 170px;
+}
+
+.table-row-product.mounting-technology{
+  width: 140px;
+}
+
+.table-row-product.manufacturer{
+  width: 170px;
+}
+
+input.in-cart-checkbox {
+  width: 30px; /* Cambia el tamaño a lo que desees */
+  height: 30px; /* Cambia el tamaño a lo que desees */
 }
 
 
