@@ -7,9 +7,10 @@ import ProductCharacteristicRow from './ProductCharacteristicRow';
 import { parseComponentAttributeText } from '../../utils/callbacks';
 import { getInductorPackageImage } from '../../utils/getComponetImages';
 
+import { addToCart, removeFromCart, isComponentInCart } from '../../utils/cartFunctions';
+
 
 function InductorView() {
-  const [cartButton, setInCart] = useState(false);
   const { inductorComponentID } = useParams();
   
   singleInductorInput.inputs.id = inductorComponentID;
@@ -24,6 +25,10 @@ function InductorView() {
 
 
   const packageImage = getInductorPackageImage(inductor);
+
+
+  const isInCart = isComponentInCart("inductor", inductorComponentID);
+  const [cartButton, setInCart] = useState(isInCart);  
 
   return (
     <div className="container pt-5">
@@ -49,24 +54,24 @@ function InductorView() {
                 </tbody>
               </table>
             </div>
-            {cartButton === false && 
-              <button
-                type="button"
-                className="btn btn-success btn-lg btn-block"
-                onClick={() => setInCart(true)}
-              >
-                Add to Cart
-              </button>
-            }
-            {cartButton === true && 
-              <button
-                type="button"
-                className="btn btn-warning btn-lg btn-block"
-                onClick={() => setInCart(false)}
-              >
-                Remove from Cart
-              </button>
-            }
+            {cartButton === false && (
+                <button
+                  type="button"
+                  className="btn btn-success btn-lg btn-block"
+                  onClick={() => { setInCart(true); addToCart("inductor", inductorComponentID);}}
+                >
+                  Add to Cart
+                </button>
+              )}
+              {cartButton === true && (
+                <button
+                  type="button"
+                  className="btn btn-warning btn-lg btn-block"
+                  onClick={() => { setInCart(false); removeFromCart("inductor", inductorComponentID);}}
+                >
+                  Remove from Cart
+                </button>
+              )}
           </div>
         </div>
         <div className="col-8">
