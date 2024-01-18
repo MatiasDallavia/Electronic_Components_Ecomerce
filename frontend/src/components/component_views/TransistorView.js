@@ -8,10 +8,11 @@ import ProductCharacteristicRow from './ProductCharacteristicRow';
 import {transistorImages} from "../../images/components/component_images_objects/transistorImages"
 
 import { parseComponentAttributeText } from '../../utils/callbacks';
+import { addToCart, removeFromCart, isComponentInCart } from '../../utils/cartFunctions';
 
 
 function TransistorView() {
-    const [cartButton, setInCart] = useState(false);
+
     const { transistorType, transistorComponentID } = useParams();
     const singleTransistorInput = { inputs: { id: transistorComponentID, transistorType } };
     const { loading, error, data } = useQuery(GET_SINGLE_TRANSISTOR, { variables: singleTransistorInput });
@@ -22,9 +23,13 @@ function TransistorView() {
       .filter((key) => !excludedFields.has(key))
       .map((key) => [key, transistor[key]])
       .filter(Boolean);
-  
+
     const { package: transistorPackage, price, amountAvailable } = transistor;
-  
+
+    const isInCart = isComponentInCart(transistorType, transistorComponentID);
+    const [cartButton, setInCart] = useState(isInCart);
+
+
     return (
       <div className="container pt-5">
         <div className="row">
@@ -51,7 +56,7 @@ function TransistorView() {
                 <button
                   type="button"
                   className="btn btn-success btn-lg btn-block"
-                  onClick={() => setInCart(true)}
+                  onClick={() => { setInCart(true); addToCart(transistorType, transistorComponentID);}}
                 >
                   Add to Cart
                 </button>
@@ -60,7 +65,7 @@ function TransistorView() {
                 <button
                   type="button"
                   className="btn btn-warning btn-lg btn-block"
-                  onClick={() => setInCart(false)}
+                  onClick={() => { setInCart(false); removeFromCart(transistorType, transistorComponentID);}}
                 >
                   Remove from Cart
                 </button>

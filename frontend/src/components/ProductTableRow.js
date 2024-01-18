@@ -25,11 +25,8 @@ function ProductTableRow({product}) {
     console.log("transistorTypes:", transistorTypes);
   
     if (transistorTypes.includes(productType)) {
-      console.log("dentro");
       navigate(`/transistor/view/${productType}/${productID}`);
     } else {
-      console.log("first");
-      console.log(productType, productID);
       navigate(`/${productType}/view/${productID}`);
     }
   }
