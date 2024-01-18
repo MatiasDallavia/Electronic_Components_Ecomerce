@@ -7,11 +7,10 @@ import ProductCharacteristicRow from './ProductCharacteristicRow';
 
 import { parseComponentAttributeText } from '../../utils/callbacks';
 import { getResistorImage } from '../../utils/getComponetImages';
-
+import { addToCart, removeFromCart, isComponentInCart } from '../../utils/cartFunctions';
 
 
 function ResistorView() {
-    const [cartButton, setInCart] = useState(false);
     const { resistorComponentID } = useParams();
     singleResistorInput.inputs.id = resistorComponentID;
     const { loading, error, data } = useQuery(GET_SINGLE_RESISTOR, { variables: singleResistorInput });
@@ -25,6 +24,10 @@ function ResistorView() {
   
   
     const resistorImage = getResistorImage(resistor);
+
+    const isInCart = isComponentInCart("resistor", resistorComponentID);
+    const [cartButton, setInCart] = useState(isInCart);
+
 
     return (
       <div className="container pt-5">
@@ -53,7 +56,7 @@ function ResistorView() {
                 <button
                   type="button"
                   className="btn btn-success btn-lg btn-block"
-                  onClick={() => setInCart(true)}
+                  onClick={() => { setInCart(true); addToCart("resistor", resistorComponentID);}}
                 >
                   Add to Cart
                 </button>
@@ -62,7 +65,7 @@ function ResistorView() {
                 <button
                   type="button"
                   className="btn btn-warning btn-lg btn-block"
-                  onClick={() => setInCart(false)}
+                  onClick={() => { setInCart(false); removeFromCart("resistor", resistorComponentID);}}
                 >
                   Remove from Cart
                 </button>
