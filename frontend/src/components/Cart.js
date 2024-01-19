@@ -1,9 +1,16 @@
 import React from 'react';
 import CartItemTableRow from './CartItemTableRow';
 
+import {removeFromCart} from "../utils/cartFunctions"
+
 function Cart() {
 
   const productsInCart = JSON.parse(localStorage.getItem('cart')) || [];
+
+  const removeItemFromList = (componentType, componentID) => {
+    document.querySelector(`#${componentType + componentID}`).remove()
+    removeFromCart(componentType, componentID)
+  }
 
   return (
     <div className="container">
@@ -21,7 +28,7 @@ function Cart() {
             </h4>
             <ul className="list-group mb-3">
 
-                {productsInCart.map((product) => <CartItemTableRow componentType={product[0]} componentID={product[1]}/> )}
+                {productsInCart.map((product) => <CartItemTableRow removeItemFromList={removeItemFromList} componentType={product[0]} componentID={product[1]}/> )}
 
                 <li className="list-group-item d-flex justify-content-between">
                   <span>Total (USD)</span>

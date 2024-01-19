@@ -5,18 +5,22 @@ import { gql } from '@apollo/client';
 
 import minusIcon from '../images/icons/minus.png'
 import plusIcon from '../images/icons/plus.png'
-import { mockComponent } from 'react-dom/test-utils';
+import xIcon from '../images/icons/x.webp'
+
+import {GET_CAPACITOR_FROM_CART} from "../graphql_queries/cart_item_query/CartCapacitorQuery"
+import {GET_DIODE_FROM_CART} from "../graphql_queries/cart_item_query/CartDiodeQuery"
+import {GET_RESISTOR_FOR_CART} from "../graphql_queries/cart_item_query/CartResistorQuery"
+import {GET_TRANSISTOR_FOR_CART} from "../graphql_queries/cart_item_query/CartTransistorQuery"
+import {GET_INDUCTOR_FROM_CART} from "../graphql_queries/cart_item_query/CartInductorQuery"
 
 
-function CartItemTableRow({componentType, componentID}) {
+function CartItemTableRow({componentType, componentID, removeItemFromList}) {
     console.log("DENTRO")
   const [count, setProductCount] = useState(0)
   const [productCountValue, setproductCountValue] = useState(0)
 
-  let productValue = 5;
-  let queryComponentInputType;
   let queryComponentType;
-  let productAttributes = "price inductance ";
+  let querySchema;
   let inputVariables = {
     inputs:{
         id:componentID
@@ -26,44 +30,35 @@ function CartItemTableRow({componentType, componentID}) {
     console.log(componentType)
     switch (componentType) {
         case "inductor":
-          queryComponentType = "inductorListQuery";
-          queryComponentInputType = "InductorInput";
-           productAttributes = "price inductance amountAvailable"
+          querySchema = GET_INDUCTOR_FROM_CART;
+          queryComponentType = "inductorListQuery"
           break;
         case "capacitor":
-           queryComponentType = "capacitorListQuery";
-           queryComponentInputType = "CapacitorInput";
-           productAttributes = "price capacitance amountAvailable"
+           querySchema = GET_CAPACITOR_FROM_CART;
+           queryComponentType = "capacitorListQuery"
            break;
         case "resistor":
-          queryComponentType = "resistorListQuery";
-          queryComponentInputType = "ResistorInput";
-          productAttributes = "price resistance amountAvailable"
+          querySchema = GET_RESISTOR_FOR_CART
+          queryComponentType = "resistorListQuery"
           break;          
         case "diode":
-           queryComponentType = "inductorListQuery";
-           queryComponentInputType = "DiodeInput";
-           productAttributes = "price model amountAvailable"
+           querySchema = GET_DIODE_FROM_CART
+           queryComponentType = "diodeListQuery"
            break;
         case "BJT":
         case "MOSFET":
         case "IGBT":
-           queryComponentType = "transistorListQuery";
-           queryComponentInputType = "TransistorInput";
+           querySchema = GET_TRANSISTOR_FOR_CART
+           queryComponentType = "transistorListQuery"
+           inputVariables.inputs.transistorType = componentType
            break;
      
       }
  
-console.log(queryComponentType, queryComponentInputType)
-  const GET_PRODUCT = gql`
-    query GetProducts($inputs: ${queryComponentInputType}!) {
-      ${queryComponentType}(inputs: $inputs) {
-        ${productAttributes}
-      }
-    }
-  `;
+console.log(querySchema, queryComponentType)
+console.log(inputVariables)
 
-  const { loading, error, data } = useQuery(GET_PRODUCT, { variables: inputVariables });
+  const { loading, error, data } = useQuery(querySchema, { variables: inputVariables });
   console.log(data)
   console.log(error)
 
@@ -83,7 +78,7 @@ console.log(queryComponentType, queryComponentInputType)
 
     let productName;
 
-
+  console.log(component)
     switch (componentType) {
         case "inductor":
             productName = componentType + " " + component.inductance        
@@ -104,19 +99,25 @@ console.log(queryComponentType, queryComponentInputType)
       }
 
   return (
-    <li className="list-group-item d-flex align-items-center lh-sm justify-content-between">
-        <div>
-            <h6 className="my-0">{productName}</h6>
+    <li id={componentType + componentID} className="list-group-item d-flex align-items-center justify-content-between cart-item-list">
+        <div className="d-flex align-items-center pt-2">
+            <img 
+                className="x_icon" 
+                src={xIcon} 
+                alt="X Icon" 
+                onClick={() => { removeItemFromList(componentType, componentID);}}
+            />
+            <h6 className="product-name">{productName}</h6>
         </div>
-        <div>
-            <p id="product-price" style={{ margin: 'auto', color: 'red' }}>{component.price}</p>
+        <div className="d-flex align-items-center">
+            <p style={{ color: 'red', margin: '0', marginRight: '10px' }}>{component.price}</p>
         </div>
-        <div className="d-flex align-items-center g-2">
-            <img src={plusIcon} onClick={() => updateProductCount(1)} className="plus_minus_icon m-2" alt="..." />
-            <p id="product-number" style={{ margin: 'auto', color: 'red' }}>{count}</p>
-            <img src={minusIcon} onClick={() => updateProductCount(-1)} className="plus_minus_icon m-2" alt="..." />
+        <div className="d-flex align-items-center">
+            <img src={plusIcon} onClick={() => updateProductCount(1)} className="plus_minus_icon m-2" alt="Plus Icon" />
+            <p style={{ width: "20px", color: 'red', margin: '0 10px' }}>{count}</p>
+            <img src={minusIcon} onClick={() => updateProductCount(-1)} className="plus_minus_icon m-2" alt="Minus Icon" />
         </div>
-        <span className="text-body-secondary">${productCountValue}</span>
+        <p className="text-body-secondary product-price" style={{ width: "64px" ,margin: '0', marginLeft: '10px' }}>${productCountValue}</p>
     </li>
     )
 }
