@@ -2,6 +2,9 @@ import React from 'react';
 import CartItemTableRow from './CartItemTableRow';
 
 function Cart() {
+
+  const productsInCart = JSON.parse(localStorage.getItem('cart')) || [];
+
   return (
     <div className="container">
       <main>
@@ -14,12 +17,11 @@ function Cart() {
           <div className="col-md-5 col-lg-6 order-md-last">
             <h4 className="d-flex justify-content-between align-items-center mb-3">
               <span className="text-primary">List of Products</span>
-              <span className="badge bg-primary rounded-pill">3</span>
+              <span className="badge bg-primary rounded-pill">{productsInCart.length}</span>
             </h4>
             <ul className="list-group mb-3">
 
-                <CartItemTableRow/>
-                <CartItemTableRow/>
+                {productsInCart.map((product) => <CartItemTableRow componentType={product[0]} componentID={product[1]}/> )}
 
                 <li className="list-group-item d-flex justify-content-between">
                   <span>Total (USD)</span>
