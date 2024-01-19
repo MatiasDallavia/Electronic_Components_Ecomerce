@@ -12,6 +12,8 @@ function Navbar() {
     navigate('/Cart');
   };
 
+  const productsInCart = JSON.parse(localStorage.getItem('cart')) || [];
+
   return (
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div class="container-fluid">
@@ -27,10 +29,10 @@ function Navbar() {
                 <li class="nav-item">
                     <Link to="/login" className="nav-link mt-1 mt-md-0">Login</Link>
                 </li>
-                    <li class="nav-item">
-                        < div class="nav-link mt-1 mt-md-0" aria-disabled="true" onClick={redirectToCart}>
+                    <li id="cart-icon" class="nav-item" onClick={redirectToCart}>
+                        < div class="nav-link mt-1 mt-md-0" aria-disabled="true">
                             Cart
-                            <span class="badge bg-primary rounded-pill m-1">3</span>
+                            <span class="badge bg-primary rounded-pill m-1">{productsInCart.length}</span>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
