@@ -141,7 +141,7 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 GRAPHENE = {
-    "SCHEMA": "products.schema.schema.schema",
+    "SCHEMA": "core.schema.schema",
     "MIDDLEWARE": [
         "graphql_jwt.middleware.JSONWebTokenMiddleware",
     ],
