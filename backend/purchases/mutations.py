@@ -26,5 +26,3 @@ class RegisterUserMutation(Mutation):
         user.set_password(password)
         user.save()
         return RegisterUserMutation(user=user)
-
-
