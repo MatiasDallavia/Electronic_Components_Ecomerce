@@ -15,6 +15,7 @@ class ProductInput(graphene.InputObjectType):
     component_type = graphene.Field(ComponentModelEnum)
     component_id = graphene.ID()
     price = graphene.Float()
+    quantity = graphene.Int()
 
 
 class CreateOrderInput(graphene.InputObjectType):

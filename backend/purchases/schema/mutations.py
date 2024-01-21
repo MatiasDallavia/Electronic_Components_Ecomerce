@@ -39,19 +39,25 @@ class CreateOrderMutation(Mutation):
     def mutate(self, info, inputs):
         try:
             products_kwargs = inputs["products_to_purchase"]
-            purchase_units = []
+            items = []
+            total_price = 0
             for kwargs in products_kwargs:
-                refernce_id = (
+                item_reference = (
                     kwargs["component_type"].name + "-" + kwargs["component_id"]
                 )
-                purchase_units.append(
+                items.append(
                     {
-                        "reference_id": refernce_id,
-                        "amount": {"currency_code": "USD", "value": kwargs["price"]},
+                        "name": item_reference,
+                        "unit_amount": {
+                            "currency_code": "USD",
+                            "value": kwargs["price"]
+                        },
+                        "quantity": kwargs["quantity"]
                     }
                 )
-            print(purchase_units)
-            url = make_paypal_payment(purchase_units)
+                total_price += kwargs["price"] * kwargs["quantity"]
+            print(items, total_price)
+            url = make_paypal_payment(items, total_price)
             return CreateOrderMutation(errors="", url=url)
         except Exception as e:
             return CreateOrderMutation(ResponseOrderType(errors=e, url=""))
@@ -62,14 +68,15 @@ class CaptureOrderMutation(Mutation):
         token = graphene.String()
         username = graphene.String()
 
-    errors = graphene.String()
+    errors = graphene.List(graphene.String)
     purchases = graphene.List(ProductPurchaseType)
 
     def mutate(self, info, token, username):
         print("-----")
         purchases, errors = confirm_order(token, username)
         print(purchases, errors)
+
         if errors:
             return CaptureOrderMutation(errors=errors, purchases=None)
-        return CaptureOrderMutation(errors="", purchases=purchases)
+        return CaptureOrderMutation(errors=[], purchases=purchases)
 

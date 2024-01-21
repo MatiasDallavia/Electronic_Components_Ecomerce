@@ -17,11 +17,14 @@ class UserType(DjangoObjectType):
 class ProductPurchaseType(graphene.ObjectType):
     package = graphene.String()
     component_name = graphene.String()
-    price = graphene.String()
+    price = graphene.Float()
+    quantity = graphene.Int()
+    total_price = graphene.Float()
     mounting_technology = graphene.String()
 
     def resolve_component_name(self, info):
-        component = component    
+        print("NAME: ",self.component_name.price)
+        component = self.component_name    
         if (
             isinstance(component, BJT)
             | isinstance(component, MOSFET)
@@ -38,3 +41,5 @@ class ProductPurchaseType(graphene.ObjectType):
 
         elif isinstance(component, Inductor):
             return f"Inductor {component.inductance}"
+        print("LLEGO")
+
