@@ -10,7 +10,7 @@ from purchases.schema.inputs import CreateOrderInput
 from purchases.schema.types import ResponseOrderType
 from django.apps import apps
 from purchases.models import ProductPurchase
-from purchases.paypal_functions import make_paypal_payment
+from purchases.paypal_functions import make_paypal_payment, confirm_order
 
 
 class UserType(DjangoObjectType):
@@ -43,7 +43,6 @@ class CreateOrderMutation(Mutation):
     def mutate(self, info, inputs):
         try:
             products_kwargs = inputs["products_to_purchase"]
-            user_name = inputs["user_name"]
             purchase_units = []
             print("--------------")
             for kwargs in products_kwargs:
@@ -59,3 +58,23 @@ class CreateOrderMutation(Mutation):
             return CreateOrderMutation(errors="",url=url)
         except Exception as e:
             return CreateOrderMutation(ResponseOrderType(errors=e, url=""))
+        
+
+
+class CaptureOrderMutation(Mutation):
+    class Arguments:
+        token =graphene.String()
+
+    errors = graphene.String()
+    approved = graphene.Boolean()
+
+    def mutate(self, info, token):
+        try:
+            confirm_order(token)
+            return CaptureOrderMutation(errors="",approved=True)
+        except Exception as e:
+            return CaptureOrderMutation(errors=e, approved=False)
+        
+
+
+        

@@ -12,11 +12,8 @@ url = "https://api-m.sandbox.paypal.com"
 
 
 def make_paypal_payment(purchase_units: List[dict]):
-    # Set up PayPal API credentials
 
-    # Set up API endpoints
     base_url = url
-    token_url = base_url + "/v1/oauth2/token"
 
     token_payload = {"grant_type": "client_credentials"}
     token_headers = {"Accept": "application/json", "Accept-Language": "en_US"}
@@ -50,7 +47,7 @@ def make_paypal_payment(purchase_units: List[dict]):
                     "landing_page": "LOGIN",
                     "user_action": "PAY_NOW",
                     "return_url": "https://http://localhost:3000/cart",
-                    "cancel_url": "https://example.com/cancelUrl",
+                    "cancel_url": "https://http://localhost:3000/cart",
                 }
             }
         },
@@ -65,7 +62,7 @@ def make_paypal_payment(purchase_units: List[dict]):
     return response["links"][1]["href"]
 
 
-def confirm_order(token):
+def confirm_order(token: str) -> bool:
 
     token_payload = {"grant_type": "client_credentials"}
     token_headers = {"Accept": "application/json", "Accept-Language": "en_US"}
@@ -79,7 +76,7 @@ def confirm_order(token):
     print(response)
 
     if response["status"] == "APPROVED":
-        return True, response 
-    return False, None
+        return True 
+    return False
 
     print(response.json())

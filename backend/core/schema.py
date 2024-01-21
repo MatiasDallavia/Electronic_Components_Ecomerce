@@ -1,6 +1,6 @@
 import graphene
 from products.schema.list_product_queries import ProductListQuery
-from purchases.mutations import RegisterUserMutation
+from purchases.schema.mutations import RegisterUserMutation, CreateOrderMutation, CaptureOrderMutation
 import graphql_jwt
 
 
@@ -12,5 +12,7 @@ class AuthMutation(graphene.ObjectType):
     verify_token = graphql_jwt.Verify.Field()
     refresh_token = graphql_jwt.Refresh.Field()
     register_user = RegisterUserMutation.Field()
+    create_order = CreateOrderMutation.Field()
+    capture_order = CaptureOrderMutation.Field()
 
 schema = graphene.Schema(query=Query, mutation=AuthMutation)
