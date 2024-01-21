@@ -1,12 +1,17 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from purchases.paypal_functions import make_paypal_payment, confirm_order
+from purchases.models import ProductPurchase
 
 
 def create_order(request):
-    make_paypal_payment()
-    return JsonResponse({"STATUS":"SUCCSESFUL"})
+    href = make_paypal_payment()
+    return JsonResponse({"STATUS":href})
 
 def capture_order(request, token):
-    confirm_order(token)
+    is_approved, response = confirm_order(token)
+    if is_approved:
+        print("APPROVED")
+        print(response)
+
     return JsonResponse({"STATUS":"SUCCSESFUL"})

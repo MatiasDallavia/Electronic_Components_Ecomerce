@@ -8,10 +8,9 @@ from graphene_django.types import DjangoObjectType
 from graphql_jwt.decorators import login_required
 from purchases.schema.inputs import CreateOrderInput
 from purchases.schema.types import ResponseOrderType
-from django.apps import apps
 from purchases.models import ProductPurchase
 from purchases.paypal_functions import make_paypal_payment, confirm_order
-
+from typing import Union
 
 class UserType(DjangoObjectType):
     class Meta:
@@ -44,16 +43,13 @@ class CreateOrderMutation(Mutation):
         try:
             products_kwargs = inputs["products_to_purchase"]
             purchase_units = []
-            print("--------------")
             for kwargs in products_kwargs:
-                print("1")
                 refernce_id = kwargs["component_type"].value + "-" + kwargs["component_id"]
                 purchase_units.append({
                     "reference_id": refernce_id,
                     "amount": {"currency_code": "USD", "value": kwargs["price"]},
                     }
                 )
-                print(2)
             url = make_paypal_payment(purchase_units)
             return CreateOrderMutation(errors="",url=url)
         except Exception as e:

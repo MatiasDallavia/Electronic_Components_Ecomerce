@@ -1,25 +1,24 @@
 import json
+import os
 from typing import List
-import requests
 
-client_id = (
-    "AfMCdKYoHcn7QafF0_Lsn9NGZjwKuhyxU_u2psCbTPI9exTgp8kognEUhb6PDvIrtZXpNMmRsd5TLNTQ"
-)
-secret = (
-    "EKgl7mmYRPnpjHDkSN9AGAhiag6GmirgmiFIX3faQXwd5Q9USDOp50u0tFWXBYrJhsxqxWhEglFkOXYB"
-)
-url = "https://api-m.sandbox.paypal.com"
+import requests
+from dotenv import load_dotenv
+
+load_dotenv()
+
+CLIENT_ID = os.environ["CLIENT_ID"]
+SECRET = os.environ["SECRET"]
+
+base_url = "https://api-m.sandbox.paypal.com"
 
 
 def make_paypal_payment(purchase_units: List[dict]):
-
-    base_url = url
-
     token_payload = {"grant_type": "client_credentials"}
     token_headers = {"Accept": "application/json", "Accept-Language": "en_US"}
     token_response = requests.post(
         "https://api.sandbox.paypal.com/v1/oauth2/token",
-        auth=(client_id, secret),
+        auth=(CLIENT_ID, SECRET),
         data=token_payload,
         headers=token_headers,
     )
@@ -55,28 +54,24 @@ def make_paypal_payment(purchase_units: List[dict]):
     response = requests.post(
         f"{base_url}/v2/checkout/orders", headers=headers, data=json.dumps(data)
     ).json()
-    print(response)
+
     if status := response.get("name") == "INVALID_REQUEST":
         raise Exception(f"{response}")
-    print(response)
+
     return response["links"][1]["href"]
 
 
 def confirm_order(token: str) -> bool:
-
     token_payload = {"grant_type": "client_credentials"}
     token_headers = {"Accept": "application/json", "Accept-Language": "en_US"}
 
     response = requests.get(
         f"https://api-m.sandbox.paypal.com/v2/checkout/orders/{token}",
-        auth=(client_id, secret),
+        auth=(CLIENT_ID, SECRET),
         headers=token_headers,
         data=token_payload,
     ).json()
-    print(response)
 
     if response["status"] == "APPROVED":
-        return True 
+        return True
     return False
-
-    print(response.json())
