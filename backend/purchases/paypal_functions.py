@@ -1,5 +1,5 @@
 import json
-
+from typing import List
 import requests
 
 client_id = (
@@ -11,7 +11,7 @@ secret = (
 url = "https://api-m.sandbox.paypal.com"
 
 
-def make_paypal_payment():
+def make_paypal_payment(purchase_units: List[dict]):
     # Set up PayPal API credentials
 
     # Set up API endpoints
@@ -40,32 +40,29 @@ def make_paypal_payment():
 
     data = {
         "intent": "CAPTURE",
-        "purchase_units": [
-            {
-                "reference_id": "d9f80740-38f0-11e8-b467-0ed5f89f718b",
-                "amount": {"currency_code": "USD", "value": "100.00"},
-            }
-        ],
+        "purchase_units": purchase_units,
         "payment_source": {
             "paypal": {
                 "experience_context": {
                     "payment_method_preference": "IMMEDIATE_PAYMENT_REQUIRED",
-                    "brand_name": "EXAMPLE INC",
+                    "brand_name": "Electronic Component Ecomerce",
                     "locale": "en-US",
                     "landing_page": "LOGIN",
                     "user_action": "PAY_NOW",
-                    "return_url": "https://example.com/returnUrl",
+                    "return_url": "https://http://localhost:3000/cart",
                     "cancel_url": "https://example.com/cancelUrl",
                 }
             }
         },
     }
-
     response = requests.post(
         f"{base_url}/v2/checkout/orders", headers=headers, data=json.dumps(data)
-    )
-
-    return response.json()["links"][1]["href"], response.json()["links"][0]["href"]
+    ).json()
+    print(response)
+    if status := response.get("name") == "INVALID_REQUEST":
+        raise Exception(f"{response}")
+    print(response)
+    return response["links"][1]["href"]
 
 
 def confirm_order(token):
@@ -78,6 +75,11 @@ def confirm_order(token):
         auth=(client_id, secret),
         headers=token_headers,
         data=token_payload,
-    )
+    ).json()
+    print(response)
+
+    if response["status"] == "APPROVED":
+        return True, response 
+    return False, None
 
     print(response.json())
