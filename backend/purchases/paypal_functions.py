@@ -1,9 +1,23 @@
 import json
 import os
-from typing import List
+from typing import List, Tuple
 
 import requests
 from dotenv import load_dotenv
+
+from products.models import (
+    BJT, MOSFET, IGBT, Diode, Inductor, Capacitor, Resistor
+)
+
+components_mapping = {
+    "BJT": BJT,
+    "MOSFET": MOSFET,
+    "IGBT": IGBT,
+    "RESISTOR": Resistor,
+    "CAPACITOR": Capacitor,
+    "INDUCTOR": Inductor,
+    "DIODE": Diode,
+}
 
 load_dotenv()
 
@@ -55,13 +69,22 @@ def make_paypal_payment(purchase_units: List[dict]):
         f"{base_url}/v2/checkout/orders", headers=headers, data=json.dumps(data)
     ).json()
 
-    if status := response.get("name") == "INVALID_REQUEST":
+    if response.get("name") == "INVALID_REQUEST":
         raise Exception(f"{response}")
 
     return response["links"][1]["href"]
+[{'reference_id': 'Diode-23', 
+  'amount': {
+      'currency_code': 'USD', 'value': '10.00'}, 
+      'payee': 
+        {'email_address': 'sb-ebd8z28937190@business.example.com',
+          'merchant_id': 'XRBZRBXZ28G62',
+            'display_data': {'brand_name': 'Electronic Component Ecomerce'}},
+              'shipping': {
+                  'name': {'full_name': 'John Doe'},
+                    'address': {'address_line_1': '1 Main St', 'admin_area_2': 'San Jose', 'admin_area_1': 'CA', 'postal_code': '95131', 'country_code': 'US'}}}]
 
-
-def confirm_order(token: str) -> bool:
+def confirm_order(token: str) -> Tuple[bool, str]:
     token_payload = {"grant_type": "client_credentials"}
     token_headers = {"Accept": "application/json", "Accept-Language": "en_US"}
 
@@ -73,5 +96,17 @@ def confirm_order(token: str) -> bool:
     ).json()
 
     if response["status"] == "APPROVED":
-        return True
-    return False
+        products = [
+            [product["reference_id"].split("-")[0], product["reference_id"].split("-")[1]]    
+            for product in response["purchase_units"]
+            ]
+        
+        for product in products:
+            product_type = product[0]
+            product_id  = product[1]
+            ComponentModel = components_mapping[product_type] 
+            component = ComponentModel.objects.filter(id=product_id)
+            print(component)
+
+        return True, response
+    return False, response
