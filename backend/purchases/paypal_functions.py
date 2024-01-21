@@ -8,6 +8,9 @@ from dotenv import load_dotenv
 from products.models import (
     BJT, MOSFET, IGBT, Diode, Inductor, Capacitor, Resistor
 )
+from purchases.models import User, ProductPurchase
+from purchases.schema.types import ProductPurchaseType
+
 
 components_mapping = {
     "BJT": BJT,
@@ -18,6 +21,7 @@ components_mapping = {
     "INDUCTOR": Inductor,
     "DIODE": Diode,
 }
+
 
 load_dotenv()
 
@@ -48,6 +52,7 @@ def make_paypal_payment(purchase_units: List[dict]):
         "Authorization": f"Bearer {access_token}",
     }
 
+
     data = {
         "intent": "CAPTURE",
         "purchase_units": purchase_units,
@@ -71,22 +76,17 @@ def make_paypal_payment(purchase_units: List[dict]):
 
     if response.get("name") == "INVALID_REQUEST":
         raise Exception(f"{response}")
-
+    print(response)
     return response["links"][1]["href"]
-[{'reference_id': 'Diode-23', 
-  'amount': {
-      'currency_code': 'USD', 'value': '10.00'}, 
-      'payee': 
-        {'email_address': 'sb-ebd8z28937190@business.example.com',
-          'merchant_id': 'XRBZRBXZ28G62',
-            'display_data': {'brand_name': 'Electronic Component Ecomerce'}},
-              'shipping': {
-                  'name': {'full_name': 'John Doe'},
-                    'address': {'address_line_1': '1 Main St', 'admin_area_2': 'San Jose', 'admin_area_1': 'CA', 'postal_code': '95131', 'country_code': 'US'}}}]
 
-def confirm_order(token: str) -> Tuple[bool, str]:
+def confirm_order(token: str, username) -> Tuple[bool, str, list]:
     token_payload = {"grant_type": "client_credentials"}
     token_headers = {"Accept": "application/json", "Accept-Language": "en_US"}
+
+    errors = []
+    components_purchased = []
+
+
 
     response = requests.get(
         f"https://api-m.sandbox.paypal.com/v2/checkout/orders/{token}",
@@ -94,19 +94,39 @@ def confirm_order(token: str) -> Tuple[bool, str]:
         headers=token_headers,
         data=token_payload,
     ).json()
-
+    print("------------------------")
     if response["status"] == "APPROVED":
-        products = [
-            [product["reference_id"].split("-")[0], product["reference_id"].split("-")[1]]    
-            for product in response["purchase_units"]
-            ]
-        
-        for product in products:
-            product_type = product[0]
-            product_id  = product[1]
-            ComponentModel = components_mapping[product_type] 
-            component = ComponentModel.objects.filter(id=product_id)
-            print(component)
+        print(1)
+        user = User.objects.filter(username=username).first()
+        if user is None:
+            errors.append("No user was found with the username " + username)
 
-        return True, response
-    return False, response
+        for product in response["purchase_units"]:
+            product_type = product["reference_id"].split("-")[0]
+            product_id  = product["reference_id"].split("-")[1]            
+
+
+            ComponentModel = components_mapping[product_type] 
+            component = ComponentModel.objects.filter(id=product_id).first()
+            
+            if component is None:
+                errors.append(f"No {product_type} was found with the ID {product_id}")
+            else:
+                ProductPurchase.objects.create(
+                    component_type = product_type,
+                    component_id = product_id,
+                    user = user,
+                    price = component.price,
+                    quantity=1,
+                ) 
+                components_purchased.append(
+                    ProductPurchaseType(
+                        package=component.package ,    
+                        component_name=component,     
+                        price=component.price,
+                        mounting_technology=component.mounting_technology        
+                        )
+                    )
+                                     
+
+    return components_purchased, errors
