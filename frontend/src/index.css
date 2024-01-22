@@ -15,7 +15,7 @@
 #products-table{
   margin: 50px;
   border-collapse: collapse;
-  margin: 25px 0;
+  border-spacing: 0 15px;
   font-size: 1.0em;
   font-family: sans-serif;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
@@ -281,4 +281,113 @@ input.in-cart-checkbox {
 
 #cart-icon:hover{
   cursor: pointer; 
+}
+
+
+/* Spinner */
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.spinner {
+  border: 8px solid rgba(0, 0, 0, 0.1);
+  border-top: 8px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.purchased-products {
+  border-collapse: separate;
+  border-spacing: 0 15px;
+  margin: -15px; /* Ajusta el margen negativo para compensar el espaciado entre filas */
+  border-radius: 10px;
+  }
+
+.column-headears th,
+.column-values td {
+  padding: 15px; /* Ajusta el espacio interno */
+  text-align: center;
+  font-family: 'Arial', sans-serif; /* Cambia la fuente según sea necesario */
+  font-size: 14px; /* Ajusta el tamaño de la fuente */
+  padding: 10px;
+  border-bottom: 1px solid #ccc; /* Añade un borde inferior */
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);    
+
+}
+
+.column-headears th {
+  background-color: #f2f2f2;
+  border: none; /* Elimina los bordes en estas celdas */
+
+}
+
+.column-values tr {
+  margin-bottom: 10px; /* Ajusta el margen entre filas según sea necesario */
+}
+
+.column-values .image,
+.column-values .product-name,
+.column-values .product-price,
+.column-values .plus_minus_icon,
+.column-values .x_icon,
+.column-values .count {
+  border: none; /* Elimina los bordes en estas celdas */
+}
+
+.column-values .image {
+  width: 100px; /* Ajusta el ancho según sea necesario */
+
+}
+
+.column-values .product-name {
+  margin-left: 20px;
+  width: 280px;
+}
+
+.column-values .product-price {
+  margin: 0;
+  margin-left: 10px;
+  width: 100px;
+}
+
+.column-values .product-qunatity {
+  margin: 0;
+  margin-left: 10px;
+  width: 200px;
+}
+
+.column-values .product-total {
+  margin: 0;
+  margin-left: 10px;
+  width: 100px;
+}
+
+.column-values .product-mounting-technology{
+  margin: 0;
+  margin-left: 10px;
+  width: 50px;
+}
+
+.column-values .product-image img {
+  width: 80px; /* Ajusta el ancho según sea necesario */
+  height: 60px;
+
+}
+
+.container h1 {
+  font-size: 24px; /* Ajusta el tamaño de la fuente según sea necesario */
+  color: #3498db; /* Color del texto */
+  margin-bottom: 20px; /* Ajusta el margen inferior según sea necesario */
 }

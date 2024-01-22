@@ -16,6 +16,7 @@ import TransistorView from "./components/component_views/TransistorView.js";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Cart from "./components/Cart";
+import PurchaseConfirmation from "./components/PurchaseConfirmation.js";
 
 function App() {
   return (
@@ -43,6 +44,9 @@ function App() {
             <Route path="search/" element={<SearchDiode/>} />
             <Route path="view/:diodeComponentID" element={<DiodeView />} />
           </Route>
+
+          <Route path="purchase-confirmation" element={<PurchaseConfirmation/>}/>
+      
           
           <Route path="/login" element={<Login/>} />
           <Route path="/register" element={<Register/>} />
