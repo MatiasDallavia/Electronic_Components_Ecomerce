@@ -49,6 +49,15 @@ class PurchaseContext:
 
 class CreateOrderStrategy(PaypalApiStrategy):
     def send_request(self, inputs) -> str:
+        """Sends a request to create a PayPal buy order for the user to be payed.
+
+        Args:
+            inputs (dict): Input data for creating the order.
+
+        Returns:
+            str: The payment URL.
+        """          
+              
         items, total_price = self.proccess_data(inputs)
 
         token_payload = {"grant_type": "client_credentials"}
@@ -61,7 +70,7 @@ class CreateOrderStrategy(PaypalApiStrategy):
         )
 
         if token_response.status_code != 200:
-            return False, "Failed to authenticate with PayPal API", None
+            raise Exception("Failed to authenticate with PayPal API")
 
         access_token = token_response.json()["access_token"]
 
@@ -72,9 +81,7 @@ class CreateOrderStrategy(PaypalApiStrategy):
 
         purchase_units = [
             {
-                "reference_id": "PUHF",
-                "custom_id": "Something7364",
-                "soft_descriptor": "Great description 1",
+                "reference_id": "cart",
                 "amount": {
                     "currency_code": "USD",
                     "value": total_price,
@@ -114,6 +121,14 @@ class CreateOrderStrategy(PaypalApiStrategy):
         return payment_url
 
     def proccess_data(self, inputs) -> Tuple[List[dict], float]:
+        """Process data for creating a PayPal order.
+
+        Args:
+            inputs (dict): Input data for creating the order.
+
+        Returns:
+            Tuple[List[dict], float]: A tuple containing items and total price of all items.
+        """        
         products_kwargs = inputs["products_to_purchase"]
         products_by_type = {}
         items = []
@@ -144,15 +159,27 @@ class CreateOrderStrategy(PaypalApiStrategy):
 
         return (items, total_price)
 
-    # checks if the products given to purchase exist
     def check_products(self, products_by_type):
+        """Check if the products to be purchased exist.
+
+        Args:
+            products_by_type (dict): A dictionary mapping product types to lists of IDs.
+
+        Raises:
+            Exception: If a non-existing product is given.
+        """        
         errors = []
 
         for product_type, id_list in products_by_type.items():
             ComponentModel = components_mapping[product_type]
             products = ComponentModel.objects.filter(is_active=True)
 
-            if any([id not in list(products.values_list("id", flat=True)) for id in id_list]):
+            if any(
+                [
+                    id not in list(products.values_list("id", flat=True))
+                    for id in id_list
+                ]
+            ):
                 errors.append(f"A non-existing {product_type} was given")
 
         if errors:
@@ -184,7 +211,9 @@ class ConfirmOrderStrategy(PaypalApiStrategy):
 
         return components_purchased
 
-    def save_purchases(self, items: List[dict], username: str) -> List[ProductPurchaseType]:
+    def save_purchases(
+        self, items: List[dict], username: str
+    ) -> List[ProductPurchaseType]:
         components_purchased = []
 
         user = User.objects.filter(username=username).first()
@@ -196,7 +225,9 @@ class ConfirmOrderStrategy(PaypalApiStrategy):
             product_id = product["name"].split("-")[1]
 
             ComponentModel = components_mapping[product_type]
-            component = ComponentModel.objects.filter(is_active=True, id=product_id).first()
+            component = ComponentModel.objects.filter(
+                is_active=True, id=product_id
+            ).first()
 
             if component is None:
                 raise Exception(f"No {product_type} was found with the ID {product_id}")
