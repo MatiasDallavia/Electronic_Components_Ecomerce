@@ -104,8 +104,8 @@ class CreateOrderStrategy(PaypalApiStrategy):
                         "locale": "en-US",
                         "landing_page": "LOGIN",
                         "user_action": "PAY_NOW",
-                        "return_url": "https://http://localhost:3000/cart",
-                        "cancel_url": "https://http://localhost:3000/cart",
+                        "return_url": "http://localhost:3000/purchase-confirmation",
+                        "cancel_url": "http://localhost:3000/Cart",
                     }
                 }
             },
