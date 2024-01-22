@@ -16,7 +16,7 @@ import TransistorView from "./components/component_views/TransistorView.js";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Cart from "./components/Cart";
-import PurchaseConfirmation from "./components/PurchaseConfirmation.js";
+import PurchaseConfirmation from "./components/purchased_products/PurchaseConfirmation.js";
 
 function App() {
   return (
