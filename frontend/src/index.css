@@ -167,6 +167,9 @@ input.in-cart-checkbox {
 .log-form{
   width: 400px;
 }
+.form-floating{
+  margin: 20px;
+}
 
 .cart-item-list {
   margin-bottom: 10px;
