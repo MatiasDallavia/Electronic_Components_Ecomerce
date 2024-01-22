@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from graphene import Mutation
 from graphql_jwt.decorators import login_required
 from purchases.models import ProductPurchase
-from purchases.paypal_functions import confirm_order, make_paypal_payment
+from purchases.paypal_functions import confirm_order
 from purchases.schema.types import ResponseOrderType, UserType, ProductPurchaseType
 from purchases.schema.inputs import CreateOrderInput
 from purchases.schema.types import ResponseOrderType
@@ -23,6 +23,8 @@ components_mapping = {
     "INDUCTOR": Inductor,
     "DIODE": Diode,
 }
+
+from purchases.purchase_strategy import PurchaseContext, CreateOrderStrategy
 
 
 
@@ -45,51 +47,17 @@ class CreateOrderMutation(Mutation):
     class Arguments:
         inputs = graphene.Argument(CreateOrderInput)
 
-    errors = graphene.List(graphene.String)
+    errors = graphene.String()
     url = graphene.String()
 
     def mutate(self, info, inputs):
-        try:
-            products_kwargs = inputs["products_to_purchase"]
-            products_by_type = {}
-            items = []
-            total_price = 0
-
-            for kwargs in products_kwargs:
-                component_type = kwargs["component_type"].name
-                component_id = kwargs["component_id"]
-            
-                #stores all component IDs based on their type
-                if component_type in products_by_type:
-                    products_by_type[component_type].append(int(component_id))
-                else:
-                    products_by_type[component_type] = [int(component_id)]                    
-
-                item_reference = (
-                    component_type + "-" + component_id
-                )
-
-                items.append(
-                    {
-                        "name": item_reference,
-                        "unit_amount": {
-                            "currency_code": "USD",
-                            "value": kwargs["price"]
-                        },
-                        "quantity": kwargs["quantity"]
-                    }
-                )
-                total_price += kwargs["price"] * kwargs["quantity"]
-
-            errors = check_products(products_by_type)
-            if errors:
-                return CreateOrderMutation(errors=errors, url=None)
-            print("123")
-            url = make_paypal_payment(items, total_price)
-            return CreateOrderMutation(errors=errors, url=url)
+        try: 
+            context = PurchaseContext(CreateOrderStrategy())
+            url = context.execute_strategy(inputs)
+            errors= []
+            return CreateOrderMutation(errors="", url=url)
         except Exception as e:
-            errors = ["An internal error occured"]
-            return CreateOrderMutation(ResponseOrderType(errors=errors, url=""))
+            return CreateOrderMutation(errors=e, url=None)
 
 
 class CaptureOrderMutation(Mutation):
