@@ -12,11 +12,16 @@ class ComponentModelEnum(graphene.Enum):
 
 
 class ProductInput(graphene.InputObjectType):
-    component_type = graphene.Field(ComponentModelEnum)
-    component_id = graphene.ID()
-    price = graphene.Float()
-    quantity = graphene.Int()
+    component_type = graphene.Field(ComponentModelEnum, required=True)
+    component_id = graphene.ID(required=True)
+    price = graphene.Float(required=True)
+    quantity = graphene.Int(required=True)
 
 
 class CreateOrderInput(graphene.InputObjectType):
-    products_to_purchase = graphene.List(ProductInput)
+    products_to_purchase = graphene.List(ProductInput, required=True)
+
+
+class ConfirmOrderInput(graphene.InputObjectType):
+    token = graphene.String(required=True)
+    username = graphene.String(required=True)
