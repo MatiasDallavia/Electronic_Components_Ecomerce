@@ -20,3 +20,7 @@ class ProductInput(graphene.InputObjectType):
 
 class CreateOrderInput(graphene.InputObjectType):
     products_to_purchase = graphene.List(ProductInput)
+
+class ConfirmOrderInput(graphene.InputObjectType):
+    token = graphene.String(required=True)
+    username = graphene.String(required=True)
