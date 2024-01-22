@@ -56,8 +56,8 @@ class CreateOrderStrategy(PaypalApiStrategy):
 
         Returns:
             str: The payment URL.
-        """          
-              
+        """
+
         items, total_price = self.proccess_data(inputs)
 
         token_payload = {"grant_type": "client_credentials"}
@@ -128,7 +128,7 @@ class CreateOrderStrategy(PaypalApiStrategy):
 
         Returns:
             Tuple[List[dict], float]: A tuple containing items and total price of all items.
-        """        
+        """
         products_kwargs = inputs["products_to_purchase"]
         products_by_type = {}
         items = []
@@ -167,7 +167,7 @@ class CreateOrderStrategy(PaypalApiStrategy):
 
         Raises:
             Exception: If a non-existing product is given.
-        """        
+        """
         errors = []
 
         for product_type, id_list in products_by_type.items():

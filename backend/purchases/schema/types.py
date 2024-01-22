@@ -1,12 +1,7 @@
 import graphene
 from django.contrib.auth.models import User
 from graphene_django.types import DjangoObjectType
-from products.models import BJT, IGBT, MOSFET, Capacitor, Inductor, Resistor
-
-
-class ResponseOrderType(graphene.ObjectType):
-    errors = graphene.List(graphene.String)
-    url = graphene.String()
+from products.models import BJT, IGBT, MOSFET, Capacitor, Diode, Inductor, Resistor
 
 
 class UserType(DjangoObjectType):
@@ -23,13 +18,12 @@ class ProductPurchaseType(graphene.ObjectType):
     mounting_technology = graphene.String()
 
     def resolve_component_name(self, info):
-        print("NAME: ",self.component_name.price)
-        component = self.component_name    
+        component = self.component_name
         if (
             isinstance(component, BJT)
             | isinstance(component, MOSFET)
-            | isinstance(component, BJT)
-            | isinstance(component, BJT)
+            | isinstance(component, IGBT)
+            | isinstance(component, Diode)
         ):
             return component.model
 
@@ -41,5 +35,3 @@ class ProductPurchaseType(graphene.ObjectType):
 
         elif isinstance(component, Inductor):
             return f"Inductor {component.inductance}"
-        print("LLEGO")
-

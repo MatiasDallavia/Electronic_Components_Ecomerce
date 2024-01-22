@@ -98,18 +98,17 @@ def confirm_order(token: str, username) -> Tuple[bool, str, list]:
     errors = []
 
     try:
-
         response = requests.get(
             f"https://api-m.sandbox.paypa.com/v2/checkout/orders/{token}",
             auth=(CLIENT_ID, SECRET),
             headers=token_headers,
             data=token_payload,
         )
-        
+
         if response.status_code != 200:
             errors.append("There was an internal problem")
 
-        response = response.json()    
+        response = response.json()
         if response["status"] == "APPROVED":
             items = response["purchase_units"][0]["items"]
             components_purchased = save_purchases(items, username, errors)
@@ -131,7 +130,6 @@ def save_purchases(
         errors.append("No user was found with the username " + username)
 
     for product in items:
-
         product_type = product["name"].split("-")[0]
         product_id = product["name"].split("-")[1]
 
@@ -159,4 +157,4 @@ def save_purchases(
                     mounting_technology=component.mounting_technology,
                 )
             )
-    return components_purchased        
+    return components_purchased

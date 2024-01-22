@@ -1,16 +1,9 @@
-from typing import Union
-
 import graphene
-import graphql_jwt
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from graphene import Mutation
-from graphql_jwt.decorators import login_required
 from products.models import BJT, IGBT, MOSFET, Capacitor, Diode, Inductor, Resistor
-from purchases.models import ProductPurchase
-from purchases.paypal_functions import confirm_order
 from purchases.schema.inputs import ConfirmOrderInput, CreateOrderInput
-from purchases.schema.types import ProductPurchaseType, ResponseOrderType, UserType
+from purchases.schema.types import ProductPurchaseType, UserType
 
 components_mapping = {
     "BJT": BJT,
@@ -30,6 +23,10 @@ from purchases.purchase_strategy import (
 
 
 class RegisterUserMutation(Mutation):
+    """
+    Mutation for the creation of User.
+    """
+
     class Arguments:
         username = graphene.String(required=True)
         email = graphene.String(required=True)
@@ -45,8 +42,12 @@ class RegisterUserMutation(Mutation):
 
 
 class CreateOrderMutation(Mutation):
+    """
+    Mutation for creating orders of payments.
+    """
+
     class Arguments:
-        inputs = graphene.Argument(CreateOrderInput)
+        inputs = CreateOrderInput(required=True)
 
     errors = graphene.String()
     url = graphene.String()
@@ -55,13 +56,16 @@ class CreateOrderMutation(Mutation):
         try:
             context = PurchaseContext(CreateOrderStrategy())
             url = context.execute_strategy(inputs)
-            errors = []
             return CreateOrderMutation(errors="", url=url)
         except Exception as e:
             return CreateOrderMutation(errors=e, url=None)
 
 
 class CaptureOrderMutation(Mutation):
+    """
+    Mutation for confirming payment orders and creating ProductPurchaseType.
+    """
+
     class Arguments:
         inputs = ConfirmOrderInput(required=True)
 
@@ -72,24 +76,6 @@ class CaptureOrderMutation(Mutation):
         try:
             context = PurchaseContext(ConfirmOrderStrategy())
             components_purchased = context.execute_strategy(inputs)
-            print(components_purchased)
-            errors = []
             return CaptureOrderMutation(errors="", purchases=components_purchased)
         except Exception as e:
-            print("1")
-            return CaptureOrderMutation(errors="", purchases=None)
-
-
-
-
-def check_products(products_by_type: list) -> list:
-    errors = []
-    for product_type, id_list in products_by_type.items():
-        ComponentModel = components_mapping[product_type]
-        products = ComponentModel.objects.filter(is_active=True)
-        l = list(products.values_list("id", flat=True))
-
-        if all(id in list(products.values_list("id", flat=True)) for id in id_list):
-            errors.append(f"A non-existing {product_type} was given")
-
-    return errors
+            return CaptureOrderMutation(errors=e, purchases=None)
