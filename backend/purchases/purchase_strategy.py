@@ -50,7 +50,7 @@ class PurchaseContext:
 
 
 class CreateOrderStrategy(PaypalApiStrategy):
-    def proccess_data(self, inputs) -> Tuple[Tuple[List[dict], float], List[str]]:
+    def proccess_data(self, inputs) -> Tuple[List[dict], float]:
         products_kwargs = inputs["products_to_purchase"]
         products_by_type = {}
         items = []
@@ -82,7 +82,7 @@ class CreateOrderStrategy(PaypalApiStrategy):
         return (items, total_price)
 
 
-    def send_request(self, data):
+    def send_request(self, data) -> str:
         items, total_price = data
 
         token_payload = {"grant_type": "client_credentials"}
@@ -161,3 +161,4 @@ class CreateOrderStrategy(PaypalApiStrategy):
         if errors:
             raise Exception(f"{errors}")
 
+    
