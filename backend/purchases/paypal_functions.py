@@ -28,7 +28,7 @@ SECRET = os.environ["SECRET"]
 base_url = "https://api-m.sandbox.paypal.com"
 
 
-def make_paypal_payment(items: List[dict], total_price: int):
+def create_payment(items: List[dict], total_price: int):
     token_payload = {"grant_type": "client_credentials"}
     token_headers = {"Accept": "application/json", "Accept-Language": "en_US"}
     token_response = requests.post(
@@ -39,7 +39,6 @@ def make_paypal_payment(items: List[dict], total_price: int):
     )
 
     if token_response.status_code != 200:
-        print(token_response.status_code)
         return False, "Failed to authenticate with PayPal API", None
 
     access_token = token_response.json()["access_token"]
@@ -85,10 +84,10 @@ def make_paypal_payment(items: List[dict], total_price: int):
     response = requests.post(
         f"{base_url}/v2/checkout/orders", headers=headers, data=json.dumps(data)
     ).json()
-    print(response)
+
     if response.get("name") == "INVALID_REQUEST":
         raise Exception(f"{response}")
-    print(response)
+
     return response["links"][1]["href"]
 
 
@@ -111,7 +110,6 @@ def confirm_order(token: str, username) -> Tuple[bool, str, list]:
             errors.append("There was an internal problem")
 
         response = response.json()    
-        print("PROBLEMA")
         if response["status"] == "APPROVED":
             items = response["purchase_units"][0]["items"]
             components_purchased = save_purchases(items, username, errors)

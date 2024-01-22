@@ -12,6 +12,18 @@ from purchases.schema.types import ResponseOrderType, UserType, ProductPurchaseT
 from purchases.schema.inputs import CreateOrderInput
 from purchases.schema.types import ResponseOrderType
 
+from products.models import BJT, IGBT, MOSFET, Capacitor, Diode, Inductor, Resistor
+
+components_mapping = {
+    "BJT": BJT,
+    "MOSFET": MOSFET,
+    "IGBT": IGBT,
+    "RESISTOR": Resistor,
+    "CAPACITOR": Capacitor,
+    "INDUCTOR": Inductor,
+    "DIODE": Diode,
+}
+
 
 
 class RegisterUserMutation(Mutation):
@@ -33,18 +45,30 @@ class CreateOrderMutation(Mutation):
     class Arguments:
         inputs = graphene.Argument(CreateOrderInput)
 
-    errors = graphene.String()
+    errors = graphene.List(graphene.String)
     url = graphene.String()
 
     def mutate(self, info, inputs):
         try:
             products_kwargs = inputs["products_to_purchase"]
+            products_by_type = {}
             items = []
             total_price = 0
+
             for kwargs in products_kwargs:
+                component_type = kwargs["component_type"].name
+                component_id = kwargs["component_id"]
+            
+                #stores all component IDs based on their type
+                if component_type in products_by_type:
+                    products_by_type[component_type].append(int(component_id))
+                else:
+                    products_by_type[component_type] = [int(component_id)]                    
+
                 item_reference = (
-                    kwargs["component_type"].name + "-" + kwargs["component_id"]
+                    component_type + "-" + component_id
                 )
+
                 items.append(
                     {
                         "name": item_reference,
@@ -56,11 +80,16 @@ class CreateOrderMutation(Mutation):
                     }
                 )
                 total_price += kwargs["price"] * kwargs["quantity"]
-            print(items, total_price)
+
+            errors = check_products(products_by_type)
+            if errors:
+                return CreateOrderMutation(errors=errors, url=None)
+            print("123")
             url = make_paypal_payment(items, total_price)
-            return CreateOrderMutation(errors="", url=url)
+            return CreateOrderMutation(errors=errors, url=url)
         except Exception as e:
-            return CreateOrderMutation(ResponseOrderType(errors=e, url=""))
+            errors = ["An internal error occured"]
+            return CreateOrderMutation(ResponseOrderType(errors=errors, url=""))
 
 
 class CaptureOrderMutation(Mutation):
@@ -72,11 +101,26 @@ class CaptureOrderMutation(Mutation):
     purchases = graphene.List(ProductPurchaseType)
 
     def mutate(self, info, token, username):
-        print("-----")
+
         purchases, errors = confirm_order(token, username)
-        print(purchases, errors)
 
         if errors:
             return CaptureOrderMutation(errors=errors, purchases=None)
         return CaptureOrderMutation(errors=[], purchases=purchases)
 
+
+def check_products(products_by_type: list) -> list:
+    errors = []
+    for product_type, id_list in products_by_type.items():
+        ComponentModel = components_mapping[product_type]
+        products = ComponentModel.objects.filter(is_active=True)
+        l =  list(products.values_list("id", flat=True))
+
+        if all(
+            id in list(products.values_list("id", flat=True))
+            for id in id_list
+        ):
+            errors.append(f"A non-existing {product_type} was given")
+
+
+    return errors            
