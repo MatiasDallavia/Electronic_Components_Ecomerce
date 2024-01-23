@@ -65,16 +65,17 @@ function CartItemTableRow({componentType, componentID, removeItemFromList, serTo
   const component = data ? data[queryComponentType][0] : [];    
 
 
-  function updateProductCount(count) {
+  function updateProductCount(number) {
     setProductCount((currentCount) => {
-        if ( currentCount + count >= 0 ){ 
+        if ( currentCount + number >= 0 ){ 
           setPrevProductCount(currentCount) 
-         const newCount = currentCount + count
+         const newCount = currentCount + number
          const newValue = newCount * component.price
          setProductCountValue(newValue.toFixed(2))         
          return newCount 
         }
         return 0
+        
     })
   }
 
@@ -114,6 +115,13 @@ function CartItemTableRow({componentType, componentID, removeItemFromList, serTo
 
       //takes cara of updating the sum of all product taking into account their quantity
       useEffect(() => {
+        const countNumber = document.querySelector(".count-number")
+        if (count > 0){
+          countNumber.style.color = "blue"
+        }
+        else{
+          countNumber.style.color = "red"
+        }
         if (count > 0 || (count === 0 && prevCount === 1)) {
           const newValue = Number(productCountValue);
       
@@ -172,7 +180,7 @@ function CartItemTableRow({componentType, componentID, removeItemFromList, serTo
                 className="plus_minus_icon m-2" 
                 alt="Plus Icon" 
             />
-            <p style={{ width: "20px", color: 'red', margin: '0 10px' }}>{count}</p>
+            <p className="count-number" style={{ width: "20px", color: 'red', margin: '0 10px' }}>{count}</p>
             <img 
                 src={minusIcon} 
                 onClick={() => {updateProductCount(-1, setProductCountValue)}} 
