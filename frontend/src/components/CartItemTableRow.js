@@ -95,7 +95,6 @@ function CartItemTableRow({componentType, componentID, removeItemFromList, serTo
 
     switch (componentType) {
         case "inductor":
-          console.log("INDUCTOR", component)
             productName = componentType + " " + component.inductance        
           break;
         case "capacitor":
@@ -115,7 +114,6 @@ function CartItemTableRow({componentType, componentID, removeItemFromList, serTo
 
       //takes cara of updating the sum of all product taking into account their quantity
       useEffect(() => {
-        console.log("component.PRICE: ", component.price)
         if (count > 0 || (count === 0 && prevCount === 1)) {
           const newValue = Number(productCountValue);
       
@@ -148,9 +146,7 @@ function CartItemTableRow({componentType, componentID, removeItemFromList, serTo
           "price": component.price,
           "quantity": count
         })
-        console.log(result)
         setProductsToPurchase(result)
-        console.log("RESULT: ", productsToPurchase)
       }, [count, component.price])
       
 

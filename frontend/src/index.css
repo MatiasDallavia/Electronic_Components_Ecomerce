@@ -171,6 +171,10 @@ input.in-cart-checkbox {
   margin: 20px;
 }
 
+.cart-items-row{
+  margin-left: 120px;
+}
+
 .cart-item-list {
   margin-bottom: 10px;
   padding: 10px;
@@ -182,9 +186,11 @@ input.in-cart-checkbox {
 
 .cart-item-list .product-name {
   margin-left: 20px;
-  min-width: 130px;
+  min-width: 200px;
 }
-
+.list-group-item{
+  width: 600px;
+}
 .cart-item-list .product-price {
   margin: 0;
   margin-left: 10px;
@@ -211,6 +217,7 @@ input.in-cart-checkbox {
 }
 .mi-boton {
   display: inline-block;
+  margin-top: 30px;
   padding: 10px 20px;
   font-size: 16px;
   text-align: center;

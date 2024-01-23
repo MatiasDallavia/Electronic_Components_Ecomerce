@@ -44,7 +44,9 @@ function Cart() {
     }
       if (checkProductAmount(variables)){
         try {
-          document.querySelector(".cart-content").style.display = "none"
+          const l = document.querySelector(".cart-content")
+          l.style.display = "none"
+          console.log(l.style.display)
           serIsLoading(true)
           setErrorMessage("")
           const result = await createOrder({
@@ -52,6 +54,7 @@ function Cart() {
           });
           window.open(result.data.createOrder.url,"_self")
         } catch (errors) {
+          console.log(errors)
           document.querySelector(".cart-content").style.display = "block"
           serIsLoading(false)
           setErrorMessage("An error occurred")
@@ -79,114 +82,50 @@ function Cart() {
       
       {errorMesage.length > 0  && <ErrorMessage error={errorMesage}/>}    
       
-
-      <div className="container cart-content">
-        
-        <main>
-          <div className="py-5 text-center">
-            <h2>Cart</h2>
-          </div>
-
-          <div className="row">
-            <div className="col-md-5 col-lg-6 order-md-last">
-              <h4 className="d-flex justify-content-between align-items-center mb-3">
-                <span className="text-primary">List of Products</span>
-                <span className="badge bg-primary rounded-pill">
-                  {productsInCart.length}
-                </span>
-              </h4>
-              <ul className="list-group mb-3">
-                {productsInCart.map((product) => (
-                  <CartItemTableRow
+      <div className='cart-content'>
+      <div className="container d-flex align-items-center justify-content-start">
+        <main className="row">
+          <div className="col-md-6 col-lg-6 order-md-last">
+            <ul className="list-group mb-3 cart-items-row">
+              {productsInCart.map((product) => (
+                <CartItemTableRow
                   setProductsToPurchase={setProductsToPurchase}
                   productsToPurchase={productsToPurchase}
-                    key={`${product[0]}-${product[1]}`}
-                    removeItemFromList={removeItemFromList}
-                    componentType={product[0]}
-                    componentID={product[1]}
-                    serTotalValue={serTotalValue}
-                    totalValue={totalValue}
-                  />
-                ))}
-                <li className="list-group-item d-flex justify-content-between">
-                  <span>Total (USD)</span>
-                  <strong>${totalValue}</strong>
-                </li>
-              </ul>
-            </div>
-
-            <div className="col-md-6 col-lg-6">
-              <h4 className="mb-3">Billing address</h4>
-              <form className="needs-validation" noValidate>
-                <div className="row g-3 pb-4">
-                  <div className="col-4">
-                    <label htmlFor="address" className="form-label">
-                      Address
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="address"
-                      placeholder="1234 Main St"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className="row g-3 pb-4">
-                  <div className="col-md-3">
-                    <label htmlFor="country" className="form-label">
-                      Country
-                    </label>
-                    <select className="form-select" id="country" required>
-                      <option value="">Choose...</option>
-                      <option>United States</option>
-                      <option>Argentina</option>
-                    </select>
-                    <div className="invalid-feedback">
-                      Please select a valid country.
-                    </div>
-                  </div>
-
-                  <div className="col-md-3">
-                    <label htmlFor="state" className="form-label">
-                      State
-                    </label>
-                    <select className="form-select" id="state" required>
-                      <option value="">Choose...</option>
-                      <option>California</option>
-                    </select>
-                    <div className="invalid-feedback">
-                      Please provide a valid state.
-                    </div>
-                  </div>
-                  <div className="col-md-3">
-                    <label htmlFor="zip" className="form-label">
-                      Zip
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="zip"
-                      placeholder=""
-                      required
-                    />
-                    <div className="invalid-feedback">Zip code required.</div>
-                  </div>
-                </div>
-                <hr className="my-4" />
-                <button
-                    type="button"
-                    className="mi-boton"
-                    onClick={handleCreateOrder}
-                  >
-                    Buy Now
-                  </button>              
-              </form>
-            </div>
+                  key={`${product[0]}-${product[1]}`}
+                  removeItemFromList={removeItemFromList}
+                  componentType={product[0]}
+                  componentID={product[1]}
+                  serTotalValue={serTotalValue}
+                  totalValue={totalValue}
+                />
+              ))}
+              <li className="list-group-item d-flex justify-content-between">
+                <span>Total (USD)</span>
+                <strong>${totalValue}</strong>
+              </li>
+            </ul>
           </div>
-        </main>
-      </div>
+
+    <div className="col-md-4 col-lg-4 align-self-start text-left">
+      <h2>Cart</h2>
+      <h4 className="d-flex justify-content-between align-items-center mb-3">
+        <span className="text-primary">List of Products</span>
+        <span className="badge bg-primary rounded-pill">
+          {productsInCart.length}
+        </span>
+      </h4>
+          <button
+            type="button"
+            className="mi-boton mb-3"
+            onClick={handleCreateOrder}
+          >
+            Buy Now
+          </button>      
+        </div>
+      </main>
+    </div>
+    </div>
+
     </div>
   );
 }
