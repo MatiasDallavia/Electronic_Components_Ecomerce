@@ -10,20 +10,28 @@ import ErrorMessage from './ErrorMessage';
 
 function Cart() {
 
-  const productsInCart = JSON.parse(localStorage.getItem('cart')) || [];
+  const cartList = JSON.parse(localStorage.getItem('cart')) || [];
   const [totalValue, serTotalValue] = useState(0)
   const [productsToPurchase, setProductsToPurchase] = useState([])
   const [isLoading, serIsLoading] = useState(false)
   const [errorMesage, setErrorMessage] = useState(false);
+  const [productsInCart, setProductsInCart] = useState(cartList)
+
 
 
   useEffect(() => {
-    console.log(productsToPurchase);
     createOrderInput.inputs.productsToPurchase = productsToPurchase  
   }, [productsToPurchase]);  
 
   const removeItemFromList = (componentType, componentID) => {
-    document.querySelector(`#${componentType + componentID}`).remove()
+    const newList = productsInCart.filter((item) => (
+      item[0] !== componentType || item[1] !== componentID
+    ));
+    const newProductsToPurchase = productsToPurchase.filter((product) => 
+      (product.componentType !== componentType && product.componentId !==  componentID)
+    )
+    setProductsToPurchase(newProductsToPurchase);
+    setProductsInCart(newList);  
     removeFromCart(componentType, componentID)
   }
 
@@ -33,6 +41,7 @@ function Cart() {
   const handleCreateOrder = async () => {
 
     const variables = createOrderInput
+    variables.inputs.productsToPurchase = productsToPurchase
     const checkProductAmount = (variables) => {
       const componentWithZeroCount = variables.inputs.productsToPurchase.filter((component)=>(
         component.quantity === 0
@@ -46,7 +55,6 @@ function Cart() {
         try {
           const l = document.querySelector(".cart-content")
           l.style.display = "none"
-          console.log(l.style.display)
           serIsLoading(true)
           setErrorMessage("")
           const result = await createOrder({
