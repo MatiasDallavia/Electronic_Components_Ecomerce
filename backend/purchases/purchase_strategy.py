@@ -22,10 +22,10 @@ components_mapping = {
     "BJT": BJT,
     "MOSFET": MOSFET,
     "IGBT": IGBT,
-    "RESISTOR": Resistor,
-    "CAPACITOR": Capacitor,
-    "INDUCTOR": Inductor,
-    "DIODE": Diode,
+    "resistor": Resistor,
+    "capacitor": Capacitor,
+    "inductor": Inductor,
+    "diode": Diode,
 }
 
 
@@ -78,7 +78,7 @@ class CreateOrderStrategy(PaypalApiStrategy):
             "Content-Type": "application/json",
             "Authorization": f"Bearer {access_token}",
         }
-
+        print(items)
         purchase_units = [
             {
                 "reference_id": "cart",
@@ -116,7 +116,7 @@ class CreateOrderStrategy(PaypalApiStrategy):
 
         if response.get("name") == "INVALID_REQUEST":
             raise Exception("Invalid Request: ", response)
-
+        print(response)
         payment_url = response["links"][1]["href"]
         return payment_url
 
@@ -149,12 +149,13 @@ class CreateOrderStrategy(PaypalApiStrategy):
             items.append(
                 {
                     "name": item_reference,
-                    "unit_amount": {"currency_code": "USD", "value": kwargs["price"]},
+                    "unit_amount": {"currency_code": "USD", "value": round(kwargs["price"],2)},
                     "quantity": kwargs["quantity"],
                 }
             )
             total_price += kwargs["price"] * kwargs["quantity"]
-
+            
+        total_price = round(total_price, 2)
         self.check_products(products_by_type)
 
         return (items, total_price)

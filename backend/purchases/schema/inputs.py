@@ -2,13 +2,13 @@ import graphene
 
 
 class ComponentModelEnum(graphene.Enum):
-    DIODE = "diode"
+    diode = "diode"
     BJT = "BJT"
     MOSFET = "MOSFET"
     IGBT = "IGBT"
-    CAPACITOR = "capacitor"
-    RESISTOR = "resistor"
-    INDUCTOR = "inductor"
+    capacitor = "capacitor"
+    resistor = "resistor"
+    inductor = "inductor"
 
 
 class ProductInput(graphene.InputObjectType):

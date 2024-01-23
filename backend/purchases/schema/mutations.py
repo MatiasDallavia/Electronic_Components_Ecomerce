@@ -54,6 +54,7 @@ class CreateOrderMutation(Mutation):
 
     def mutate(self, info, inputs):
         try:
+            print("--------")
             context = PurchaseContext(CreateOrderStrategy())
             url = context.execute_strategy(inputs)
             return CreateOrderMutation(errors="", url=url)
