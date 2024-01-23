@@ -4,8 +4,7 @@ import CartItemTableRow from './CartItemTableRow';
 import {CREATE_ORDER, createOrderInput} from "../graphql_queries/purchase_queries/CreateOrder"
 import {removeFromCart} from "../utils/cartFunctions"
 import { useMutation } from '@apollo/client';
-
-import { useNavigate } from "react-router-dom";
+import  WaitingSpinner  from "../components/purchased_products/WaitingSpinner"
 
 
 function Cart() {
@@ -13,6 +12,7 @@ function Cart() {
   const productsInCart = JSON.parse(localStorage.getItem('cart')) || [];
   const [totalValue, serTotalValue] = useState(0)
   const [productsToPurchase, setProductsToPurchase] = useState([])
+  const [isLoading, serIsLoading] = useState(false)
 
 
   useEffect(() => {
@@ -30,52 +30,38 @@ function Cart() {
 
   const [createOrder, { loading, error, data }] = useMutation(CREATE_ORDER, {variables: createOrderInput});
 
-  console.log(data)
-  console.log(error)
-
   const handleCreateOrder = async () => {
-    // Espera a que los cambios en productsToPurchase se reflejen
-    // Llama a createOrder después de la actualización
-    console.log("INPUTS: ", createOrderInput)
-    const variables =   {
-      inputs:{
-         productsToPurchase: [
-     
-             {
-             componentType : "MOSFET",
-             componentId: "5",
-             price: 10,
-            quantity: 1
-       
-     
-             },
-             {
-             componentType : "diode",
-             componentId: "17",
-             price: 1,
-             quantity: 10
-             }
-          
-             
-             
-         ]
-       }
-     }
-     const vars = createOrderInput
-     console.log("INPUTS2: ", variables)
+
+    const variables = createOrderInput
+    console.log(variables)
+    const checkProductAmount = (variables) => {
+      const componentWithZeroCount = variables.inputs.productsToPurchase.filter((component)=>(
+        component.quantity === 0
+      ))
+      if (componentWithZeroCount.length > 0) {
+          console.log("NO PUEDDE SER 0")
+      }
+    }
+    checkProductAmount(variables)
     try {
+      document.querySelector(".cart-content").style.display = "none"
+      serIsLoading(true)
       const result = await createOrder({
-        variables: vars
+        variables: variables
       });
-      console.log(result.data.createOrder.url); // Handle success
+      window.open(result.data.createOrder.url,"_self")
     } catch (errors) {
-      console.log(errors); // Handle error
+      document.querySelector(".cart-content").style.display = "block"
+      serIsLoading(false)
     }    
   };   
 
 
   return (
-    <div className="container">
+    <>
+    {isLoading === true && <WaitingSpinner/>}
+
+    <div className="container cart-content">
       <main>
         <div className="py-5 text-center">
           <h2>Cart</h2>
@@ -181,6 +167,7 @@ function Cart() {
         </div>
       </main>
     </div>
+    </>
   );
 }
 
