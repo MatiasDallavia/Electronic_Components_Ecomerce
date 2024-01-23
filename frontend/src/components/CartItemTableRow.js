@@ -14,10 +14,11 @@ import {GET_TRANSISTOR_FOR_CART} from "../graphql_queries/cart_item_query/CartTr
 import {GET_INDUCTOR_FROM_CART} from "../graphql_queries/cart_item_query/CartInductorQuery"
 
 
-function CartItemTableRow({componentType, componentID, removeItemFromList, serTotalValue, totalValue}) {
+function CartItemTableRow({componentType, componentID, removeItemFromList, serTotalValue,productsToPurchase, setProductsToPurchase}) {
   const [count, setProductCount] = useState(0)
   const [prevCount, setPrevProductCount] = useState(0)
   const [productCountValue, setProductCountValue] = useState(0)
+
 
 
 
@@ -63,7 +64,7 @@ function CartItemTableRow({componentType, componentID, removeItemFromList, serTo
 
   const component = data ? data[queryComponentType][0] : [];    
 
-  useEffect(()=>console.log(prevCount),[prevCount])
+
   function updateProductCount(count) {
     setProductCount((currentCount) => {
         if ( currentCount + count >= 0 ){ 
@@ -76,6 +77,18 @@ function CartItemTableRow({componentType, componentID, removeItemFromList, serTo
         return 0
     })
   }
+
+  useEffect(() => {
+    setProductsToPurchase((prevProductsToPurchase) => {
+      return [...prevProductsToPurchase, {
+        "componentType" : componentType,
+        "componentId": componentID,
+        "price": component.price,
+        "quantity": count
+        } ]
+      }
+    );
+  }, []);
 
 
     let productName;
@@ -101,6 +114,7 @@ function CartItemTableRow({componentType, componentID, removeItemFromList, serTo
 
       //takes cara of updating the sum of all product taking into account their quantity
       useEffect(() => {
+        console.log("component.PRICE: ", component.price)
         if (count > 0 || (count === 0 && prevCount === 1)) {
           const newValue = Number(productCountValue);
       
@@ -120,6 +134,24 @@ function CartItemTableRow({componentType, componentID, removeItemFromList, serTo
           }
         }
       }, [count]);
+
+
+      useEffect(()=>{
+        console.log("component.PRICE: ", component.price)
+
+        const result = productsToPurchase.filter((item) => 
+        (item.componentType !== componentType && item.componentId !== componentID)
+        )
+        result.push({
+          "componentType" : componentType,
+          "componentId": componentID,
+          "price": component.price,
+          "quantity": count
+        })
+        console.log(result)
+        setProductsToPurchase(result)
+        console.log("RESULT: ", productsToPurchase)
+      }, [count, component.price])
       
 
 
@@ -152,7 +184,7 @@ function CartItemTableRow({componentType, componentID, removeItemFromList, serTo
                 alt="Minus Icon" 
             />
         </div>
-        <p className="text-body-secondary product-price" style={{ width: "64px" ,margin: '0', marginLeft: '10px' }}>${productCountValue}</p>
+        <p className="text-body-secondary product-component.price" style={{ width: "64px" ,margin: '0', marginLeft: '10px' }}>${productCountValue}</p>
     </li>
     )
 }

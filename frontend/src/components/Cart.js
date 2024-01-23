@@ -1,18 +1,78 @@
 import React from 'react';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import CartItemTableRow from './CartItemTableRow';
-
+import {CREATE_ORDER, createOrderInput} from "../graphql_queries/purchase_queries/CreateOrder"
 import {removeFromCart} from "../utils/cartFunctions"
+import { useMutation } from '@apollo/client';
+
+import { useNavigate } from "react-router-dom";
+
 
 function Cart() {
 
   const productsInCart = JSON.parse(localStorage.getItem('cart')) || [];
   const [totalValue, serTotalValue] = useState(0)
+  const [productsToPurchase, setProductsToPurchase] = useState([])
+
+
+  useEffect(() => {
+    console.log(productsToPurchase);
+    createOrderInput.inputs.productsToPurchase = productsToPurchase  
+  }, [productsToPurchase]);  
 
   const removeItemFromList = (componentType, componentID) => {
     document.querySelector(`#${componentType + componentID}`).remove()
     removeFromCart(componentType, componentID)
   }
+
+
+  const mutationVariables = createOrderInput
+
+  const [createOrder, { loading, error, data }] = useMutation(CREATE_ORDER, {variables: createOrderInput});
+
+  console.log(data)
+  console.log(error)
+
+  const handleCreateOrder = async () => {
+    // Espera a que los cambios en productsToPurchase se reflejen
+    // Llama a createOrder después de la actualización
+    console.log("INPUTS: ", createOrderInput)
+    const variables =   {
+      inputs:{
+         productsToPurchase: [
+     
+             {
+             componentType : "MOSFET",
+             componentId: "5",
+             price: 10,
+            quantity: 1
+       
+     
+             },
+             {
+             componentType : "diode",
+             componentId: "17",
+             price: 1,
+             quantity: 10
+             }
+          
+             
+             
+         ]
+       }
+     }
+     const vars = createOrderInput
+     console.log("INPUTS2: ", variables)
+    try {
+      const result = await createOrder({
+        variables: vars
+      });
+      console.log(result.data.createOrder.url); // Handle success
+    } catch (errors) {
+      console.log(errors); // Handle error
+    }    
+  };   
+
 
   return (
     <div className="container">
@@ -32,6 +92,8 @@ function Cart() {
             <ul className="list-group mb-3">
               {productsInCart.map((product) => (
                 <CartItemTableRow
+                setProductsToPurchase={setProductsToPurchase}
+                productsToPurchase={productsToPurchase}
                   key={`${product[0]}-${product[1]}`}
                   removeItemFromList={removeItemFromList}
                   componentType={product[0]}
@@ -107,9 +169,13 @@ function Cart() {
                 </div>
               </div>
               <hr className="my-4" />
-              <a href="#" className="mi-boton">
-                Comprar Ahora
-              </a>
+              <button
+                  type="button"
+                  className="mi-boton"
+                  onClick={handleCreateOrder}
+                >
+                  Buy Now
+                </button>              
             </form>
           </div>
         </div>
