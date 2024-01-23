@@ -5,6 +5,7 @@ query GetInductors($inputs: InductorInput!){
   inductorListQuery(inputs: $inputs) {
       model
       price
+      inductance
       amountAvailable
   }
 }`;

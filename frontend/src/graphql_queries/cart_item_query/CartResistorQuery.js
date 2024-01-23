@@ -5,6 +5,7 @@ const GET_RESISTOR_FOR_CART = gql`
         resistorListQuery(inputs: $inputs) {
             model
             price
+            resistance
             amountAvailable   
         }
     }`;

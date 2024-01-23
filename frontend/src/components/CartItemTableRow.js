@@ -95,6 +95,7 @@ function CartItemTableRow({componentType, componentID, removeItemFromList, serTo
 
     switch (componentType) {
         case "inductor":
+          console.log("INDUCTOR", component)
             productName = componentType + " " + component.inductance        
           break;
         case "capacitor":
@@ -137,7 +138,6 @@ function CartItemTableRow({componentType, componentID, removeItemFromList, serTo
 
 
       useEffect(()=>{
-        console.log("component.PRICE: ", component.price)
 
         const result = productsToPurchase.filter((item) => 
         (item.componentType !== componentType && item.componentId !== componentID)
