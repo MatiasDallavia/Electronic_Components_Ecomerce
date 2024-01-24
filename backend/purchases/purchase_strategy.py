@@ -7,8 +7,17 @@ from typing import List, Tuple
 import requests
 from dotenv import load_dotenv
 from products.models import BJT, IGBT, MOSFET, Capacitor, Diode, Inductor, Resistor
+from products.schema.types import (
+    BJTType,
+    CapacitorType,
+    DiodeType,
+    IGBTType,
+    InductorType,
+    MOSFETType,
+    ResistorType,
+)
 from purchases.models import ProductPurchase, User
-from purchases.schema.types import ProductPurchaseType
+from purchases.schema.types import ProductPurchaseType, ComponentUnionType
 
 load_dotenv()
 
@@ -78,7 +87,7 @@ class CreateOrderStrategy(PaypalApiStrategy):
             "Content-Type": "application/json",
             "Authorization": f"Bearer {access_token}",
         }
-        print(items)
+
         purchase_units = [
             {
                 "reference_id": "cart",
@@ -116,7 +125,7 @@ class CreateOrderStrategy(PaypalApiStrategy):
 
         if response.get("name") == "INVALID_REQUEST":
             raise Exception("Invalid Request: ", response)
-        print(response)
+
         payment_url = response["links"][1]["href"]
         return payment_url
 
@@ -154,7 +163,6 @@ class CreateOrderStrategy(PaypalApiStrategy):
                 }
             )
             total_price += kwargs["price"] * kwargs["quantity"]
-            
         total_price = round(total_price, 2)
         self.check_products(products_by_type)
 
@@ -233,7 +241,10 @@ class ConfirmOrderStrategy(PaypalApiStrategy):
             if component is None:
                 raise Exception(f"No {product_type} was found with the ID {product_id}")
             else:
+
                 quantity = product["quantity"]
+                component_node = None
+
                 ProductPurchase.objects.create(
                     component_type=product_type,
                     component_id=product_id,
@@ -241,14 +252,67 @@ class ConfirmOrderStrategy(PaypalApiStrategy):
                     price=component.price,
                     quantity=quantity,
                 )
+                if isinstance(component, BJT):
+                    component_node = BJTType(
+                        model=component.model,
+                        price=component.price,
+                        package=component.package,
+                        mounting_technology=component.mounting_technology,
+                    )
+
+                if isinstance(component, MOSFET):
+                    component_node = MOSFETType(
+                        model=component.model,
+                        price=component.price,
+                        package=component.package,
+                        mounting_technology=component.mounting_technology,
+                    )
+
+                if isinstance(component, IGBT):
+                    component_node = IGBTType(
+                        model=component.model,
+                        price=component.price,
+                        package=component.package,
+                        mounting_technology=component.mounting_technology,
+                    )
+
+                if isinstance(component, Resistor):
+                    component_node = ResistorType(
+                        resistance=component.resistance,
+                        power=component.power,
+                        price=component.price,
+                        package=component.package,
+                        mounting_technology=component.mounting_technology,
+                    )
+
+                if isinstance(component, Inductor):
+                    component_node = InductorType(
+                        inductance=component.inductance,
+                        price=component.price,
+                        package=component.package,
+                        mounting_technology=component.mounting_technology,
+                    )
+
+                if isinstance(component, Capacitor):
+                    component_node = CapacitorType(
+                        capacitance=component.capacitance,
+                        price=component.price,
+                        package=component.package,
+                        mounting_technology=component.mounting_technology,
+                    )
+
+                if isinstance(component, Diode):
+                    component_node = DiodeType(
+                        model=component.model,
+                        price=component.price,
+                        package=component.package,
+                        mounting_technology=component.mounting_technology,
+                    )
+
                 components_purchased.append(
                     ProductPurchaseType(
-                        package=component.package,
-                        component_name=component,
-                        price=component.price,
+                        component_node=component_node,
                         quantity=quantity,
-                        total_price=Decimal(quantity) * component.price,
-                        mounting_technology=component.mounting_technology,
                     )
                 )
 

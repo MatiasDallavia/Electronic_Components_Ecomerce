@@ -155,6 +155,7 @@ def save_purchases(
                     quantity=quantity,
                     total_price=Decimal(quantity) * component.price,
                     mounting_technology=component.mounting_technology,
+                    component_type=product_type,
                 )
             )
     return components_purchased

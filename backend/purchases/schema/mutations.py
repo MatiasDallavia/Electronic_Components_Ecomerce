@@ -75,8 +75,10 @@ class CaptureOrderMutation(Mutation):
 
     def mutate(self, info, inputs):
         try:
+            print("-----")
             context = PurchaseContext(ConfirmOrderStrategy())
             components_purchased = context.execute_strategy(inputs)
             return CaptureOrderMutation(errors="", purchases=components_purchased)
         except Exception as e:
+            print(e)
             return CaptureOrderMutation(errors=e, purchases=None)
