@@ -13,7 +13,9 @@ function removeFromCart (componentType, componentID) {
 
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-    const result = cart.filter((component) => JSON.stringify(component) !== JSON.stringify([componentType, componentID]));
+    const result = cart.filter((component) => 
+        (JSON.stringify(component) !== JSON.stringify([componentType, componentID]))
+    );
     localStorage.setItem('cart', JSON.stringify(result));
 
 } 
@@ -22,7 +24,9 @@ function isComponentInCart (componentType, componentID){
 
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-    const result = cart.filter((component) => JSON.stringify(component) === JSON.stringify([componentType, componentID]));
+    const result = cart.filter((component) => 
+        (JSON.stringify(component) === JSON.stringify([componentType, componentID]))
+    );
     console.log(result.length)
     if (result.length){
         return true
@@ -31,4 +35,9 @@ function isComponentInCart (componentType, componentID){
 
 }
 
-export { addToCart, removeFromCart, isComponentInCart }
+function emptyCart(){
+        localStorage.setItem('cart', JSON.stringify([]));
+
+}
+
+export { addToCart, removeFromCart, isComponentInCart, emptyCart }
