@@ -2,7 +2,7 @@ import React from 'react'
 import PurchasedComponetRow from './PurchasedComponetRow'
 
 
-function PurchasedComponentTable() {
+function PurchasedComponentTable({purchasedItems}) {
   return (
     <div className="container d-flex flex-column align-items-center mt-5">
         <h1>Purchased Componentes</h1>
@@ -17,8 +17,7 @@ function PurchasedComponentTable() {
                 </tr>
             </thead>
             <tbody>
-                <PurchasedComponetRow/>
-                <PurchasedComponetRow/>          
+                {purchasedItems.map((item) => <PurchasedComponetRow item={item}/>)}
             </tbody>
         </table>
 
