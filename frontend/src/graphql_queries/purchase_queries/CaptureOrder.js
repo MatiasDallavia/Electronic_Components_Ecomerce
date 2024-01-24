@@ -1,21 +1,71 @@
 import { gql } from '@apollo/client';
 
 const CAPTURE_ORDER = gql`
-    mutation captureOrder($inputs: ConfirmOrderInput!){
-    captureOrder(inputs: $inputs) {
-        
-        errors
-        purchases{
-            package
-            componentName
-            price
-            quantity
-            totalPrice
-            mountingTechnology
-    }}
-    }`;
+mutation captureOrder($inputs: ConfirmOrderInput!){
+  captureOrder(inputs: $inputs) {
+    
+    errors
+    purchases{
+        quantity
+        componentNode{
+            __typename
+            ... on BJTType {
+              model
+              price
+              mountingTechnology
+              package
+              componentType
+            }
+            ... on MOSFETType {
+              model
+              price
+              mountingTechnology
+              package
+              componentType
+            }
+            ... on IGBTType {
+              model
+              price
+              mountingTechnology
+              package
+              componentType
+            }
+            ... on ResistorType {
+              resistance
+              power
+              price
+              mountingTechnology
+              package
+              componentType
+            }
+            ... on CapacitorType {
+              capacitance
+              price
+              mountingTechnology
+              package
+              componentType
+            }
+            ... on InductorType {
+              inductance
+              price
+              mountingTechnology
+              package
+              componentType
+            }
+            ... on DiodeType {
+              model
+              price
+              mountingTechnology
+              package
+              componentType
+            }
+        }
+    }
+  }
+}
+`;
 
-const captureOrderInpt = {
+const captureOrderInput = {
     "inputs":{
        "token": "3RV98659TR3421007",
        "username": "matias"
@@ -25,4 +75,4 @@ const captureOrderInpt = {
   
   
   
-  export {CAPTURE_ORDER, captureOrderInpt}    
+  export {CAPTURE_ORDER, captureOrderInput}    

@@ -9,13 +9,13 @@ const CREATE_ORDER = gql`
 }`;
 
 const createOrderInput = {
-        "inputs":{
-           "productsToPurchase": [
+  "inputs":{
+      "productsToPurchase": [
 
-           ]
-         }
-       }
+      ]
+    }
+  }
   
   
   
-  export {CREATE_ORDER, createOrderInput}    
+export {CREATE_ORDER, createOrderInput}    
