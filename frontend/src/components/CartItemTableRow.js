@@ -115,13 +115,6 @@ function CartItemTableRow({componentType, componentID, removeItemFromList, serTo
 
       //takes cara of updating the sum of all product taking into account their quantity
       useEffect(() => {
-        const countNumber = document.querySelector(".count-number")
-        if (count > 0){
-          countNumber.style.color = "blue"
-        }
-        else{
-          countNumber.style.color = "red"
-        }
         if (count > 0 || (count === 0 && prevCount === 1)) {
           const newValue = Number(productCountValue);
       
@@ -171,7 +164,7 @@ function CartItemTableRow({componentType, componentID, removeItemFromList, serTo
             <h6 className="product-name">{productName}</h6>
         </div>
         <div className="d-flex align-items-center">
-            <p style={{ color: 'red', margin: '0', marginRight: '10px' }}>{component.price}</p>
+            <p style={{ color: 'blue', margin: '0', marginRight: '10px' }}>{component.price}</p>
         </div>
         <div className="d-flex align-items-center">
             <img 

@@ -7,6 +7,8 @@ import { useMutation } from '@apollo/client';
 import  WaitingSpinner  from "../components/purchased_products/WaitingSpinner"
 import ErrorMessage from './ErrorMessage';
 
+import {emptyCart} from "../utils/cartFunctions"
+
 
 function Cart() {
 
@@ -53,13 +55,13 @@ function Cart() {
     }
       if (checkProductAmount(variables)){
         try {
-          const l = document.querySelector(".cart-content")
-          l.style.display = "none"
+          document.querySelector(".cart-content").style.display = "none"
           serIsLoading(true)
           setErrorMessage("")
           const result = await createOrder({
             variables: variables
           });
+          emptyCart()
           window.open(result.data.createOrder.url,"_self")
         } catch (errors) {
           console.log(errors)
@@ -93,26 +95,27 @@ function Cart() {
       <div className='cart-content'>
       <div className="container d-flex align-items-center justify-content-start">
         <main className="row">
-          <div className="col-md-6 col-lg-6 order-md-last">
-            <ul className="list-group mb-3 cart-items-row">
-              {productsInCart.map((product) => (
-                <CartItemTableRow
-                  setProductsToPurchase={setProductsToPurchase}
-                  productsToPurchase={productsToPurchase}
-                  key={`${product[0]}-${product[1]}`}
-                  removeItemFromList={removeItemFromList}
-                  componentType={product[0]}
-                  componentID={product[1]}
-                  serTotalValue={serTotalValue}
-                  totalValue={totalValue}
-                />
-              ))}
-              <li className="list-group-item d-flex justify-content-between">
-                <span>Total (USD)</span>
-                <strong>${totalValue}</strong>
-              </li>
-            </ul>
-          </div>
+        <div className="col-md-6 col-lg-6 order-md-last align-self-start">
+          <h5 style={{ marginLeft: '120px' }}>Select the number of units for every component</h5>
+          <ul className="list-group mb-3 cart-items-row">
+            {productsInCart.map((product) => (
+              <CartItemTableRow
+                setProductsToPurchase={setProductsToPurchase}
+                productsToPurchase={productsToPurchase}
+                key={`${product[0]}-${product[1]}`}
+                removeItemFromList={removeItemFromList}
+                componentType={product[0]}
+                componentID={product[1]}
+                serTotalValue={serTotalValue}
+                totalValue={totalValue}
+              />
+            ))}
+            <li className="list-group-item d-flex justify-content-between">
+              <span>Total (USD)</span>
+              <strong>${totalValue}</strong>
+            </li>
+          </ul>
+        </div>
 
     <div className="col-md-4 col-lg-4 align-self-start text-left">
       <h2>Cart</h2>
