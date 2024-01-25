@@ -18,11 +18,8 @@ from django.contrib import admin
 from django.urls import path
 from graphene_django.views import GraphQLView
 from django.views.decorators.csrf import csrf_exempt
-from purchases import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("create-order", views.create_order, name="create_order"),
-    path("capture-order/<str:token>", views.capture_order, name="capture_order"),
     path("graphql", csrf_exempt(GraphQLView.as_view(graphiql=True))),
 ]

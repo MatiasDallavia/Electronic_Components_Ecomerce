@@ -16,12 +16,6 @@ components_mapping = {
     "DIODE": Diode,
 }
 
-from purchases.purchase_strategy import (
-    ConfirmOrderStrategy,
-    CreateOrderStrategy,
-    PurchaseContext,
-)
-
 
 class RegisterUserMutation(Mutation):
     """
