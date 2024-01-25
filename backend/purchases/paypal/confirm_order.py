@@ -38,6 +38,11 @@ components_mapping = {
 
 
 class OrderConfirmationHandler:
+    """
+    Class with methods responsible for handling all steps in the order confirmation of
+    the PayPal API.
+    """
+
     def get_user(self, username: str) -> User:
         user = User.objects.filter(username=username).first()
         if user is None:
@@ -46,6 +51,18 @@ class OrderConfirmationHandler:
         return user
 
     def send_request(self, token: str) -> List[dict]:
+        """
+        Gets a user object based on the username.
+
+        Args:
+            username (str): User's username.
+
+        Raises:
+            Exception: if no user was found
+
+        Returns:
+            User: User object corresponding to the username.
+        """        
         token_payload = {"grant_type": "client_credentials"}
         token_headers = {"Accept": "application/json", "Accept-Language": "en_US"}
 
@@ -68,6 +85,16 @@ class OrderConfirmationHandler:
     def save_purchases(
         self, user: User, items: List[dict]
     ) -> List[ProductPurchaseType]:
+        """
+        Saves purchased products information in the db using the model ProductPurchaseType.
+
+        Args:
+            user (User): User making the purchase.
+            items (List[dict]): List of items in the purchase.
+
+        Returns:
+            List[ProductPurchaseType]: List of product purchase information.
+        """        
         components_purchased = []
 
         for product in items:
@@ -102,6 +129,15 @@ class OrderConfirmationHandler:
         return components_purchased
 
     def create_component_node(self, component_object) -> ComponentUnionType:
+        """
+        Creates an object type based on the given component object.
+
+        Args:
+            component_object: Component object to create the node for.
+
+        Returns:
+            ComponentUnionType: GraphQL component node.
+        """        
         component_node = None
 
         if isinstance(component_object, BJT):

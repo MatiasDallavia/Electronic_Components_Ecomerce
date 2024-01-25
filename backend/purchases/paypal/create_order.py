@@ -92,7 +92,7 @@ class OrderCreationHandler:
         """Process data for creating a PayPal order.
 
         Args:
-            inputs (dict): Input data for creating the order.
+            products_to_purchase (list): List of products to purchase.
 
         Returns:
             Tuple[List[dict], float]: A tuple containing items and total price of all items.
