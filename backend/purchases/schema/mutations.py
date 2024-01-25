@@ -4,6 +4,7 @@ from graphene import Mutation
 from products.models import BJT, IGBT, MOSFET, Capacitor, Diode, Inductor, Resistor
 from purchases.schema.inputs import ConfirmOrderInput, CreateOrderInput
 from purchases.schema.types import ProductPurchaseType, UserType
+from purchases.paypal.paypal_purchase_facade import PaypalPurchaseFacade
 
 components_mapping = {
     "BJT": BJT,
@@ -14,12 +15,6 @@ components_mapping = {
     "INDUCTOR": Inductor,
     "DIODE": Diode,
 }
-
-from purchases.purchase_strategy import (
-    ConfirmOrderStrategy,
-    CreateOrderStrategy,
-    PurchaseContext,
-)
 
 
 class RegisterUserMutation(Mutation):
@@ -54,9 +49,8 @@ class CreateOrderMutation(Mutation):
 
     def mutate(self, info, inputs):
         try:
-            print("--------")
-            context = PurchaseContext(CreateOrderStrategy())
-            url = context.execute_strategy(inputs)
+            purchase_facede = PaypalPurchaseFacade(inputs)
+            url = purchase_facede.create_order()
             return CreateOrderMutation(errors="", url=url)
         except Exception as e:
             return CreateOrderMutation(errors=e, url=None)
@@ -75,10 +69,8 @@ class CaptureOrderMutation(Mutation):
 
     def mutate(self, info, inputs):
         try:
-            print("-----")
-            context = PurchaseContext(ConfirmOrderStrategy())
-            components_purchased = context.execute_strategy(inputs)
+            purchase_facede = PaypalPurchaseFacade(inputs)
+            components_purchased = purchase_facede.confirm_order()
             return CaptureOrderMutation(errors="", purchases=components_purchased)
         except Exception as e:
-            print(e)
             return CaptureOrderMutation(errors=e, purchases=None)
