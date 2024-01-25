@@ -1,5 +1,5 @@
 import graphene
-from products.schema.list_product_queries import ProductListQuery
+from products.schema.products_queries import ProductListQuery
 from purchases.schema.mutations import RegisterUserMutation, CreateOrderMutation, CaptureOrderMutation
 import graphql_jwt
 
