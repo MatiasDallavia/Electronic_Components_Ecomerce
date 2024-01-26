@@ -8,28 +8,32 @@ import ProductList from '../ProductList';
 function SearchCapacitor() {
 
 
-    const [queryProducts, { loading, error, data }] = useLazyQuery(GET_LIST_CAPACITORS);
-    const [queryVariables, setQueryVariables] = useState(capacitorListInput);
+  const [queryProducts, { loading, error, data }] = useLazyQuery(GET_LIST_CAPACITORS);
+  const [queryVariables, setQueryVariables] = useState(capacitorListInput);
+  const [capacitors, setcapacitors] = useState([]);
 
 
-    useEffect(() => {
-      console.log("FIRST QUERY")
-      // Realizar la consulta al cargar la página
-      queryProducts({ variables: queryVariables });
-      console.log(error);
-      console.log(data);
-    }, []);
+
+  useEffect(() => {
+
+    // Realizar la consulta al cargar la página
+    queryProducts({ variables: queryVariables });
+  }, []);
+
+  useEffect(() => {
+    if (data) {
+      console.log("DATA: ", data)
+      setcapacitors(data.capacitorsQuery);
+      console.log(capacitors)
+    }
     
-  
-    const handleSearch = () => {
-      console.log("QUERY")
-      console.log(queryVariables)
-      queryProducts({ variables: queryVariables });
-      console.log(error)
-      console.log(data)
-    };    
+  }, [data]);
 
-    const products = data ? data.capacitorListQuery : [];
+
+  const handleSearch = () => {
+    queryProducts({ variables: queryVariables });
+  };
+
     
   return (
     <div className="container filters g-3">
@@ -37,7 +41,7 @@ function SearchCapacitor() {
       <button type="button" className="btn btn-primary submit" onClick={handleSearch}>
         Search
       </button>
-      <ProductList products={products} />
+      <ProductList products={capacitors} />
     </div>
   )
 }

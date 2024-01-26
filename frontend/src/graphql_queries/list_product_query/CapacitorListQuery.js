@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 const GET_LIST_CAPACITORS = gql`
     query Capacitors($inputs: CapacitorInput!){
-        capacitorListQuery(inputs: $inputs) {
+        capacitorsQuery(inputs: $inputs) {
             id
             model
             description
