@@ -62,7 +62,7 @@ class OrderConfirmationHandler:
 
         Returns:
             User: User object corresponding to the username.
-        """        
+        """
         token_payload = {"grant_type": "client_credentials"}
         token_headers = {"Accept": "application/json", "Accept-Language": "en_US"}
 
@@ -94,7 +94,7 @@ class OrderConfirmationHandler:
 
         Returns:
             List[ProductPurchaseType]: List of product purchase information.
-        """        
+        """
         components_purchased = []
 
         for product in items:
@@ -137,7 +137,7 @@ class OrderConfirmationHandler:
 
         Returns:
             ComponentUnionType: GraphQL component node.
-        """        
+        """
         component_node = None
 
         if isinstance(component_object, BJT):
