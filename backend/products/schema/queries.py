@@ -38,7 +38,7 @@ class ProductListQuery(graphene.ObjectType):
 
     def resolve_capacitors_query(self, info, inputs):
         try:
-            logger.info("##  Starting Capacitor Query.")
+            logger.info("##  Initializing Capacitor Query.")
             logger.debug("Input Fields: %s", inputs)
             filter_kwargs = clean_inputs(inputs)
             return Capacitor.objects.filter(**filter_kwargs)
@@ -48,7 +48,7 @@ class ProductListQuery(graphene.ObjectType):
 
     def resolve_diodes_query(self, info, inputs):
         try: 
-            logger.info("## Starting Diode Query.")
+            logger.info("## Initializing Diode Query.")
             logger.debug("Input Fields: %s", inputs)
             filter_kwargs = clean_inputs(inputs)
             return Diode.objects.filter(**filter_kwargs)
@@ -58,7 +58,7 @@ class ProductListQuery(graphene.ObjectType):
         
     def resolve_resistors_query(self, info, inputs):
         try:
-            logger.info("## Starting Resistor Query.")
+            logger.info("## Initializing Resistor Query.")
             logger.debug("Input Fields: %s", inputs)
             filter_kwargs = clean_inputs(inputs)
             return Resistor.objects.filter(**filter_kwargs)
@@ -68,7 +68,7 @@ class ProductListQuery(graphene.ObjectType):
         
     def resolve_inductors_query(self, info, inputs):
         try:
-            logger.info("## Starting Inductor Query.")
+            logger.info("## Initializing Inductor Query.")
             logger.debug("Input Fields: %s", inputs)
             filter_kwargs = clean_inputs(inputs)
             return Inductor.objects.filter(**filter_kwargs)
@@ -79,7 +79,7 @@ class ProductListQuery(graphene.ObjectType):
 
     def resolve_transistors_query(self, info, inputs):
         try:
-            logger.info("Starting Transistor Query.")
+            logger.info("Initializing Transistor Query.")
             logger.debug("Input Fields: %s", inputs)
 
             if inputs.transistor_type == "BJT":
@@ -91,7 +91,7 @@ class ProductListQuery(graphene.ObjectType):
 
             filter_kwargs = clean_inputs(inputs)
 
-            transistor_context = TransistorQuery(23)
+            transistor_context = TransistorQuery(strategy)
 
             return transistor_context.execute(filter_kwargs)
         except Exception as e:

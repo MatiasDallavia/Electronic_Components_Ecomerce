@@ -1,4 +1,5 @@
 import json
+import logging
 import os
 from typing import List, Tuple
 
@@ -13,7 +14,13 @@ load_dotenv()
 CLIENT_ID = os.environ["CLIENT_ID"]
 SECRET = os.environ["SECRET"]
 
+SECRET = os.environ["SECRET"]
+
+REACT_PORT = os.environ["REACT_PORT"]
+HOST = os.environ["HOST"]
+
 base_url = "https://api-m.sandbox.paypal.com"
+logger = logging.getLogger(__name__)
 
 
 components_mapping = {
@@ -39,6 +46,10 @@ class OrderCreationHandler:
             str: The payment URL.
         """
         access_token = self.get_access_token()
+
+        logger.debug(
+            "Sending Request.   Total Price: %s Items Sent: %s", total_price, items
+        )
 
         headers = {
             "Content-Type": "application/json",
@@ -70,8 +81,8 @@ class OrderCreationHandler:
                         "locale": "en-US",
                         "landing_page": "LOGIN",
                         "user_action": "PAY_NOW",
-                        "return_url": "http://localhost:3000/purchase-confirmation",
-                        "cancel_url": "http://localhost:3000/Cart",
+                        "return_url": f"{HOST}:{REACT_PORT}/purchase-confirmation",
+                        "cancel_url": f"{HOST}:{REACT_PORT}/Cart",
                     }
                 }
             },
@@ -83,7 +94,13 @@ class OrderCreationHandler:
         if response.get("name") == "INVALID_REQUEST":
             raise Exception("Invalid Request: ", response)
 
+
         payment_url = response["links"][1]["href"]
+
+        logger.debug(
+            "Successful request.  URL recived %s", payment_url
+        )
+
         return payment_url
 
     def proccess_data(

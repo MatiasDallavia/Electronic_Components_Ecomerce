@@ -1,8 +1,10 @@
+import logging
 import os
 from typing import List
 
 import requests
 from dotenv import load_dotenv
+from graphql import GraphQLError
 
 from products.models import BJT, IGBT, MOSFET, Capacitor, Diode, Inductor, Resistor
 from products.schema.types import (
@@ -18,6 +20,7 @@ from purchases.models import ProductPurchase, User
 from purchases.schema.types import ComponentUnionType, ProductPurchaseType
 
 load_dotenv()
+logger = logging.getLogger(__name__)
 
 
 CLIENT_ID = os.environ["CLIENT_ID"]
@@ -46,7 +49,7 @@ class OrderConfirmationHandler:
     def get_user(self, username: str) -> User:
         user = User.objects.filter(username=username).first()
         if user is None:
-            raise Exception(f"No user was found with the username {username}")
+            raise GraphQLError(f"No user was found with the username {username}")
 
         return user
 
@@ -66,6 +69,10 @@ class OrderConfirmationHandler:
         token_payload = {"grant_type": "client_credentials"}
         token_headers = {"Accept": "application/json", "Accept-Language": "en_US"}
 
+        logger.info(
+            f"Making request to https://api-m.sandbox.paypal.com/v2/checkout/orders/{token}"
+        )
+
         response = requests.get(
             f"https://api-m.sandbox.paypal.com/v2/checkout/orders/{token}",
             auth=(CLIENT_ID, SECRET),
@@ -74,11 +81,18 @@ class OrderConfirmationHandler:
         )
 
         if response.status_code != 200:
-            raise ("There was an internal problem: ", response)
+            raise Exception(
+                "There was a problem while doing the request. Response: ", response
+            )
 
         response = response.json()
+
+        if response["status"] == "PAYER_ACTION_REQUIRED":
+            logger.error("User has not completed the payment yet")
+            raise GraphQLError("User has not completed the payment yet")
+
         if response["status"] != "APPROVED":
-            raise ("Purchase could not be approved: ", response)
+            raise Exception("Purchase could not be approved: ", response)
 
         return response
 
@@ -96,6 +110,8 @@ class OrderConfirmationHandler:
             List[ProductPurchaseType]: List of product purchase information.
         """
         components_purchased = []
+
+        logger.debug("  Saving pruchases. Items: %s", items)
 
         for product in items:
             product_type = product["name"].split("-")[0]
