@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 const GET_LIST_RESISTORS = gql`
         query Resistors($inputs: ResistorInput!){
-        resistorListQuery(inputs: $inputs) {
+        resistorsQuery(inputs: $inputs) {
             id
             model
             description
