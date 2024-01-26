@@ -2,6 +2,8 @@ import logging
 from abc import ABC, abstractmethod
 from typing import List
 
+from graphql import GraphQLError
+
 from products.models import BJT, IGBT, MOSFET
 from products.schema.types import BJTType, IGBTType, MOSFETType
 
@@ -28,6 +30,11 @@ class TransistorQuery:
     """
 
     def __init__(self, transistor_strategy: TransistorStrategy):
+        if not isinstance(transistor_strategy, TransistorStrategy):
+            raise Exception(
+                f"Context requires a TransistorStrategy object but "
+                f"{type(transistor_strategy)} was given"
+            )
         self._transistor_strategy = transistor_strategy
 
     @property
@@ -49,6 +56,7 @@ class ConcreteStrategyBJT(TransistorStrategy):
     Strategy class for quering a list of BJTs objects and returning them
     in an BJTType object
     """
+
     def query_transistors(self, filter_kwargs: dict) -> List[BJTType]:
         bjts = [
             BJTType(
@@ -106,6 +114,7 @@ class ConcreteStrategyIGBT(TransistorStrategy):
     Strategy class for quering a list of IGBTs objects and returning them
     in an IGBTType object
     """
+
     def query_transistors(self, filter_kwargs: dict) -> List[IGBTType]:
         igbts = [
             IGBTType(

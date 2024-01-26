@@ -2,6 +2,7 @@ import logging
 from enum import Enum
 
 import graphene
+from graphql import GraphQLError
 
 from products.models import Capacitor, Diode, Inductor, Resistor
 from products.schema.inputs import (
@@ -36,46 +37,67 @@ class ProductListQuery(graphene.ObjectType):
     transistors_query = graphene.List(TransistorType, inputs=TransistorInput())
 
     def resolve_capacitors_query(self, info, inputs):
-        logger.info("## Starting Capacitor Query.")
-        logger.debug("Input Fields: %s", inputs)
-        filter_kwargs = clean_inputs(inputs)
-        return Capacitor.objects.filter(**filter_kwargs)
+        try:
+            logger.info("##  Starting Capacitor Query.")
+            logger.debug("Input Fields: %s", inputs)
+            filter_kwargs = clean_inputs(inputs)
+            return Capacitor.objects.filter(**filter_kwargs)
+        except Exception as e:
+            logger.error("!!  Internal Error: %s", e)
+            raise GraphQLError(f"There was an internal error")
 
     def resolve_diodes_query(self, info, inputs):
-        logger.info("## Starting Diode Query.")
-        logger.debug("Input Fields: %s", inputs)
-        filter_kwargs = clean_inputs(inputs)
-        return Diode.objects.filter(**filter_kwargs)
-
+        try: 
+            logger.info("## Starting Diode Query.")
+            logger.debug("Input Fields: %s", inputs)
+            filter_kwargs = clean_inputs(inputs)
+            return Diode.objects.filter(**filter_kwargs)
+        except Exception as e:
+            logger.error("!!  Internal Error: %s", e)
+            raise GraphQLError(f"There was an internal error")
+        
     def resolve_resistors_query(self, info, inputs):
-        logger.info("## Starting Resistor Query.")
-        logger.debug("Input Fields: %s", inputs)
-        filter_kwargs = clean_inputs(inputs)
-        return Resistor.objects.filter(**filter_kwargs)
-
+        try:
+            logger.info("## Starting Resistor Query.")
+            logger.debug("Input Fields: %s", inputs)
+            filter_kwargs = clean_inputs(inputs)
+            return Resistor.objects.filter(**filter_kwargs)
+        except Exception as e:
+            logger.error("!!  Internal Error: %s", e)
+            raise GraphQLError(f"There was an internal error")
+        
     def resolve_inductors_query(self, info, inputs):
-        logger.info("## Starting Inductor Query.")
-        logger.debug("Input Fields: %s", inputs)
-        filter_kwargs = clean_inputs(inputs)
-        return Inductor.objects.filter(**filter_kwargs)
+        try:
+            logger.info("## Starting Inductor Query.")
+            logger.debug("Input Fields: %s", inputs)
+            filter_kwargs = clean_inputs(inputs)
+            return Inductor.objects.filter(**filter_kwargs)
+        except Exception as e:
+            logger.error("!!  Internal Error: %s", e)
+            raise GraphQLError(f"There was an internal error")
+        
 
     def resolve_transistors_query(self, info, inputs):
-        logger.info("Starting Transistor Query.")
-        logger.debug("Input Fields: %s", inputs)
+        try:
+            logger.info("Starting Transistor Query.")
+            logger.debug("Input Fields: %s", inputs)
 
-        if inputs.transistor_type == "BJT":
-            strategy = ConcreteStrategyBJT()
-        if inputs.transistor_type == "MOSFET":
-            strategy = ConcreteStrategyMOSFET()
-        if inputs.transistor_type == "IGBT":
-            strategy = ConcreteStrategyIGBT()
+            if inputs.transistor_type == "BJT":
+                strategy = ConcreteStrategyBJT()
+            if inputs.transistor_type == "MOSFET":
+                strategy = ConcreteStrategyMOSFET()
+            if inputs.transistor_type == "IGBT":
+                strategy = ConcreteStrategyIGBT()
 
-        filter_kwargs = clean_inputs(inputs)
+            filter_kwargs = clean_inputs(inputs)
 
-        transistor_context = TransistorQuery(strategy)
+            transistor_context = TransistorQuery(23)
 
-        return transistor_context.execute(filter_kwargs)
-
+            return transistor_context.execute(filter_kwargs)
+        except Exception as e:
+            logger.error("!!  Internal Error: %s", e)
+            raise GraphQLError(f"There was an internal error")
+        
 
 def clean_inputs(inputs):
     """
