@@ -7,31 +7,6 @@ import ProductList from '../ProductList';
 function SearchResistor() {
 
 
-    // const [queryProducts, { loading, error, data }] = useLazyQuery(GET_LIST_RESISTORS);
-    // const [queryVariables, setQueryVariables] = useState(ResistorListInput);
-
-
-    // useEffect(() => {
-    //   console.log("FIRST QUERY")
-    //   // Realizar la consulta al cargar la página
-    //   queryProducts({ variables: queryVariables });
-    //   console.log(error);
-    //   console.log(data);
-    // }, []);
-    
-  
-    // const handleSearch = () => {
-    //   console.log("QUERY")
-    //   console.log(queryVariables)
-    //   queryProducts({ variables: queryVariables });
-    //   console.log(error)
-    //   console.log(data)
-    // };    
-
-    // const products = data ? data.resistorListQuery : [];
-
-
-
     const [queryProducts, { loading, error, data }] = useLazyQuery(GET_LIST_RESISTORS);
     const [queryVariables, setQueryVariables] = useState(ResistorListInput);
     const [resistors, setresistors] = useState([]);
@@ -46,7 +21,6 @@ function SearchResistor() {
   
     useEffect(() => {
       if (data) {
-        console.log("DATA: ", data)
         setresistors(data.resistorsQuery);
         console.log(resistors)
       }

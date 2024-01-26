@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 const GET_LIST_INDUCTORS = gql`
 query GetInductors($inputs: InductorInput!){
-  inductorListQuery(inputs: $inputs) {
+  inductorsQuery(inputs: $inputs) {
         id
         model
         description
