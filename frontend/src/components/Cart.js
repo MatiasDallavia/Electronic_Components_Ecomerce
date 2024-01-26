@@ -57,14 +57,16 @@ function Cart() {
         try {
           document.querySelector(".cart-content").style.display = "none"
           serIsLoading(true)
+          variables.inputs.productsToPurchase[0].price = 10.0
           setErrorMessage("")
+          console.log("ARIABLES: ", variables)
           const result = await createOrder({
             variables: variables
           });
           emptyCart()
           window.open(result.data.createOrder.url,"_self")
         } catch (errors) {
-          console.log(errors)
+          console.log(errors.graphQLErrors)
           document.querySelector(".cart-content").style.display = "block"
           serIsLoading(false)
           setErrorMessage("An error occurred")

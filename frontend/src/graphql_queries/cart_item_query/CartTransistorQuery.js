@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 const GET_TRANSISTOR_FOR_CART = gql`
 query Transistors($inputs: TransistorInput!){
-    transistorListQuery(inputs: $inputs) {
+    transistorsQuery(inputs: $inputs) {
         __typename
         ... on BJTType {
             model

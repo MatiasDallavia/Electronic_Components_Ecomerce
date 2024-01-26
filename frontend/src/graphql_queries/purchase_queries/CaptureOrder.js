@@ -4,7 +4,7 @@ const CAPTURE_ORDER = gql`
 mutation captureOrder($inputs: ConfirmOrderInput!){
   captureOrder(inputs: $inputs) {
     
-    errors
+    
     purchases{
         quantity
         componentNode{
