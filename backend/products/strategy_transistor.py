@@ -1,8 +1,11 @@
+import logging
 from abc import ABC, abstractmethod
 from typing import List
 
 from products.models import BJT, IGBT, MOSFET
 from products.schema.types import BJTType, IGBTType, MOSFETType
+
+logger = logging.getLogger(__name__)
 
 
 class TransistorStrategy(ABC):
@@ -35,7 +38,9 @@ class TransistorQuery:
         """
         Executes the query_transistors method of the strategy
         """
+
         filter_kwargs.pop("transistor_type")
+
         return self._transistor_strategy.query_transistors(filter_kwargs)
 
 
@@ -44,7 +49,6 @@ class ConcreteStrategyBJT(TransistorStrategy):
     Strategy class for quering a list of BJTs objects and returning them
     in an BJTType object
     """
-
     def query_transistors(self, filter_kwargs: dict) -> List[BJTType]:
         bjts = [
             BJTType(
@@ -102,7 +106,6 @@ class ConcreteStrategyIGBT(TransistorStrategy):
     Strategy class for quering a list of IGBTs objects and returning them
     in an IGBTType object
     """
-
     def query_transistors(self, filter_kwargs: dict) -> List[IGBTType]:
         igbts = [
             IGBTType(

@@ -1,10 +1,16 @@
+import logging
+
 import graphene
 from django.contrib.auth.models import User
 from graphene import Mutation
+
 from products.models import BJT, IGBT, MOSFET, Capacitor, Diode, Inductor, Resistor
+from purchases.paypal.paypal_purchase_facade import PaypalPurchaseFacade
 from purchases.schema.inputs import ConfirmOrderInput, CreateOrderInput
 from purchases.schema.types import ProductPurchaseType, UserType
-from purchases.paypal.paypal_purchase_facade import PaypalPurchaseFacade
+
+logger = logging.getLogger(__name__)
+
 
 components_mapping = {
     "BJT": BJT,
@@ -30,6 +36,7 @@ class RegisterUserMutation(Mutation):
     user = graphene.Field(UserType)
 
     def mutate(self, info, username, email, password):
+        logger.info("## Starting Register Mutation.")
         user = User(username=username, email=email)
         user.set_password(password)
         user.save()
@@ -48,6 +55,8 @@ class CreateOrderMutation(Mutation):
     url = graphene.String()
 
     def mutate(self, info, inputs):
+        logger.info("## Starting CreateOrder Mutation.")
+        logger.debug("Input Fields: %s", inputs)
         try:
             purchase_facede = PaypalPurchaseFacade(inputs)
             url = purchase_facede.create_order()
@@ -68,6 +77,8 @@ class CaptureOrderMutation(Mutation):
     purchases = graphene.List(ProductPurchaseType)
 
     def mutate(self, info, inputs):
+        logger.info("## Starting CaptureOrder Mutation.")
+        logger.debug("Input Fields: %s", inputs)
         try:
             purchase_facede = PaypalPurchaseFacade(inputs)
             components_purchased = purchase_facede.confirm_order()

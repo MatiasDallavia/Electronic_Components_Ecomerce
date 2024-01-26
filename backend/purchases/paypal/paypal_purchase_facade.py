@@ -1,8 +1,11 @@
+import logging
 from typing import List
 
 from purchases.paypal.confirm_order import OrderConfirmationHandler
 from purchases.paypal.create_order import OrderCreationHandler
 from purchases.schema.types import ProductPurchaseType
+
+logger = logging.getLogger(__name__)
 
 
 class PaypalPurchaseFacade:
@@ -31,6 +34,7 @@ class PaypalPurchaseFacade:
         products_to_purchase = self._inputs["products_to_purchase"]
         handler = OrderCreationHandler()
         items, total_price = handler.proccess_data(products_to_purchase)
+        logger.debug("Sending Request.  Items Sent: %s", products_to_purchase)
         payment_url = handler.send_request(items=items, total_price=total_price)
 
         return payment_url
@@ -47,6 +51,7 @@ class PaypalPurchaseFacade:
 
         handler = OrderConfirmationHandler()
         user = handler.get_user(username)
+        logger.debug("Sending Request.  Token Used: %s", token)
         response = handler.send_request(token)
         items = response["purchase_units"][0]["items"]
 

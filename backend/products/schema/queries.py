@@ -1,25 +1,20 @@
+import logging
 from enum import Enum
-from typing import List, Union
 
 import graphene
 
-from products.models import BJT, IGBT, MOSFET, Capacitor, Diode, Inductor, Resistor
-from products.schema.enums import BJTTypesEnum, TransistorTypesEnum
+from products.models import Capacitor, Diode, Inductor, Resistor
 from products.schema.inputs import (
     CapacitorInput,
-    ConponentModelListInput,
     DiodeInput,
     InductorInput,
     ResistorInput,
     TransistorInput,
 )
 from products.schema.types import (
-    BJTType,
     CapacitorType,
     DiodeType,
-    IGBTType,
     InductorType,
-    MOSFETType,
     ResistorType,
     TransistorType,
 )
@@ -30,6 +25,8 @@ from products.strategy_transistor import (
     TransistorQuery,
 )
 
+logger = logging.getLogger(__name__)
+
 
 class ProductListQuery(graphene.ObjectType):
     capacitors_query = graphene.List(CapacitorType, inputs=CapacitorInput())
@@ -39,22 +36,33 @@ class ProductListQuery(graphene.ObjectType):
     transistors_query = graphene.List(TransistorType, inputs=TransistorInput())
 
     def resolve_capacitors_query(self, info, inputs):
+        logger.info("## Starting Capacitor Query.")
+        logger.debug("Input Fields: %s", inputs)
         filter_kwargs = clean_inputs(inputs)
         return Capacitor.objects.filter(**filter_kwargs)
 
     def resolve_diodes_query(self, info, inputs):
+        logger.info("## Starting Diode Query.")
+        logger.debug("Input Fields: %s", inputs)
         filter_kwargs = clean_inputs(inputs)
         return Diode.objects.filter(**filter_kwargs)
 
     def resolve_resistors_query(self, info, inputs):
+        logger.info("## Starting Resistor Query.")
+        logger.debug("Input Fields: %s", inputs)
         filter_kwargs = clean_inputs(inputs)
         return Resistor.objects.filter(**filter_kwargs)
 
     def resolve_inductors_query(self, info, inputs):
+        logger.info("## Starting Inductor Query.")
+        logger.debug("Input Fields: %s", inputs)
         filter_kwargs = clean_inputs(inputs)
         return Inductor.objects.filter(**filter_kwargs)
 
     def resolve_transistors_query(self, info, inputs):
+        logger.info("Starting Transistor Query.")
+        logger.debug("Input Fields: %s", inputs)
+
         if inputs.transistor_type == "BJT":
             strategy = ConcreteStrategyBJT()
         if inputs.transistor_type == "MOSFET":
