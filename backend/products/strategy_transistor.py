@@ -1,8 +1,13 @@
+import logging
 from abc import ABC, abstractmethod
 from typing import List
 
+from graphql import GraphQLError
+
 from products.models import BJT, IGBT, MOSFET
 from products.schema.types import BJTType, IGBTType, MOSFETType
+
+logger = logging.getLogger(__name__)
 
 
 class TransistorStrategy(ABC):
@@ -25,6 +30,11 @@ class TransistorQuery:
     """
 
     def __init__(self, transistor_strategy: TransistorStrategy):
+        if not isinstance(transistor_strategy, TransistorStrategy):
+            raise Exception(
+                f"Context requires a TransistorStrategy object but "
+                f"{type(transistor_strategy)} was given"
+            )
         self._transistor_strategy = transistor_strategy
 
     @property
@@ -35,7 +45,9 @@ class TransistorQuery:
         """
         Executes the query_transistors method of the strategy
         """
+
         filter_kwargs.pop("transistor_type")
+
         return self._transistor_strategy.query_transistors(filter_kwargs)
 
 

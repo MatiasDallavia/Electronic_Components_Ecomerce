@@ -1,10 +1,17 @@
+import logging
+
 import graphene
 from django.contrib.auth.models import User
 from graphene import Mutation
+from graphql import GraphQLError
+
 from products.models import BJT, IGBT, MOSFET, Capacitor, Diode, Inductor, Resistor
+from purchases.paypal.paypal_purchase_facade import PaypalPurchaseFacade
 from purchases.schema.inputs import ConfirmOrderInput, CreateOrderInput
 from purchases.schema.types import ProductPurchaseType, UserType
-from purchases.paypal.paypal_purchase_facade import PaypalPurchaseFacade
+
+logger = logging.getLogger(__name__)
+
 
 components_mapping = {
     "BJT": BJT,
@@ -30,6 +37,7 @@ class RegisterUserMutation(Mutation):
     user = graphene.Field(UserType)
 
     def mutate(self, info, username, email, password):
+        logger.info("## Starting Register Mutation.")
         user = User(username=username, email=email)
         user.set_password(password)
         user.save()
@@ -44,16 +52,18 @@ class CreateOrderMutation(Mutation):
     class Arguments:
         inputs = CreateOrderInput(required=True)
 
-    errors = graphene.String()
     url = graphene.String()
 
     def mutate(self, info, inputs):
-        try:
+        logger.info("#"*10 + " Starting CreateOrder Mutation." + "#"*10)
+        logger.debug("Input Fields: %s", inputs)
+        try:            
             purchase_facede = PaypalPurchaseFacade(inputs)
             url = purchase_facede.create_order()
-            return CreateOrderMutation(errors="", url=url)
+            return CreateOrderMutation(url=url)
         except Exception as e:
-            return CreateOrderMutation(errors=e, url=None)
+            logger.error("!!  Internal Error: %s", e)
+            raise GraphQLError(f"There was an internal error")
 
 
 class CaptureOrderMutation(Mutation):
@@ -64,13 +74,15 @@ class CaptureOrderMutation(Mutation):
     class Arguments:
         inputs = ConfirmOrderInput(required=True)
 
-    errors = graphene.String()
     purchases = graphene.List(ProductPurchaseType)
 
     def mutate(self, info, inputs):
+        logger.info("#"*10 + " Starting CaptureOrder Mutation." + "#"*10)
+        logger.debug("Input Fields: %s", inputs)
         try:
             purchase_facede = PaypalPurchaseFacade(inputs)
             components_purchased = purchase_facede.confirm_order()
-            return CaptureOrderMutation(errors="", purchases=components_purchased)
+            return CaptureOrderMutation(purchases=components_purchased)
         except Exception as e:
-            return CaptureOrderMutation(errors=e, purchases=None)
+            logger.error("!!  Internal Error: %s", e)
+            raise GraphQLError(f"There was an internal error")

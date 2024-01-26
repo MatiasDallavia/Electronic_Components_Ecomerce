@@ -31,6 +31,7 @@ class ComponentUnionType(graphene.Union):
 class UserType(DjangoObjectType):
     class Meta:
         model = User
+        exclude = ('password',)
 
 
 class ProductPurchaseType(graphene.ObjectType):

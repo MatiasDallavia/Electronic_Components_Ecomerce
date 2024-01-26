@@ -1,8 +1,13 @@
+import logging
 from typing import List
+
+from graphql import GraphQLError
 
 from purchases.paypal.confirm_order import OrderConfirmationHandler
 from purchases.paypal.create_order import OrderCreationHandler
 from purchases.schema.types import ProductPurchaseType
+
+logger = logging.getLogger(__name__)
 
 
 class PaypalPurchaseFacade:

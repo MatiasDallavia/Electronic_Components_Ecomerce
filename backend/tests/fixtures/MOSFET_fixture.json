@@ -1,0 +1,170 @@
+[
+    {
+        "model": "products.mosfet",
+        "pk": 1,
+        "fields": {
+            "product_id": "1ed9c0af-95db-4041-ac3e-d6a4fd830ff9",
+            "model": "IRF9530",
+            "description": "P-Channel Power MOSFET",
+            "price": "3.79",
+            "mounting_technology": "THT",
+            "operating_temperature": 75.0,
+            "amount_available": 20000,
+            "manufacturer": "Texas Instruments",
+            "is_active": true,
+            "package": "TO-220fp",
+            "vds": 18.0,
+            "drive_voltage": 6.0,
+            "vgs": 3.0,
+            "rds_on": 0.1,
+            "input_capacitance": 110.0
+        }
+    },
+    {
+        "model": "products.mosfet",
+        "pk": 2,
+        "fields": {
+            "product_id": "f169b70f-e13d-4531-be04-aac858fae2a5",
+            "model": "SI2312BDS-T1-E3",
+            "description": "P-Channel Enhancement Mode MOSFET",
+            "price": "2.29",
+            "mounting_technology": "THT",
+            "operating_temperature": 75.0,
+            "amount_available": 2000,
+            "manufacturer": "Infineon",
+            "is_active": true,
+            "rds_on": 0.1,
+            "package": "TO-220fp",
+            "vds": 12.0,
+            "drive_voltage": 4.0,
+            "vgs": 2.2,
+            "input_capacitance": 100.0
+        }
+    },
+    {
+        "model": "products.mosfet",
+        "pk": 3,
+        "fields": {
+            "product_id": "fa882646-db52-49a6-bb02-c3d6519cc06f",
+            "model": "IRLZ44N",
+            "description": "P-Channel Logic Level MOSFET",
+            "price": "4.99",
+            "mounting_technology": "THT",
+            "operating_temperature": 75.0,
+            "amount_available": 10000,
+            "manufacturer": "Fairchild",
+            "is_active": true,
+            "rds_on": 0.1,
+            "package": "TO-220fp",
+            "vds": 20.0,
+            "drive_voltage": 3.0,
+            "vgs": 2.5,
+            "input_capacitance": 85.0
+        }
+    },
+    {
+        "model": "products.mosfet",
+        "pk": 4,
+        "fields": {
+            "product_id": "7e17cedf-371a-4a87-a6ec-7a1d58e028d2",
+            "model": "IRF9540",
+            "description": "P-Channel Power MOSFET",
+            "price": "3.49",
+            "mounting_technology": "THT",
+            "operating_temperature": 75.0,
+            "amount_available": 5000,
+            "manufacturer": "Samsung",
+            "is_active": true,
+            "package": "TO-220fp",
+            "rds_on": 0.1,
+            "vds": 15.0,
+            "drive_voltage": 5.0,
+            "vgs": 2.0,
+            "input_capacitance": 95.0
+        }
+    },
+    {
+        "model": "products.mosfet",
+        "pk": 5,
+        "fields": {
+            "product_id": "a357447c-93ca-4a64-bc28-5356204d3610",
+            "model": "IRF510",
+            "description": "N-Channel Power MOSFET",
+            "price": "1.79",
+            "mounting_technology": "THT",
+            "operating_temperature": 75.0,
+            "amount_available": 100000,
+            "manufacturer": "Siemens",
+            "is_active": true,
+            "package": "TO-220fp",
+            "vds": 8.0,
+            "rds_on": 0.1,
+            "drive_voltage": 4.5,
+            "vgs": 1.8,
+            "input_capacitance": 110.0
+        }
+    },
+    {
+        "model": "products.mosfet",
+        "pk": 6,
+        "fields": {
+            "product_id": "2c9f78bf-26ea-4ce9-b3a1-264d2269946a",
+            "model": "IRLB8743",
+            "description": "N-Channel Power MOSFET",
+            "price": "6.99",
+            "mounting_technology": "THT",
+            "operating_temperature": 75.0,
+            "amount_available": 20000,
+            "manufacturer": "Texas Instruments",
+            "is_active": true,
+            "package": "TO-220fp",
+            "vds": 20.0,
+            "drive_voltage": 6.0,
+            "rds_on": 0.1,
+            "vgs": 3.0,
+            "input_capacitance": 120.0
+        }
+    },
+    {
+        "model": "products.mosfet",
+        "pk": 7,
+        "fields": {
+            "product_id": "4b56c3bd-6c96-46a9-aa79-533496c3efd7",
+            "model": "FQP30N06L",
+            "description": "N-Channel Logic Level MOSFET",
+            "price": "3.99",
+            "mounting_technology": "THT",
+            "operating_temperature": 75.0,
+            "amount_available": 2000,
+            "manufacturer": "Fairchild",
+            "is_active": true,
+            "package": "TO-220fp",
+            "rds_on": 0.1,
+            "vds": 12.0,
+            "drive_voltage": 4.0,
+            "vgs": 2.2,
+            "input_capacitance": 90.0
+        }
+    },
+    {
+        "model": "products.mosfet",
+        "pk": 8,
+        "fields": {
+            "product_id": "e492971b-fb17-4e6b-9291-4e62e52fec88",
+            "model": "IRL540",
+            "description": "N-Channel Logic Level Power MOSFET",
+            "price": "4.49",
+            "mounting_technology": "THT",
+            "operating_temperature": 75.0,
+            "amount_available": 10000,
+            "manufacturer": "Siemens",
+            "is_active": true,
+            "package": "TO-220fp",
+            "vds": 15.0,
+            "drive_voltage": 3.0,
+            "rds_on": 0.1,
+            "vgs": 2.5,
+            "input_capacitance": 80.0
+        }
+    }
+]    

@@ -1,0 +1,191 @@
+[
+    {
+        "model": "products.capacitor",
+        "pk": 16,
+        "fields": {
+            "product_id": "4a7cc1f5-557f-428d-bb8a-1f2b10e78a5e",
+            "model": "C16",
+            "description": "Ceramic Capacitor, 15uF, 5% Tolerance, 16V",
+            "price": "1.29",
+            "mounting_technology": "THT",
+            "operating_temperature": 70.0,
+            "amount_available": 4500,
+            "manufacturer": "Texas Instruments",
+            "is_active": true,
+            "package": "104",
+            "capacitor_type": "CERAMIC",
+            "capacitance": 15.0,
+            "tolerance": 5.0,
+            "voltage": 16.0,
+            "esr": 0.1
+        }
+    },
+    {
+        "model": "products.capacitor",
+        "pk": 17,
+        "fields": {
+            "product_id": "6d6c983e-9a1b-4d7b-a160-92be85150e27",
+            "model": "C17",
+            "description": "Electrolytic Capacitor, 47uF, 10% Tolerance, 35V",
+            "price": "2.49",
+            "mounting_technology": "SMD",
+            "operating_temperature": 85.0,
+            "amount_available": 3200,
+            "manufacturer": "Fairchild",
+            "is_active": true,
+            "package": "BULK",
+            "capacitor_type": "ELECTROLYTIC",
+            "capacitance": 4700.0,
+            "tolerance": 10.0,
+            "voltage": 35.0,
+            "esr": 0.2
+        }
+    },
+    {
+        "model": "products.capacitor",
+        "pk": 18,
+        "fields": {
+            "product_id": "b6abb8f4-1ce1-4272-9906-eafb9afd55ab",
+            "model": "C25",
+            "description": "Film Capacitor, 82uF, 5% Tolerance, 50V",
+            "price": "3.99",
+            "mounting_technology": "SMD",
+            "operating_temperature": 70.0,
+            "amount_available": 2800,
+            "manufacturer": "Samsung",
+            "is_active": true,
+            "package": "BULK",
+            "capacitor_type": "ELECTROLYTIC",
+            "capacitance": 82.0,
+            "tolerance": 5.0,
+            "voltage": 50.0,
+            "esr": 0.25
+        }
+    },
+    {
+        "model": "products.capacitor",
+        "pk": 19,
+        "fields": {
+            "product_id": "fefb3238-6cd1-4325-a250-7245769ae7bb",
+            "model": "C1",
+            "description": "Ceramic Capacitor, 10uF, 5% Tolerance, 25V",
+            "price": "0.99",
+            "mounting_technology": "THT",
+            "operating_temperature": 70.0,
+            "amount_available": 5000,
+            "manufacturer": "Fairchild",
+            "is_active": true,
+            "package": "104",
+            "capacitor_type": "CERAMIC",
+            "capacitance": 10.0,
+            "tolerance": 5.0,
+            "voltage": 25.0,
+            "esr": 0.1
+        }
+    },
+    {
+        "model": "products.capacitor",
+        "pk": 20,
+        "fields": {
+            "product_id": "a6dcfd3e-eadd-4ea1-91c5-f2561b293109",
+            "model": "C2",
+            "description": "Film Capacitor, 47uF, 10% Tolerance, 50V",
+            "price": "1.49",
+            "mounting_technology": "THT",
+            "operating_temperature": 85.0,
+            "amount_available": 3000,
+            "manufacturer": "Infineon",
+            "is_active": true,
+            "package": "BULK",
+            "capacitor_type": "ELECTROLYTIC",
+            "capacitance": 47.0,
+            "tolerance": 10.0,
+            "voltage": 50.0,
+            "esr": 0.2
+        }
+    },
+    {
+        "model": "products.capacitor",
+        "pk": 21,
+        "fields": {
+            "product_id": "e518d125-9d52-4a92-86e4-9cd395e54909",
+            "model": "C5",
+            "description": "Electrolytic Capacitor, 100uF, 20% Tolerance, 16V",
+            "price": "2.99",
+            "mounting_technology": "THT",
+            "operating_temperature": 70.0,
+            "amount_available": 2000,
+            "manufacturer": "Texas Instruments",
+            "is_active": true,
+            "package": "BULK",
+            "capacitor_type": "ELECTROLYTIC",
+            "capacitance": 100.0,
+            "tolerance": 20.0,
+            "voltage": 16.0,
+            "esr": 0.5
+        }
+    },
+    {
+        "model": "products.capacitor",
+        "pk": 22,
+        "fields": {
+            "product_id": "5823e8da-823a-406e-9e7b-3219bf1fca28",
+            "model": "C6",
+            "description": "Ceramic Capacitor, 22uF, 5% Tolerance, 50V",
+            "price": "1.25",
+            "mounting_technology": "THT",
+            "operating_temperature": 70.0,
+            "amount_available": 4000,
+            "manufacturer": "Samsung",
+            "is_active": true,
+            "package": "103",
+            "capacitor_type": "CERAMIC",
+            "capacitance": 22.0,
+            "tolerance": 5.0,
+            "voltage": 50.0,
+            "esr": 0.15
+        }
+    },
+    {
+        "model": "products.capacitor",
+        "pk": 23,
+        "fields": {
+            "product_id": "a7550a0d-a51a-4f2a-9a1a-07bce5aa9681",
+            "model": "C7",
+            "description": "Electrolytic Capacitor, 330uF, 10% Tolerance, 25V",
+            "price": "3.49",
+            "mounting_technology": "THT",
+            "operating_temperature": 85.0,
+            "amount_available": 2500,
+            "manufacturer": "Fairchild",
+            "is_active": true,
+            "package": "BULK",
+            "capacitor_type": "ELECTROLYTIC",
+            "capacitance": 330.0,
+            "tolerance": 10.0,
+            "voltage": 25.0,
+            "esr": 0.3
+        }
+    },
+    {
+        "model": "products.capacitor",
+        "pk": 24,
+        "fields": {
+            "product_id": "d33e1642-1bd1-48c3-87c5-4c70bc10eaf9",
+            "model": "C10",
+            "description": "Film Capacitor, 100uF, 5% Tolerance, 63V",
+            "price": "2.99",
+            "mounting_technology": "THT",
+            "operating_temperature": 70.0,
+            "amount_available": 3000,
+            "manufacturer": "Texas Instruments",
+            "is_active": true,
+            "package": "BULK",
+            "capacitor_type": "ELECTROLYTIC",
+            "capacitance": 100.0,
+            "tolerance": 5.0,
+            "voltage": 63.0,
+            "esr": 0.25
+        }
+    }
+]   
