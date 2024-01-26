@@ -17,7 +17,7 @@ function TransistorView() {
     const singleTransistorInput = { inputs: { id: transistorComponentID, transistorType } };
     const { loading, error, data } = useQuery(GET_SINGLE_TRANSISTOR, { variables: singleTransistorInput });
   
-    const transistor = data ? data.transistorListQuery[0] : {};
+    const transistor = data ? data.transistorsQuery[0] : {};
     const excludedFields = new Set(['__typename', 'componentType', 'model', 'price', 'amountAvailable']);
     const transistorAttributes = Object.keys(transistor)
       .filter((key) => !excludedFields.has(key))

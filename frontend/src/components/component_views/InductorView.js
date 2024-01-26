@@ -16,7 +16,7 @@ function InductorView() {
   singleInductorInput.inputs.id = inductorComponentID;
   const { loading, error, data } = useQuery(GET_SINGLE_INDUCTOR, { variables: singleInductorInput });
 
-  const inductor = data ? data.inductorListQuery[0] : [];
+  const inductor = data ? data.inductorsQuery[0] : [];
   const excludedFields = new Set(['__typename', 'package', 'componentType', 'model', 'price', 'amountAvailable']);
 
   const inductorAttributes = Object.entries(inductor)

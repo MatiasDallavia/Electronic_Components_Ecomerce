@@ -16,7 +16,7 @@ function CapacitorView() {
   SingleCapacitorInput.inputs.id = capacitorComponentID;
   const { loading, error, data } = useQuery(GET_SINGLE_CAPACITOR, { variables: SingleCapacitorInput });
 
-  const capacitor = data ? data.capacitorListQuery[0] : {};
+  const capacitor = data ? data.capacitorsQuery[0] : {};
   const excludedFields = new Set(['__typename', 'componentType', 'model', 'price', 'amountAvailable']);
   const capacitorAttributes = Object.entries(capacitor)
     .filter(([key]) => !excludedFields.has(key))
