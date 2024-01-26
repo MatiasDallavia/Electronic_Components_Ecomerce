@@ -1,5 +1,6 @@
 import graphene
 
+
 class BaseProductModelType(graphene.ObjectType):
     id = graphene.ID()
     product_id = graphene.UUID()
@@ -22,7 +23,6 @@ class BaseProductModelType(graphene.ObjectType):
         return f"{self.operating_temperature} C°"
 
 
-
 class CapacitorType(BaseProductModelType):
     capacitor_type = graphene.String()
     capacitance = graphene.String()
@@ -30,21 +30,20 @@ class CapacitorType(BaseProductModelType):
     voltage = graphene.String()
     esr = graphene.String()
 
-
     def resolve_component_type(self, info):
         return "capacitor"
 
     def resolve_capacitor_type(self, info):
         capacitor_type = self.capacitor_type.lower()
         return capacitor_type.capitalize() + " Capacitor"
-    
+
     def resolve_capacitance(self, info):
         capacitor_type = self.capacitor_type
         capacitance = int(self.capacitance)
         if capacitor_type == "CERAMIC":
             return f"{capacitance}nF"
         return f"{capacitance}pF"
-    
+
     def resolve_tolerance(self, info):
         return f"{int(self.tolerance)}%"
 
@@ -52,17 +51,17 @@ class CapacitorType(BaseProductModelType):
         return check_voltage_notation(self.voltage)
 
     def resolve_esr(self, info):
-        return check_ohm_notation(self.esr)          
+        return check_ohm_notation(self.esr)
+
 
 class ResistorType(BaseProductModelType):
     resistance = graphene.String()
     tolerance = graphene.String()
     power = graphene.String()
 
-
     def resolve_component_type(self, info):
         return "resistor"
-    
+
     def resolve_resistance(self, info):
         return check_ohm_notation(self.resistance)
 
@@ -70,10 +69,11 @@ class ResistorType(BaseProductModelType):
         return f"{int(self.tolerance)} %"
 
     def resolve_power(self, info):
-        return check_power_notation(self.power) 
-    
+        return check_power_notation(self.power)
+
     def resolve_operating_temperature(self, info):
-        return f"{int(self.operating_temperature)}C°"    
+        return f"{int(self.operating_temperature)}C°"
+
 
 class DiodeType(BaseProductModelType):
     current = graphene.String()
@@ -92,10 +92,11 @@ class DiodeType(BaseProductModelType):
 
     def resolve_reverse_recovery(self, info):
         return check_ampere_notation(self.reverse_recovery)
-    
+
     def resolve_diode_type(self, info):
         diode_type = self.diode_type.lower()
         return self.diode_type.capitalize()
+
 
 class InductorType(BaseProductModelType):
     inductor_type = graphene.String()
@@ -110,7 +111,7 @@ class InductorType(BaseProductModelType):
     def resolve_inductor_type(self, info):
         inductor_type = self.inductor_type.lower()
         return inductor_type.capitalize()
-    
+
     def resolve_current(self, info):
         return check_ampere_notation(self.current)
 
@@ -120,15 +121,13 @@ class InductorType(BaseProductModelType):
 
     def resolve_inductance(self, info):
         inductance = int(self.inductance)
-        if self.package == "P2220" :
+        if self.package == "P2220":
             return f"{inductance}nH"
         return f"{inductance}mH"
-    
+
     def resolve_vr(self, info):
         return f"{int(self.vr)}mV"
-               
 
-           
 
 class BJTType(BaseProductModelType):
     bjt_type = graphene.String()
@@ -196,7 +195,7 @@ class IGBTType(BaseProductModelType):
         return check_ampere_notation(self.ic)
 
     def resolve_power_max(self, info):
-        return check_power_notation(self.power_max) 
+        return check_power_notation(self.power_max)
 
     def resolve_gc(self, info):
         return f"{int(self.gc)}nC"
@@ -268,7 +267,7 @@ def check_power_notation(field_number):
         return field_number + "W"
     else:
         return convert_to_mili(field_number) + "mW"
-    
+
 
 def check_power_notation(field_number):
     if field_number >= 1000:
