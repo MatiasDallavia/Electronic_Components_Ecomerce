@@ -1,0 +1,182 @@
+[
+    {
+        "model": "products.diode",
+        "pk": 1,
+        "fields": {
+            "product_id": "10f78011-a73e-41ab-a687-8c3db8f460a1",
+            "model": "SS14",
+            "description": "Schottky Diode, 40V, 1.5A",
+            "price": "2.49",
+            "mounting_technology": "THT",
+            "operating_temperature": 85.0,
+            "amount_available": 9000,
+            "manufacturer": "Fairchild",
+            "is_active": true,
+            "package": "DO-41",
+            "diode_type": "SCHOTTKY",
+            "dc_reverse": 25.0,
+            "current": 1.5,
+            "reverse_recovery": 6.0
+        }
+    },
+    {
+        "model": "products.diode",
+        "pk": 2,
+        "fields": {
+            "product_id": "9f534707-7c7e-469b-a684-3fe2848c555c",
+            "model": "BAT85",
+            "description": "Schottky Diode, 35V, 2.5A",
+            "price": "2.99",
+            "mounting_technology": "THT",
+            "operating_temperature": 85.0,
+            "amount_available": 12000,
+            "manufacturer": "Fairchild",
+            "is_active": true,
+            "package": "DO-35",
+            "diode_type": "SCHOTTKY",
+            "dc_reverse": 35.0,
+            "current": 2.5,
+            "reverse_recovery": 9.0
+        }
+    },
+    {
+        "model": "products.diode",
+        "pk": 3,
+        "fields": {
+            "product_id": "50b6c1cd-9e70-4a17-be23-61a64943cf2e",
+            "model": "1N5404",
+            "description": "Rectifier Diode, 60V, 4A",
+            "price": "1.79",
+            "mounting_technology": "THT",
+            "operating_temperature": 85.0,
+            "amount_available": 11000,
+            "manufacturer": "Fairchild",
+            "is_active": true,
+            "package": "SOD-123",
+            "diode_type": "RECTIFIER",
+            "dc_reverse": 60.0,
+            "current": 4.0,
+            "reverse_recovery": 12.0
+        }
+    },
+    {
+        "model": "products.diode",
+        "pk": 4,
+        "fields": {
+            "product_id": "a80e834a-2eee-43b0-a68f-f5cf810a575e",
+            "model": "UF4007",
+            "description": "Rectifier Diode, 120V, 6A",
+            "price": "3.49",
+            "mounting_technology": "THT",
+            "operating_temperature": 85.0,
+            "amount_available": 16000,
+            "manufacturer": "Fairchild",
+            "is_active": true,
+            "package": "SOD-80",
+            "diode_type": "RECTIFIER",
+            "dc_reverse": 120.0,
+            "current": 6.0,
+            "reverse_recovery": 18.0
+        }
+    },
+    {
+        "model": "products.diode",
+        "pk": 5,
+        "fields": {
+            "product_id": "208f6b27-fbff-48d2-97ed-17d8f6d3c47d",
+            "model": "BZX84C15",
+            "description": "Zener Diode, 15V, 0.7A",
+            "price": "1.09",
+            "mounting_technology": "THT",
+            "operating_temperature": 85.0,
+            "amount_available": 13000,
+            "manufacturer": "Fairchild",
+            "is_active": true,
+            "package": "SOD-123",
+            "diode_type": "ZENER",
+            "dc_reverse": 15.0,
+            "current": 0.7,
+            "reverse_recovery": 2.5
+        }
+    },
+    {
+        "model": "products.diode",
+        "pk": 6,
+        "fields": {
+            "product_id": "13409107-b68c-4fc0-8c1a-db13467f4c14",
+            "model": "BZX55C30",
+            "description": "Zener Diode, 30V, 1.2A",
+            "price": "1.69",
+            "mounting_technology": "THT",
+            "operating_temperature": 85.0,
+            "amount_available": 18000,
+            "manufacturer": "Fairchild",
+            "is_active": true,
+            "package": "SOD-80",
+            "diode_type": "ZENER",
+            "dc_reverse": 30.0,
+            "current": 1.2,
+            "reverse_recovery": 3.5
+        }
+    },
+    {
+        "model": "products.diode",
+        "pk": 7,
+        "fields": {
+            "product_id": "cc43e82a-2644-462f-8539-ef422e693f59",
+            "model": "SMBJ20A",
+            "description": "Schottky Diode, 20V, 1A (SMD)",
+            "price": "1.99",
+            "mounting_technology": "SMD",
+            "operating_temperature": 85.0,
+            "amount_available": 6000,
+            "manufacturer": "Fairchild",
+            "is_active": true,
+            "package": "SOD-123",
+            "diode_type": "SCHOTTKY",
+            "dc_reverse": 20.0,
+            "current": 1.0,
+            "reverse_recovery": 5.0
+        }
+    },
+    {
+        "model": "products.diode",
+        "pk": 8,
+        "fields": {
+            "product_id": "d8047f64-dd56-486b-a155-626016fa4962",
+            "model": "MBRS340T3G",
+            "description": "Schottky Diode, 30V, 1.5A (SMD)",
+            "price": "2.49",
+            "mounting_technology": "SMD",
+            "operating_temperature": 85.0,
+            "amount_available": 8000,
+            "manufacturer": "Fairchild",
+            "is_active": true,
+            "package": "SOD-80",
+            "diode_type": "SCHOTTKY",
+            "dc_reverse": 30.0,
+            "current": 1.5,
+            "reverse_recovery": 6.0
+        }
+    },
+    {
+        "model": "products.diode",
+        "pk": 9,
+        "fields": {
+            "product_id": "14f2f53b-79d0-4820-8a0f-83ad214571f6",
+            "model": "LL4148",
+            "description": "Rectifier Diode, 40V, 2A (SMD)",
+            "price": "1.49",
+            "mounting_technology": "SMD",
+            "operating_temperature": 85.0,
+            "amount_available": 7000,
+            "manufacturer": "Fairchild",
+            "is_active": true,
+            "package": "SOD-123",
+            "diode_type": "RECTIFIER",
+            "dc_reverse": 40.0,
+            "current": 2.0,
+            "reverse_recovery": 8.0
+        }
+    }
+]

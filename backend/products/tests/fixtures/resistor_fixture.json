@@ -1,0 +1,162 @@
+[
+    {
+      "model": "products.resistor",
+      "pk": 1,
+      "fields": {
+        "product_id": "f3628b7d-7bb4-4146-bd8a-fe12f23659ee",
+        "model": "R1",
+        "description": "Carbon Resistor, 100 Ohms, 1% Tolerance, 0.25W",
+        "price": "0.49",
+        "mounting_technology": "THT",
+        "operating_temperature": 70.0,
+        "amount_available": 5000,
+        "manufacturer": "Infineon",
+        "is_active": true,
+        "package": "AXIAL",
+        "resistor_type": "CARBON",
+        "resistance": 100.0,
+        "tolerance": 1.0,
+        "power": 5.0
+      }
+    },
+    {
+      "model": "products.resistor",
+      "pk": 2,
+      "fields": {
+        "product_id": "61222242-0b12-4094-9640-a9b91d986cda",
+        "model": "R2",
+        "description": "Film Resistor, 220 Ohms, 5% Tolerance, 0.125W",
+        "price": "0.35",
+        "mounting_technology": "SMD",
+        "operating_temperature": 85.0,
+        "amount_available": 10000,
+        "manufacturer": "Texas Instruments",
+        "is_active": true,
+        "package": "0402",
+        "resistor_type": "FILM",
+        "resistance": 220.0,
+        "tolerance": 5.0,
+        "power": 0.25
+      }
+    },
+    {
+      "model": "products.resistor",
+      "pk": 3,
+      "fields": {
+        "product_id": "29f18614-1333-4aaf-9225-8656e0fa1375",
+        "model": "R10",
+        "description": "Carbon Resistor, 4.7k Ohms, 1% Tolerance, 0.5W",
+        "price": "1.20",
+        "mounting_technology": "SMD",
+        "operating_temperature": 70.0,
+        "amount_available": 8000,
+        "manufacturer": "Samsung",
+        "is_active": true,
+        "package": "0603",
+        "resistor_type": "CARBON",
+        "resistance": 4700.0,
+        "tolerance": 1.0,
+        "power": 0.25
+      }
+    },
+    {
+      "model": "products.resistor",
+      "pk": 4,
+      "fields": {
+        "product_id": "1ad55249-3d97-4cb2-b1fb-5efada5fc091",
+        "model": "R11",
+        "description": "Carbon Resistor, 470 Ohms, 5% Tolerance, 0.125W",
+        "price": "0.55",
+        "mounting_technology": "THT",
+        "operating_temperature": 70.0,
+        "amount_available": 6000,
+        "manufacturer": "Fairchild",
+        "is_active": true,
+        "package": "AXIAL",
+        "resistor_type": "CARBON",
+        "resistance": 470.0,
+        "tolerance": 5.0,
+        "power": 0.25
+      }
+    },
+    {
+      "model": "products.resistor",
+      "pk": 5,
+      "fields": {
+        "product_id": "26312418-9037-4d25-8afb-d9d0d66fcc8e",
+        "model": "R12",
+        "description": "Film Resistor, 3.3k Ohms, 1% Tolerance, 0.1W",
+        "price": "0.30",
+        "mounting_technology": "SMD",
+        "operating_temperature": 85.0,
+        "amount_available": 12000,
+        "manufacturer": "Infineon",
+        "is_active": true,
+        "package": "0402",
+        "resistor_type": "FILM",
+        "resistance": 3300.0,
+        "tolerance": 1.0,
+        "power": 0.25
+      }
+    },
+    {
+      "model": "products.resistor",
+      "pk": 6,
+      "fields": {
+        "product_id": "964eef14-48b2-420e-9991-775ba3831ffd",
+        "model": "R20",
+        "description": "Carbon Resistor, 10k Ohms, 5% Tolerance, 0.25W",
+        "price": "0.75",
+        "mounting_technology": "SMD",
+        "operating_temperature": 70.0,
+        "amount_available": 9000,
+        "manufacturer": "Siemens",
+        "is_active": true,
+        "package": "0603",
+        "resistor_type": "CARBON",
+        "resistance": 10000.0,
+        "tolerance": 5.0,
+        "power": 0.25
+      }
+    },
+    {
+      "model": "products.resistor",
+      "pk": 7,
+      "fields": {
+        "product_id": "d3be5899-bcf1-4556-8914-9b8339a6abe3",
+        "model": "R21",
+        "description": "Carbon Resistor, 150 Ohms, 1% Tolerance, 0.125W",
+        "price": "0.45",
+        "mounting_technology": "THT",
+        "operating_temperature": 70.0,
+        "amount_available": 4000,
+        "manufacturer": "Samsung",
+        "is_active": true,
+        "package": "AXIAL",
+        "resistor_type": "CARBON",
+        "resistance": 150.0,
+        "tolerance": 1.0,
+        "power": 0.25
+      }
+    },
+    {
+      "model": "products.resistor",
+      "pk": 8,
+      "fields": {
+        "product_id": "791b97f3-0648-4d08-8c5c-34b3c0ba9e50",
+        "model": "R22",
+        "description": "Film Resistor, 6.8k Ohms, 5% Tolerance, 0.1W",
+        "price": "0.35",
+        "mounting_technology": "SMD",
+        "operating_temperature": 85.0,
+        "amount_available": 8000,
+        "manufacturer": "Fairchild",
+        "is_active": true,
+        "package": "0402",
+        "resistor_type": "FILM",
+        "resistance": 6800.0,
+        "tolerance": 5.0,
+        "power": 0.25
+      }
+    }
+]  

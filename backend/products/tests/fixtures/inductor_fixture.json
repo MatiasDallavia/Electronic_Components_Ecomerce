@@ -1,0 +1,184 @@
+[
+    {
+        "model": "products.inductor",
+        "pk": 1,
+        "fields": {
+            "product_id": "58c46f17-f0ee-4723-91f3-f8525c9a35c8",
+            "model": "L1",
+            "description": "Solenoid Inductor, Air Core, 10uH, 0.5A",
+            "price": "2.99",
+            "mounting_technology": "SMD",
+            "operating_temperature": 70.0,
+            "amount_available": 3000,
+            "manufacturer": "Fairchild",
+            "is_active": true,
+            "package": "2220",
+            "inductor_type": "SOLENOID",
+            "core_material": "AIR",
+            "inductance": 10.0,
+            "current": 0.5,
+            "vr": 5.0,
+            "rr": 1.0
+        }
+    },
+    {
+        "model": "products.inductor",
+        "pk": 2,
+        "fields": {
+            "product_id": "2e4b8de4-a425-4150-a10c-dd241a04a130",
+            "model": "L2",
+            "description": "Toroid Inductor, Ferrite Core, 22uH, 1A",
+            "price": "3.49",
+            "mounting_technology": "SMD",
+            "operating_temperature": 85.0,
+            "amount_available": 5000,
+            "manufacturer": "Infineon",
+            "is_active": true,
+            "package": "330",
+            "inductor_type": "SOLENOID",
+            "core_material": "FERRITE",
+            "inductance": 22.0,
+            "current": 1.0,
+            "vr": 8.0,
+            "rr": 1.0
+        }
+    },
+    {
+        "model": "products.inductor",
+        "pk": 3,
+        "fields": {
+            "product_id": "77190a3f-1dd5-4322-a99e-91e2e2c5ab64",
+            "model": "L5",
+            "description": "Solenoid Inductor, Alloy Core, 47uH, 1.5A",
+            "price": "4.99",
+            "mounting_technology": "THT",
+            "operating_temperature": 70.0,
+            "amount_available": 4000,
+            "manufacturer": "Siemens",
+            "is_active": true,
+            "package": "DIL",
+            "inductor_type": "TOROID",
+            "core_material": "ALLOY",
+            "inductance": 47.0,
+            "current": 1.5,
+            "vr": 10.0,
+            "rr": 1.0
+        }
+    },
+    {
+        "model": "products.inductor",
+        "pk": 4,
+        "fields": {
+            "product_id": "ca3b7286-e90a-4443-824e-c826a0836d0d",
+            "model": "L6",
+            "description": "Solenoid Inductor, Air Core, 33uH, 0.8A",
+            "price": "3.99",
+            "mounting_technology": "SMD",
+            "operating_temperature": 70.0,
+            "amount_available": 2000,
+            "manufacturer": "Samsung",
+            "is_active": true,
+            "package": "330",
+            "inductor_type": "SOLENOID",
+            "core_material": "AIR",
+            "inductance": 33.0,
+            "current": 0.8,
+            "vr": 6.0,
+            "rr": 6.0
+            
+        }
+    },
+    {
+        "model": "products.inductor",
+        "pk": 5,
+        "fields": {
+            "product_id": "f5b25d9c-78c7-4f9d-95f0-abfc5a395263",
+            "model": "L7",
+            "description": "Toroid Inductor, Alloy Core, 68uH, 1.2A",
+            "price": "5.49",
+            "mounting_technology": "SMD",
+            "operating_temperature": 85.0,
+            "amount_available": 3500,
+            "manufacturer": "Fairchild",
+            "is_active": true,
+            "package": "DIL",
+            "inductor_type": "TOROID",
+            "core_material": "ALLOY",
+            "inductance": 68.0,
+            "current": 1.2,
+            "vr": 9.0,
+            "rr": 6.0
+
+        }
+    },
+    {
+        "model": "products.inductor",
+        "pk": 6,
+        "fields": {
+            "product_id": "3bb1830f-07f5-49aa-b9a4-01238a69ef9b",
+            "model": "L10",
+            "description": "Solenoid Inductor, Ferrite Core, 100uH, 1.5A",
+            "price": "6.99",
+            "mounting_technology": "SMD",
+            "operating_temperature": 70.0,
+            "amount_available": 3000,
+            "manufacturer": "Infineon",
+            "is_active": true,
+            "package": "101",
+            "inductor_type": "SOLENOID",
+            "core_material": "FERRITE",
+            "inductance": 100.0,
+            "current": 1.5,
+            "vr": 12.0,
+            "rr": 6.0
+
+        }
+    },
+    {
+        "model": "products.inductor",
+        "pk": 7,
+        "fields": {
+            "product_id": "05d34436-96fc-445c-a746-ea54703c82b2",
+            "model": "L11",
+            "description": "Toroid Inductor, Air Core, 47uH, 1A",
+            "price": "4.25",
+            "mounting_technology": "SMD",
+            "operating_temperature": 70.0,
+            "amount_available": 2500,
+            "manufacturer": "Texas Instruments",
+            "is_active": true,
+            "package": "2220",
+            "inductor_type": "SOLENOID",
+            "core_material": "AIR",
+            "inductance": 47.0,
+            "current": 1.0,
+            "vr": 7.0,
+            "rr": 7.0
+
+
+        }
+    },
+    {
+        "model": "products.inductor",
+        "pk": 8,
+        "fields": {
+            "product_id": "b7302590-1534-4f59-8425-861ff748ee84",
+            "model": "L12",
+            "description": "Solenoid Inductor, Ferrite Core, 100uH, 2A",
+            "price": "6.49",
+            "mounting_technology": "SMD",
+            "operating_temperature": 85.0,
+            "amount_available": 1800,
+            "manufacturer": "Siemens",
+            "is_active": true,
+            "package": "330",
+            "inductor_type": "SOLENOID",
+            "core_material": "FERRITE",
+            "inductance": 100.0,
+            "current": 2.0,
+            "vr": 10.0,
+            "rr": 7.0
+
+        }
+    }
+]

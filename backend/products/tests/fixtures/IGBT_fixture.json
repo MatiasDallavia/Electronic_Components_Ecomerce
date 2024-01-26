@@ -1,0 +1,200 @@
+[
+    {
+        "model": "products.igbt",
+        "pk": 1,
+        "fields": {
+            "product_id": "ad47d388-be55-4b2b-935d-6351cc368cd8",
+            "model": "FGA20N120",
+            "description": "N-Channel IGBT, 1200V, 20A",
+            "price": "10.99",
+            "mounting_technology": "THT",
+            "operating_temperature": 85.0,
+            "amount_available": 5000,
+            "manufacturer": "Texas Instruments",
+            "is_active": true,
+            "package": "TO-220fp",
+            "vc": 600.0,
+            "ic": 20.0,
+            "vce_on": 1.2,
+            "power_max": 100.0,
+            "td": 25.0,
+            "gc": 9.5
+        }
+    },
+    {
+        "model": "products.igbt",
+        "pk": 2,
+        "fields": {
+            "product_id": "a84d026b-2555-4680-8351-4067f1c2ac87",
+            "model": "IKW40N120H3",
+            "description": "N-Channel IGBT, 1200V, 40A",
+            "price": "25.99",
+            "mounting_technology": "THT",
+            "operating_temperature": 85.0,
+            "amount_available": 8000,
+            "manufacturer": "Infineon",
+            "is_active": true,
+            "package": "TO-264",
+            "vc": 1200.0,
+            "ic": 40.0,
+            "vce_on": 1.8,
+            "power_max": 200.0,
+            "td": 35.0,
+            "gc": 4.8
+        }
+    },
+    {
+        "model": "products.igbt",
+        "pk": 3,
+        "fields": {
+            "product_id": "c95058ff-240d-4917-8305-6a9190052534",
+            "model": "FZ600R12KE3",
+            "description": "P-Channel IGBT, 1200V, 600A",
+            "price": "12.99",
+            "mounting_technology": "THT",
+            "operating_temperature": 85.0,
+            "amount_available": 7000,
+            "manufacturer": "Siemens",
+            "is_active": true,
+            "package": "TO-220fp",
+            "vc": 600.0,
+            "ic": 20.0,
+            "vce_on": 1.2,
+            "power_max": 100.0,
+            "td": 25.0,
+            "gc": 8.6
+        }
+    },
+    {
+        "model": "products.igbt",
+        "pk": 4,
+        "fields": {
+            "product_id": "fb023ecb-b942-4ae1-b57d-efd70de81847",
+            "model": "TMS320F28069PZT",
+            "description": "P-Channel IGBT, 1200V, 30A",
+            "price": "18.99",
+            "mounting_technology": "THT",
+            "operating_temperature": 85.0,
+            "amount_available": 10000,
+            "manufacturer": "Fairchild",
+            "is_active": true,
+            "package": "TO-264",
+            "vc": 200.0,
+            "ic": 30.0,
+            "vce_on": 1.5,
+            "power_max": 150.0,
+            "td": 30.0,
+            "gc": 9.0
+        }
+    },
+    {
+        "model": "products.igbt",
+        "pk": 5,
+        "fields": {
+            "product_id": "fed29016-e0fd-4182-a9a7-39c2acd91603",
+            "model": "FGA20N120",
+            "description": "N-Channel IGBT, 1200V, 20A",
+            "price": "10.99",
+            "mounting_technology": "THT",
+            "operating_temperature": 85.0,
+            "amount_available": 5000,
+            "manufacturer": "Fairchild",
+            "is_active": true,
+            "package": "TO-220fp",
+            "vc": 600.0,
+            "ic": 20.0,
+            "vce_on": 1.2,
+            "power_max": 100.0,
+            "td": 25.0,
+            "gc": 8.0
+        }
+    },
+    {
+        "model": "products.igbt",
+        "pk": 6,
+        "fields": {
+            "product_id": "e33f0c38-517f-486f-a351-8b7ab3a2521b",
+            "model": "IKW40N120H3",
+            "description": "N-Channel IGBT, 1200V, 40A",
+            "price": "25.99",
+            "mounting_technology": "THT",
+            "operating_temperature": 85.0,
+            "amount_available": 8000,
+            "manufacturer": "Texas Instruments",
+            "is_active": true,
+            "package": "TO-264",
+            "vc": 1200.0,
+            "ic": 40.0,
+            "vce_on": 1.8,
+            "power_max": 200.0,
+            "td": 35.0,
+            "gc": 10.0
+        }
+    },
+    {
+        "model": "products.igbt",
+        "pk": 7,
+        "fields": {
+            "product_id": "fa109e65-5a32-4ded-bfb3-96a4f9f690b3",
+            "model": "FZ600R12KE3",
+            "description": "P-Channel IGBT, 1200V, 600A",
+            "price": "12.99",
+            "mounting_technology": "THT",
+            "operating_temperature": 85.0,
+            "amount_available": 7000,
+            "manufacturer": "Texas Instruments",
+            "is_active": true,
+            "package": "TO-220fp",
+            "vc": 600.0,
+            "ic": 20.0,
+            "vce_on": 1.2,
+            "power_max": 100.0,
+            "td": 25.0,
+            "gc": 8.0
+        }
+    },
+    {
+        "model": "products.igbt",
+        "pk": 8,
+        "fields": {
+            "product_id": "a017cf7a-69e4-4ee2-9a36-fb834f2a4bff",
+            "model": "TMS320F28069PZT",
+            "description": "P-Channel IGBT, 1200V, 30A",
+            "price": "18.99",
+            "mounting_technology": "THT",
+            "operating_temperature": 85.0,
+            "amount_available": 10000,
+            "manufacturer": "Fairchild",
+            "is_active": true,
+            "package": "TO-264",
+            "vc": 1200.0,
+            "ic": 30.0,
+            "vce_on": 1.5,
+            "power_max": 150.0,
+            "td": 30.0,
+            "gc": 12.0
+        }
+    },
+    {
+        "model": "products.igbt",
+        "pk": 9,
+        "fields": {
+            "product_id": "05c8be28-c50a-4815-9ed3-5e396a25aeb3",
+            "model": "IRGB14C40L",
+            "description": "N-Channel IGBT, 400V, 25A",
+            "price": "14.99",
+            "mounting_technology": "THT",
+            "operating_temperature": 85.0,
+            "amount_available": 8500,
+            "manufacturer": "Texas Instruments",
+            "is_active": true,
+            "package": "TO-220fp",
+            "vc": 800.0,
+            "ic": 25.0,
+            "vce_on": 1.5,
+            "power_max": 120.0,
+            "td": 30.0,
+            "gc": 6.0
+        }
+    }
+]    
