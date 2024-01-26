@@ -19,17 +19,16 @@ def test_some_query(client_query):
             "model": None,
             "mountingTechnology": None,
             "manufacturer": None,
-            "resistance": None,
-            "tolerance": None,
-            "power": None,
+            "diodeType": None,
+            "dcReverse": None,
+            "current": None,
         }
     }
 
     response = client_query(
         """
-        query Resistors($inputs: ResistorInput!){
-        resistorsQuery(inputs: $inputs) {
-
+        query Diodes($inputs: DiodeInput!){
+        diodesQuery(inputs: $inputs) {
             id
             productId
             model
@@ -40,7 +39,10 @@ def test_some_query(client_query):
             amountAvailable
             manufacturer
             package
-            
+            diodeType
+            dcReverse
+            current
+            reverseRecovery
         }
         }
         """,

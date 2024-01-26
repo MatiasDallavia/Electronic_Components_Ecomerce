@@ -19,17 +19,17 @@ def test_some_query(client_query):
             "model": None,
             "mountingTechnology": None,
             "manufacturer": None,
-            "resistance": None,
-            "tolerance": None,
-            "power": None,
+            "inductorType": None,
+            "coreMaterial": None,
+            "inductance": None,
+            "current": 1.0,
         }
     }
 
     response = client_query(
         """
-        query Resistors($inputs: ResistorInput!){
-        resistorsQuery(inputs: $inputs) {
-
+        query Inductor($inputs: InductorInput!){
+        inductorsQuery(inputs: $inputs) {
             id
             productId
             model
@@ -40,8 +40,13 @@ def test_some_query(client_query):
             amountAvailable
             manufacturer
             package
-            
-        }
+            inductorType
+            coreMaterial
+            inductance
+            current
+            vr
+ 
+            }
         }
         """,
         variables=variables,

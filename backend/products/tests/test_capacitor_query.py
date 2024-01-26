@@ -17,19 +17,18 @@ def test_some_query(client_query):
     variables = {
         "inputs": {
             "model": None,
-            "mountingTechnology": None,
+            "mountingTechnology": "SMD",
             "manufacturer": None,
-            "resistance": None,
-            "tolerance": None,
-            "power": None,
+            "capacitorType": "ELECTROLYTIC",
+            "capacitance": None,
+            "voltage": None,
         }
     }
 
     response = client_query(
         """
-        query Resistors($inputs: ResistorInput!){
-        resistorsQuery(inputs: $inputs) {
-
+        query Capacitors($inputs: CapacitorInput!){
+        capacitorsQuery(inputs: $inputs) {
             id
             productId
             model
@@ -40,6 +39,12 @@ def test_some_query(client_query):
             amountAvailable
             manufacturer
             package
+            capacitorType
+            capacitance
+            tolerance
+            voltage
+            esr
+            componentType
             
         }
         }
