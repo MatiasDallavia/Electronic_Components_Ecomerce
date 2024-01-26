@@ -175,6 +175,7 @@ LOGGING = {
     },
 }
 
+
 GRAPHENE = {
     "SCHEMA": "core.schema.schema",
     "MIDDLEWARE": [
