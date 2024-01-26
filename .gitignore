@@ -3,7 +3,11 @@ build/
 venv/
 .vscode/
 .env
-__pycache__/
+# Ignorar __pycache__ en cualquier nivel dentro de /backend/products/schema/
+/backend/products/schema/**/__pycache__/
+
+# Ignorar __pycache__ en cualquier nivel dentro de /backend/purchase/
+/backend/purchase/**/__pycache__/
 
 .env*
 npm-debug.log*

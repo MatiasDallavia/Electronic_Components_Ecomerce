@@ -8,7 +8,6 @@ import Paginatior from './Paginatior';
 
 function ProductList({products}) {
 
-
   return (
 
     <div className="container d-flex flex-column align-items-center">
