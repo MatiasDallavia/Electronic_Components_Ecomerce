@@ -38,7 +38,7 @@ class ProductListQuery(graphene.ObjectType):
 
     def resolve_capacitors_query(self, info, inputs):
         try:
-            logger.info("##  Initializing Capacitor Query.")
+            logger.info( "#"*10 + " Initializing Capacitor Query." + "#"*10)
             logger.debug("Input Fields: %s", inputs)
             filter_kwargs = clean_inputs(inputs)
             return Capacitor.objects.filter(**filter_kwargs)
@@ -48,7 +48,7 @@ class ProductListQuery(graphene.ObjectType):
 
     def resolve_diodes_query(self, info, inputs):
         try: 
-            logger.info("## Initializing Diode Query.")
+            logger.info("#"*10 + " Initializing Diode Query." + "#"*10)
             logger.debug("Input Fields: %s", inputs)
             filter_kwargs = clean_inputs(inputs)
             return Diode.objects.filter(**filter_kwargs)
@@ -58,7 +58,7 @@ class ProductListQuery(graphene.ObjectType):
         
     def resolve_resistors_query(self, info, inputs):
         try:
-            logger.info("## Initializing Resistor Query.")
+            logger.info("#"*10 + " Initializing Resistor Query." + "#"*10)
             logger.debug("Input Fields: %s", inputs)
             filter_kwargs = clean_inputs(inputs)
             return Resistor.objects.filter(**filter_kwargs)
@@ -68,7 +68,7 @@ class ProductListQuery(graphene.ObjectType):
         
     def resolve_inductors_query(self, info, inputs):
         try:
-            logger.info("## Initializing Inductor Query.")
+            logger.info("#"*10 + "## Initializing Inductor Query." + "#"*10)
             logger.debug("Input Fields: %s", inputs)
             filter_kwargs = clean_inputs(inputs)
             return Inductor.objects.filter(**filter_kwargs)
@@ -79,7 +79,7 @@ class ProductListQuery(graphene.ObjectType):
 
     def resolve_transistors_query(self, info, inputs):
         try:
-            logger.info("Initializing Transistor Query.")
+            logger.info("#"*10 +"Initializing Transistor Query."+ "#"*10)
             logger.debug("Input Fields: %s", inputs)
 
             if inputs.transistor_type == "BJT":
