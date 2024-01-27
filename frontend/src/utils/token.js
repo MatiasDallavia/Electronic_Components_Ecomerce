@@ -4,7 +4,10 @@
 
 const getJWT = () => {
 
+  const HOST = process.env.REACT_APP_HOST;
+  const PORT = process.env.REACT_APP_DJANGO_PORT;
 
+  const uri = `${HOST}:${PORT}/graphql`
 
     const REFRESH_TOKEN = `
     mutation RefreshToken($refreshToken: String!) {
@@ -44,7 +47,7 @@ const getJWT = () => {
           };
 
 
-        fetch("http://127.0.0.1:8000/graphql", requestOptions)
+        fetch(uri, requestOptions)
         .then(response => response.json())
         .then(data => {
           // Manejar la respuesta de la solicitud aquí
