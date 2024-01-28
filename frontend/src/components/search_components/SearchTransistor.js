@@ -28,12 +28,10 @@ function SearchTransistor() {
   }, [transistorType]);
 
   useEffect(() => {
-    console.log("11111111")
     getTransistors();
   }, []); 
 
   const getTransistors = async () => {
-    console.log("222222222")
     try {
       console.log(queryVariables)
       const data = await fetchData(GET_LIST_TRANSISTORS, queryVariables);
