@@ -1,6 +1,5 @@
-import { gql } from '@apollo/client';
 
-const GET_LIST_DIODES = gql`
+const GET_LIST_DIODES = `
     query Diodes($inputs: DiodeInput!){
     diodesQuery(inputs: $inputs) {
             id
