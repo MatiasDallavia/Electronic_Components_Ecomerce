@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useQuery } from '@apollo/client';
-import { gql } from '@apollo/client';
-
 
 import minusIcon from '../images/icons/minus.png'
 import plusIcon from '../images/icons/plus.png'
@@ -13,7 +10,8 @@ import {GET_RESISTOR_FOR_CART} from "../graphql_queries/cart_item_query/CartResi
 import {GET_TRANSISTOR_FOR_CART} from "../graphql_queries/cart_item_query/CartTransistorQuery"
 import {GET_INDUCTOR_FROM_CART} from "../graphql_queries/cart_item_query/CartInductorQuery"
 
-import { useUserToggleContext, useUserContext } from './UserProvider';
+import {fetchData} from "../utils/fetchData"
+
 
 function CartItemTableRow(
   {componentType, componentID, removeItemFromList, serTotalValue,productsToPurchase, setProductsToPurchase}
@@ -21,6 +19,7 @@ function CartItemTableRow(
   const [count, setProductCount] = useState(0)
   const [prevCount, setPrevProductCount] = useState(0)
   const [productCountValue, setProductCountValue] = useState(0)
+  const [component, setComponent] = useState({})
 
   const toggleLogin = useUserToggleContext();
   const user = useUserContext();
@@ -60,12 +59,24 @@ function CartItemTableRow(
      
       }
  
+  
+    useEffect(() => {
+      getComponent();
+    }, []); 
 
+    const getComponent = async () => {
+      try {
+        console.log(inputVariables)
+        console.log(querySchema)
+        const data = await fetchData(querySchema, inputVariables);
+        console.log("DATA: ", data)
+        setComponent(data[queryComponentType][0])
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    
 
-  const { loading, error, data } = useQuery(querySchema, { variables: inputVariables });
-
-
-  const component = data ? data[queryComponentType][0] : [];    
 
 
   function updateProductCount(number) {
@@ -74,6 +85,7 @@ function CartItemTableRow(
           setPrevProductCount(currentCount) 
          const newCount = currentCount + number
          const newValue = newCount * component.price
+         console.log(newValue)
          setProductCountValue(newValue.toFixed(2))         
          return newCount 
         }
@@ -142,7 +154,7 @@ function CartItemTableRow(
 
 
       useEffect(()=>{
-
+        console.log("CAMBIO 3")
         const result = productsToPurchase.filter((item) => 
         (item.componentType !== componentType && item.componentId !== componentID)
         )
@@ -158,10 +170,6 @@ function CartItemTableRow(
 
 
   return (
-    <>
-    <button onClick={toggleLogin}>BOTOn</button>
-    {user && <p>Hola {user.name}</p>}
-
     <li id={componentType + componentID} className="list-group-item d-flex align-items-center justify-content-between cart-item-list">
         <div className="d-flex align-items-center pt-2">
             <img 
@@ -192,7 +200,6 @@ function CartItemTableRow(
         </div>
         <p className="text-body-secondary product-component.price" style={{ width: "64px" ,margin: '0', marginLeft: '10px' }}>${productCountValue}</p>
     </li>
-    </>
     )
 }
 

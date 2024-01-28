@@ -25,6 +25,7 @@ async function fetchData(SCHEMA, variables, JWT=null) {
       }
   
       const data = await response.json();
+      console.log("FIN. ", data)
       return data.data
   
     } catch (error) {

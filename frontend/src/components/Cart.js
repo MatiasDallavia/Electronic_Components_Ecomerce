@@ -9,7 +9,6 @@ import ErrorMessage from './ErrorMessage';
 
 import {emptyCart} from "../utils/cartFunctions"
 import {fetchData} from "../utils/fetchData"
-import { UserProvider } from './UserProvider';
 
 function Cart() {
 
@@ -19,6 +18,8 @@ function Cart() {
   const [isLoading, serIsLoading] = useState(false)
   const [errorMesage, setErrorMessage] = useState(false);
   const [productsInCart, setProductsInCart] = useState(cartList)
+
+
 
 
 
@@ -148,7 +149,6 @@ function Cart() {
 
 
   return (
-    <UserProvider>
     <div className='m-5'>
       {isLoading === true && <WaitingSpinner/>}
 
@@ -201,7 +201,6 @@ function Cart() {
     </div>
 
     </div>
-  </UserProvider>
 
   );
 }

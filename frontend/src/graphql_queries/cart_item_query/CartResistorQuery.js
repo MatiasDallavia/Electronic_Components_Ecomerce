@@ -1,8 +1,7 @@
-import { gql } from '@apollo/client';
 
-const GET_RESISTOR_FOR_CART = gql`
+const GET_RESISTOR_FOR_CART = `
     query Resistors($inputs: ResistorInput!){
-        resistorListQuery(inputs: $inputs) {
+        resistorsQuery(inputs: $inputs) {
             model
             price
             resistance
