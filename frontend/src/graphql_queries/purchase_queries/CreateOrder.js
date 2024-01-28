@@ -1,6 +1,5 @@
-import { gql } from '@apollo/client';
 
-const CREATE_ORDER = gql`
+const CREATE_ORDER = `
     mutation createOrder($inputs: CreateOrderInput!){
         createOrder(inputs: $inputs) {
                 url

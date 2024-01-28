@@ -21,6 +21,7 @@ import PurchaseConfirmation from "./components/purchased_products/PurchaseConfir
 import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client';
 
 
+
 function App() {
 
   const HOST = process.env.REACT_APP_HOST;

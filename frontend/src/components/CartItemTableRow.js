@@ -13,6 +13,7 @@ import {GET_RESISTOR_FOR_CART} from "../graphql_queries/cart_item_query/CartResi
 import {GET_TRANSISTOR_FOR_CART} from "../graphql_queries/cart_item_query/CartTransistorQuery"
 import {GET_INDUCTOR_FROM_CART} from "../graphql_queries/cart_item_query/CartInductorQuery"
 
+import { useUserToggleContext, useUserContext } from './UserProvider';
 
 function CartItemTableRow(
   {componentType, componentID, removeItemFromList, serTotalValue,productsToPurchase, setProductsToPurchase}
@@ -21,8 +22,8 @@ function CartItemTableRow(
   const [prevCount, setPrevProductCount] = useState(0)
   const [productCountValue, setProductCountValue] = useState(0)
 
-
-
+  const toggleLogin = useUserToggleContext();
+  const user = useUserContext();
 
   let queryComponentType;
   let querySchema;
@@ -157,6 +158,10 @@ function CartItemTableRow(
 
 
   return (
+    <>
+    <button onClick={toggleLogin}>BOTOn</button>
+    {user && <p>Hola {user.name}</p>}
+
     <li id={componentType + componentID} className="list-group-item d-flex align-items-center justify-content-between cart-item-list">
         <div className="d-flex align-items-center pt-2">
             <img 
@@ -187,6 +192,7 @@ function CartItemTableRow(
         </div>
         <p className="text-body-secondary product-component.price" style={{ width: "64px" ,margin: '0', marginLeft: '10px' }}>${productCountValue}</p>
     </li>
+    </>
     )
 }
 

@@ -8,7 +8,8 @@ import  WaitingSpinner  from "../components/purchased_products/WaitingSpinner"
 import ErrorMessage from './ErrorMessage';
 
 import {emptyCart} from "../utils/cartFunctions"
-
+import {fetchData} from "../utils/fetchData"
+import { UserProvider } from './UserProvider';
 
 function Cart() {
 
@@ -38,12 +39,63 @@ function Cart() {
   }
 
 
-  const [createOrder, { loading, error, data }] = useMutation(CREATE_ORDER);
+  // const [createOrder, { loading, error, data }] = useMutation(CREATE_ORDER);
 
-  const handleCreateOrder = async () => {
+  // const handleCreateOrder = async () => {
+
+  //   const variables = createOrderInput
+  //   variables.inputs.productsToPurchase = productsToPurchase
+  //   const checkProductAmount = (variables) => {
+  //     const componentWithZeroCount = variables.inputs.productsToPurchase.filter((component)=>(
+  //       component.quantity === 0
+  //     ))
+  //     if (componentWithZeroCount.length > 0) {
+  //         return false
+  //     }
+  //     return true
+  //   }
+  //     if (checkProductAmount(variables)){
+  //       try {
+  //         document.querySelector(".cart-content").style.display = "none"
+  //         serIsLoading(true)
+  //         variables.inputs.productsToPurchase[0].price = 10.0
+  //         setErrorMessage("")
+  //         console.log("ARIABLES: ", variables)
+  //         const result = await createOrder({
+  //           variables: variables
+  //         });
+  //         emptyCart()
+  //         window.open(result.data.createOrder.url,"_self")
+  //       } catch (errors) {
+  //         console.log(errors.graphQLErrors)
+  //         document.querySelector(".cart-content").style.display = "block"
+  //         serIsLoading(false)
+  //         setErrorMessage("An error occurred")
+  //         window.scrollTo({
+  //           top: 0,
+  //           behavior: 'smooth'
+  //         });
+
+  //       }    
+  //     } else{
+  //       window.scrollTo({
+  //         top: 0,
+  //         behavior: 'smooth'
+  //       });
+  //       setErrorMessage("Error. Select the quantity of the products you are going to buy")
+
+  //     }
+  // };   
+
+
+
+  const createOrder1 = async () => {
 
     const variables = createOrderInput
     variables.inputs.productsToPurchase = productsToPurchase
+    productsToPurchase[0].price = 10.0  
+    console.log(productsToPurchase)
+
     const checkProductAmount = (variables) => {
       const componentWithZeroCount = variables.inputs.productsToPurchase.filter((component)=>(
         component.quantity === 0
@@ -53,41 +105,50 @@ function Cart() {
       }
       return true
     }
-      if (checkProductAmount(variables)){
-        try {
-          document.querySelector(".cart-content").style.display = "none"
-          serIsLoading(true)
-          variables.inputs.productsToPurchase[0].price = 10.0
-          setErrorMessage("")
-          console.log("ARIABLES: ", variables)
-          const result = await createOrder({
-            variables: variables
-          });
-          emptyCart()
-          window.open(result.data.createOrder.url,"_self")
-        } catch (errors) {
-          console.log(errors.graphQLErrors)
-          document.querySelector(".cart-content").style.display = "block"
-          serIsLoading(false)
-          setErrorMessage("An error occurred")
-          window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-          });
 
-        }    
-      } else{
+    //checks if the quantity of all products are higher to 0
+    if (! checkProductAmount(variables)){
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+      setErrorMessage("Error. Select the quantity of the products you are going to buy")
+
+    }
+
+    else {
+
+      try {
+        // renders the loading screen
+        document.querySelector(".cart-content").style.display = "none"
+        serIsLoading(true)
+
+        setErrorMessage("")
+        console.log("ARIABLES: ", variables)
+        const data = await fetchData(CREATE_ORDER, variables);
+        const paymentUrl = data.createOrder.url
+
+        // emptyCart()
+        window.open(paymentUrl,"_self")
+
+      } catch (errors) {
+        console.log(errors.graphQLErrors)
+        document.querySelector(".cart-content").style.display = "block"
+        serIsLoading(false)
+        setErrorMessage("An error occurred")
         window.scrollTo({
           top: 0,
           behavior: 'smooth'
         });
-        setErrorMessage("Error. Select the quantity of the products you are going to buy")
 
       }
-  };   
+
+    }
+  };
 
 
   return (
+    <UserProvider>
     <div className='m-5'>
       {isLoading === true && <WaitingSpinner/>}
 
@@ -130,7 +191,7 @@ function Cart() {
           <button
             type="button"
             className="mi-boton mb-3"
-            onClick={handleCreateOrder}
+            onClick={createOrder1}
           >
             Buy Now
           </button>      
@@ -140,6 +201,8 @@ function Cart() {
     </div>
 
     </div>
+  </UserProvider>
+
   );
 }
 
