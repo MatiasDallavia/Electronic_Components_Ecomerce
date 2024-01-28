@@ -1,42 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import { GET_LIST_RESISTORS, ResistorListInput } from '../../graphql_queries/list_product_query/ResistorListQuery';
 import ResistorFilter from './product_filters/ResistorFilter';
-import { useLazyQuery } from '@apollo/client';
 import ProductList from '../ProductList';
+
+import {fetchData} from "../../utils/fetchData"
+
 
 function SearchResistor() {
 
 
-    const [queryProducts, { loading, error, data }] = useLazyQuery(GET_LIST_RESISTORS);
     const [queryVariables, setQueryVariables] = useState(ResistorListInput);
-    const [resistors, setresistors] = useState([]);
+    const [resistors, setResistors] = useState([]);
   
 
   
     useEffect(() => {
+      getResistors();
+    }, []); 
   
-      // Realizar la consulta al cargar la página
-      queryProducts({ variables: queryVariables });
-    }, []);
-  
-    useEffect(() => {
-      if (data) {
-        setresistors(data.resistorsQuery);
-        console.log(resistors)
+    const getResistors = async () => {
+      try {
+        console.log(queryVariables)
+        const data = await fetchData(GET_LIST_RESISTORS, queryVariables);
+        setResistors(data.resistorsQuery);
+      } catch (error) {
+        console.error('Error fetching data:', error);
       }
-      
-    }, [data]);
-  
-  
-    const handleSearch = () => {
-      queryProducts({ variables: queryVariables });
     };
+    
 
     
   return (
     <div className="container filters g-3">
       <ResistorFilter queryVariables={queryVariables} setQueryVariables={setQueryVariables}/>
-      <button type="button" className="btn btn-primary submit" onClick={handleSearch}>
+      <button type="button" className="btn btn-primary submit" onClick={getResistors}>
         Search
       </button>
       <ProductList products={resistors} />

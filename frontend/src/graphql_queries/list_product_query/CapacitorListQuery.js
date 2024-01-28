@@ -1,6 +1,5 @@
-import { gql } from '@apollo/client';
 
-const GET_LIST_CAPACITORS = gql`
+const GET_LIST_CAPACITORS = `
     query Capacitors($inputs: CapacitorInput!){
         capacitorsQuery(inputs: $inputs) {
             id

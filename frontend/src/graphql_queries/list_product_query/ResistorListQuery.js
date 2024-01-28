@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-const GET_LIST_RESISTORS = gql`
+const GET_LIST_RESISTORS = `
         query Resistors($inputs: ResistorInput!){
         resistorsQuery(inputs: $inputs) {
             id

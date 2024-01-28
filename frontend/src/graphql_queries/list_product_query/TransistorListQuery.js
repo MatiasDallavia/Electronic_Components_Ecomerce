@@ -1,6 +1,5 @@
-import { gql } from '@apollo/client';
 
-const GET_LIST_TRANSISTORS = gql`
+const GET_LIST_TRANSISTORS = `
 query Transistors($inputs: TransistorInput!){
   transistorsQuery(inputs: $inputs) {
         __typename

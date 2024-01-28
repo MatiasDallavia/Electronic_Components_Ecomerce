@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { GET_LIST_TRANSISTORS, TransistorListInput } from '../../graphql_queries/list_product_query/TransistorListQuery';
 import TransistorFilter from './product_filters/TransistorFilter';
-import { useLazyQuery } from '@apollo/client';
 import ProductList from '../ProductList';
 
+import {fetchData} from "../../utils/fetchData"
+
+
 function SearchTransistor() {
-  const [queryProducts, { loading, error, data }] = useLazyQuery(GET_LIST_TRANSISTORS);
   const [queryVariables, setQueryVariables] = useState(TransistorListInput);
   const [transistors, setTransistors] = useState([]);
   const [transistorType, setTransistorType] = useState('BJT');
@@ -22,23 +23,26 @@ function SearchTransistor() {
   };
 
   useEffect(() => {
-
     // Realizar la consulta al cargar la página
-    queryProducts({ variables: queryVariables });
-    console.log("TYPE: ")
+    getTransistors();
   }, [transistorType]);
 
   useEffect(() => {
-    if (data) {
+    console.log("11111111")
+    getTransistors();
+  }, []); 
+
+  const getTransistors = async () => {
+    console.log("222222222")
+    try {
+      console.log(queryVariables)
+      const data = await fetchData(GET_LIST_TRANSISTORS, queryVariables);
       setTransistors(data.transistorsQuery);
+    } catch (error) {
+      console.error('Error fetching data:', error);
     }
-    
-  }, [data]);
-
-
-  const handleSearch = () => {
-    queryProducts({ variables: queryVariables });
   };
+
 
 
   return (
@@ -49,7 +53,7 @@ function SearchTransistor() {
         queryVariables={queryVariables}
         setQueryVariables={setQueryVariables}
       />
-      <button type="button" className="btn btn-primary submit" onClick={handleSearch}>
+      <button type="button" className="btn btn-primary submit" onClick={getTransistors}>
         Search
       </button>
       <ProductList products={transistors} />
