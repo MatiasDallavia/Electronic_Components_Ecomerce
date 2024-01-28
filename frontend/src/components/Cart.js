@@ -94,7 +94,6 @@ function Cart() {
 
     const variables = createOrderInput
     variables.inputs.productsToPurchase = productsToPurchase
-    productsToPurchase[0].price = 10.0  
     console.log(productsToPurchase)
 
     const checkProductAmount = (variables) => {
@@ -125,11 +124,10 @@ function Cart() {
         serIsLoading(true)
 
         setErrorMessage("")
-        console.log("ARIABLES: ", variables)
         const data = await fetchData(CREATE_ORDER, variables);
         const paymentUrl = data.createOrder.url
 
-        // emptyCart()
+        emptyCart()
         window.open(paymentUrl,"_self")
 
       } catch (errors) {
@@ -151,12 +149,12 @@ function Cart() {
   return (
     <div className='m-5'>
       {isLoading === true && <WaitingSpinner/>}
-
       
       {errorMesage.length > 0  && <ErrorMessage error={errorMesage}/>}    
       
       <div className='cart-content'>
       <div className="container d-flex align-items-center justify-content-start">
+        
         <main className="row">
         <div className="col-md-6 col-lg-6 order-md-last align-self-start">
           <h5 style={{ marginLeft: '120px' }}>Select the number of units for every component</h5>

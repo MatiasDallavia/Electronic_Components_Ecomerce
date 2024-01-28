@@ -21,8 +21,6 @@ function CartItemTableRow(
   const [productCountValue, setProductCountValue] = useState(0)
   const [component, setComponent] = useState({})
 
-  const toggleLogin = useUserToggleContext();
-  const user = useUserContext();
 
   let queryComponentType;
   let querySchema;
