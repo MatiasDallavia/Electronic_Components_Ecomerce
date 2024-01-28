@@ -1,15 +1,14 @@
 import React from 'react';
 import {useState, useEffect} from 'react';
-import CartItemTableRow from './CartItemTableRow';
 import {CREATE_ORDER, createOrderInput} from "../../graphql_queries/purchase_queries/CreateOrder"
 import {removeFromCart} from "../../utils/cartFunctions"
-import { useMutation } from '@apollo/client';
 import  WaitingSpinner  from "../purchased_products/WaitingSpinner"
 import ErrorMessage from '../ErrorMessage';
 import CartProductList from './CartProductList';
 
 import {emptyCart} from "../../utils/cartFunctions"
 import {fetchData} from "../../utils/fetchData"
+import { getJWT } from '../../utils/token';
 
 function Cart() {
 
@@ -39,56 +38,6 @@ function Cart() {
     setProductsInCart(newList);  
     removeFromCart(componentType, componentID)
   }
-
-
-  // const [createOrder, { loading, error, data }] = useMutation(CREATE_ORDER);
-
-  // const handleCreateOrder = async () => {
-
-  //   const variables = createOrderInput
-  //   variables.inputs.productsToPurchase = productsToPurchase
-  //   const checkProductAmount = (variables) => {
-  //     const componentWithZeroCount = variables.inputs.productsToPurchase.filter((component)=>(
-  //       component.quantity === 0
-  //     ))
-  //     if (componentWithZeroCount.length > 0) {
-  //         return false
-  //     }
-  //     return true
-  //   }
-  //     if (checkProductAmount(variables)){
-  //       try {
-  //         document.querySelector(".cart-content").style.display = "none"
-  //         serIsLoading(true)
-  //         variables.inputs.productsToPurchase[0].price = 10.0
-  //         setErrorMessage("")
-  //         console.log("ARIABLES: ", variables)
-  //         const result = await createOrder({
-  //           variables: variables
-  //         });
-  //         emptyCart()
-  //         window.open(result.data.createOrder.url,"_self")
-  //       } catch (errors) {
-  //         console.log(errors.graphQLErrors)
-  //         document.querySelector(".cart-content").style.display = "block"
-  //         serIsLoading(false)
-  //         setErrorMessage("An error occurred")
-  //         window.scrollTo({
-  //           top: 0,
-  //           behavior: 'smooth'
-  //         });
-
-  //       }    
-  //     } else{
-  //       window.scrollTo({
-  //         top: 0,
-  //         behavior: 'smooth'
-  //       });
-  //       setErrorMessage("Error. Select the quantity of the products you are going to buy")
-
-  //     }
-  // };   
-
 
 
   const createOrder1 = async () => {
@@ -125,7 +74,9 @@ function Cart() {
         serIsLoading(true)
 
         setErrorMessage("")
-        const data = await fetchData(CREATE_ORDER, variables);
+        const token = await getJWT()
+        console.log("TOKENNN: ", token)
+        const data = await fetchData(CREATE_ORDER, variables, token);
         const paymentUrl = data.createOrder.url
 
         emptyCart()
@@ -146,7 +97,6 @@ function Cart() {
     }
   };
 
-  console.log("CART: ", productsInCart)
   return (
     <div className='m-5'>
       {isLoading === true && <WaitingSpinner/>}

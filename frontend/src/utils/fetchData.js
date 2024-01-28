@@ -6,6 +6,9 @@ async function fetchData(SCHEMA, variables, JWT=null) {
   
     const apiUrl = `${HOST}:${PORT}/graphql`
   
+    if (JWT){
+      JWT = "JWT " + JWT
+    }
   
     try {
       const response = await fetch(apiUrl, {
@@ -21,6 +24,7 @@ async function fetchData(SCHEMA, variables, JWT=null) {
       });
   
       if (!response.ok) {
+        console.log("!!!!!!!!!")
         throw new Error('An error occurred while doing the query');
       }
   
