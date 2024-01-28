@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 
-import minusIcon from '../images/icons/minus.png'
-import plusIcon from '../images/icons/plus.png'
-import xIcon from '../images/icons/x.webp'
+import minusIcon from '../../images/icons/minus.png'
+import plusIcon from '../../images/icons/plus.png'
+import xIcon from '../../images/icons/x.webp'
 
-import {GET_CAPACITOR_FROM_CART} from "../graphql_queries/cart_item_query/CartCapacitorQuery"
-import {GET_DIODE_FROM_CART} from "../graphql_queries/cart_item_query/CartDiodeQuery"
-import {GET_RESISTOR_FOR_CART} from "../graphql_queries/cart_item_query/CartResistorQuery"
-import {GET_TRANSISTOR_FOR_CART} from "../graphql_queries/cart_item_query/CartTransistorQuery"
-import {GET_INDUCTOR_FROM_CART} from "../graphql_queries/cart_item_query/CartInductorQuery"
+import {GET_CAPACITOR_FROM_CART} from "../../graphql_queries/cart_item_query/CartCapacitorQuery"
+import {GET_DIODE_FROM_CART} from "../../graphql_queries/cart_item_query/CartDiodeQuery"
+import {GET_RESISTOR_FOR_CART} from "../../graphql_queries/cart_item_query/CartResistorQuery"
+import {GET_TRANSISTOR_FOR_CART} from "../../graphql_queries/cart_item_query/CartTransistorQuery"
+import {GET_INDUCTOR_FROM_CART} from "../../graphql_queries/cart_item_query/CartInductorQuery"
 
-import {fetchData} from "../utils/fetchData"
+import {fetchData} from "../../utils/fetchData"
 
 
 function CartItemTableRow(

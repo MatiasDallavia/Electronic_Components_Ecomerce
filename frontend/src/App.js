@@ -15,7 +15,7 @@ import CapacitorView from "./components/component_views/CapacitorView.js";
 import TransistorView from "./components/component_views/TransistorView.js";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import Cart from "./components/Cart";
+import Cart from "./components/cart_components/Cart.js";
 import PurchaseConfirmation from "./components/purchased_products/PurchaseConfirmation.js";
 
 import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client';

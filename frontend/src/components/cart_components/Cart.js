@@ -1,14 +1,15 @@
 import React from 'react';
 import {useState, useEffect} from 'react';
 import CartItemTableRow from './CartItemTableRow';
-import {CREATE_ORDER, createOrderInput} from "../graphql_queries/purchase_queries/CreateOrder"
-import {removeFromCart} from "../utils/cartFunctions"
+import {CREATE_ORDER, createOrderInput} from "../../graphql_queries/purchase_queries/CreateOrder"
+import {removeFromCart} from "../../utils/cartFunctions"
 import { useMutation } from '@apollo/client';
-import  WaitingSpinner  from "../components/purchased_products/WaitingSpinner"
-import ErrorMessage from './ErrorMessage';
+import  WaitingSpinner  from "../purchased_products/WaitingSpinner"
+import ErrorMessage from '../ErrorMessage';
+import CartProductList from './CartProductList';
 
-import {emptyCart} from "../utils/cartFunctions"
-import {fetchData} from "../utils/fetchData"
+import {emptyCart} from "../../utils/cartFunctions"
+import {fetchData} from "../../utils/fetchData"
 
 function Cart() {
 
@@ -145,7 +146,7 @@ function Cart() {
     }
   };
 
-
+  console.log("CART: ", productsInCart)
   return (
     <div className='m-5'>
       {isLoading === true && <WaitingSpinner/>}
@@ -156,27 +157,23 @@ function Cart() {
       <div className="container d-flex align-items-center justify-content-start">
         
         <main className="row">
-        <div className="col-md-6 col-lg-6 order-md-last align-self-start">
-          <h5 style={{ marginLeft: '120px' }}>Select the number of units for every component</h5>
-          <ul className="list-group mb-3 cart-items-row">
-            {productsInCart.map((product) => (
-              <CartItemTableRow
+        {  productsInCart.length > 0 ? 
+            (   <CartProductList
+                productsInCart={productsInCart}
                 setProductsToPurchase={setProductsToPurchase}
                 productsToPurchase={productsToPurchase}
-                key={`${product[0]}-${product[1]}`}
                 removeItemFromList={removeItemFromList}
-                componentType={product[0]}
-                componentID={product[1]}
                 serTotalValue={serTotalValue}
-                totalValue={totalValue}
-              />
-            ))}
-            <li className="list-group-item d-flex justify-content-between">
-              <span>Total (USD)</span>
-              <strong>${totalValue}</strong>
-            </li>
-          </ul>
-        </div>
+                totalValue={totalValue}   
+                       
+          />) : (
+            <div id="no-items-in-cart" className="col-md-6 col-lg-6 order-md-last align-self-end text-start">
+              <div className="d-flex align-items-center">
+                <hr className="flex-grow-1" />
+                <h3 className="mr-3">There are no products in the cart to purchase</h3>
+              </div>
+            </div>
+            )}
 
     <div className="col-md-4 col-lg-4 align-self-start text-left">
       <h2>Cart</h2>
