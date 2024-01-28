@@ -172,7 +172,10 @@ input.in-cart-checkbox {
 }
 
 .cart-items-row {
-  margin-left: 120px;
+  margin-top: 20px;
+
+  width: 600px;
+  margin-left: 40px;
 }
 
 .cart-item-list {
