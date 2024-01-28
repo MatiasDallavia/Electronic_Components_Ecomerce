@@ -1,6 +1,7 @@
 import logging
 from abc import ABC, abstractmethod
 from typing import List
+from enum import Enum
 
 from graphql import GraphQLError
 
@@ -23,6 +24,9 @@ class TransistorStrategy(ABC):
     def query_transistors(self, data: List):
         pass
 
+    @abstractmethod
+    def check_transistor_type_input_field(self, data):
+        pass
 
 class TransistorQuery:
     """
@@ -47,8 +51,9 @@ class TransistorQuery:
         """
 
         filter_kwargs.pop("transistor_type")
-
-        return self._transistor_strategy.query_transistors(filter_kwargs)
+        filter_kwargs = self._transistor_strategy.check_transistor_type_input_field(filter_kwargs)
+        transistors = self._transistor_strategy.query_transistors(filter_kwargs)
+        return transistors
 
 
 class ConcreteStrategyBJT(TransistorStrategy):
@@ -56,6 +61,32 @@ class ConcreteStrategyBJT(TransistorStrategy):
     Strategy class for quering a list of BJTs objects and returning them
     in an BJTType object
     """
+
+    def check_transistor_type_input_field(self, filter_kwargs) -> dict:
+        """
+        Cleans input parameters of 'bjt_input' by removing empty filter values and extracs the  actual
+        values from the Enums objets.
+
+        Args:
+            inputs (dict): the filter kwargs.
+
+        Returns:
+            dict: dict with all the fields to filter the query to the db.
+        """
+
+        for field_name, field_value in filter_kwargs["bjt_input"].items():
+            if field_value is None:
+                continue
+            if isinstance(field_value, Enum):
+                filter_kwargs["bjt_input"][field_name] = field_value.value
+            else:
+                filter_kwargs["bjt_input"][field_name] = field_value
+
+        filter_kwargs.pop("mosfet_input")
+        filter_kwargs.pop("bjt_input")
+        filter_kwargs.pop("igbt_input")
+
+        return filter_kwargs    
 
     def query_transistors(self, filter_kwargs: dict) -> List[BJTType]:
         bjts = [
@@ -84,6 +115,33 @@ class ConcreteStrategyMOSFET(TransistorStrategy):
     Strategy class for quering a list of MOSFETs objects and returning them
     in an MOSFETType object
     """
+
+    def check_transistor_type_input_field(self, filter_kwargs) -> dict: 
+        """
+        Cleans input parameters of 'mosfet_input' by removing empty filter values and extracs the  actual
+        values from the Enums objets.
+
+        Args:
+            inputs (dict): the filter kwargs.
+
+        Returns:
+            dict: dict with all the fields to filter the query to the db.
+        """             
+
+        for field_name, field_value in filter_kwargs["mosfet_input"].items():
+            if field_value is None:
+                continue
+            if isinstance(field_value, Enum):
+                filter_kwargs[field_name] = field_value.value
+            else:
+                filter_kwargs[field_name] = field_value
+
+        filter_kwargs.pop("mosfet_input")
+        filter_kwargs.pop("bjt_input")
+        filter_kwargs.pop("igbt_input")
+
+
+        return filter_kwargs
 
     def query_transistors(self, filter_kwargs: dict) -> List[MOSFETType]:
         mosfets = [
@@ -114,6 +172,34 @@ class ConcreteStrategyIGBT(TransistorStrategy):
     Strategy class for quering a list of IGBTs objects and returning them
     in an IGBTType object
     """
+
+    def check_transistor_type_input_field(self, filter_kwargs) -> dict:
+        """
+        Cleans input parameters of 'igbt_input' by removing empty filter values and extracs the  actual
+        values from the Enums objets.
+
+        Args:
+            inputs (dict): the filter kwargs.
+
+        Returns:
+            dict: dict with all the fields to filter the query to the db.
+        """        
+
+        for field_name, field_value in filter_kwargs["igbt_input"].items():
+            if field_value is None:
+                continue
+            if isinstance(field_value, Enum):
+                filter_kwargs[field_name] = field_value.value
+            else:
+                filter_kwargs[field_name] = field_value
+        
+        
+        filter_kwargs.pop("mosfet_input")
+        filter_kwargs.pop("bjt_input")
+        filter_kwargs.pop("igbt_input")
+                
+        
+        return filter_kwargs
 
     def query_transistors(self, filter_kwargs: dict) -> List[IGBTType]:
         igbts = [
