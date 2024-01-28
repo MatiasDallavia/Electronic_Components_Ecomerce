@@ -6,6 +6,7 @@ import {CAPTURE_ORDER, captureOrderInput} from "../../graphql_queries/purchase_q
 import { useEffect, useState } from 'react';
 
 import {fetchData} from "../../utils/fetchData"
+import { getJWT } from '../../utils/token';
 
 
 
@@ -25,7 +26,8 @@ function PurchaseConfirmation() {
   const captureOrderMutation = async () => {
     try {
       setIsLoading(true)
-      const data = await fetchData(CAPTURE_ORDER, captureOrderInput);
+      const token = await getJWT()
+      const data = await fetchData(CAPTURE_ORDER, captureOrderInput, token);
       setIsLoading(false)
       setPurchasedItems(data.captureOrder.purchases)
     } catch (error) {
