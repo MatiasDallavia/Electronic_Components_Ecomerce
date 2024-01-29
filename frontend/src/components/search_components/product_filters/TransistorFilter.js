@@ -43,19 +43,6 @@ function TransistorFilter({transistorType, transistorTypeFilterChange, setQueryV
       {transistorType === 'IGBT' && 
       <IGBTFilter setQueryVariables={setQueryVariables}/>}
 
-      <div class="filter-group me-3">
-            <label for="mountingSurface" class="filter-label">Mounting Surface:</label>
-            <select 
-                id="mountingSurface" 
-                class="form-select filter-field mounting-surface"
-                onChange={(e) => handleInputChange(setQueryVariables, 'mountingTechnology', e.target.value)}
-            >
-                <option value="ALL">All</option>
-                <option value="THT">THT</option>
-                <option value="SMD">SMD</option>
-            </select>
-        </div>
-
         <div class="filter-group">
             <label for="manufacturerSelect" class="filter-label">Manufacturer:</label>
             <select 
