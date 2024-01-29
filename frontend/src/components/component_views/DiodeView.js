@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { GET_SINGLE_DIODE, singleDiodeInput } from '../../graphql_queries/single_product_query/SingleDiodeQuery';
@@ -8,23 +8,67 @@ import { diodeImages } from "../../images/components/component_images_objects/di
 import { parseComponentAttributeText } from '../../utils/callbacks';
 import { addToCart, removeFromCart, isComponentInCart } from '../../utils/cartFunctions';
 
+import {fetchData} from "../../utils/fetchData"
+
 
 function DiodeView() {
   const { diodeComponentID } = useParams();
   singleDiodeInput.inputs.id = diodeComponentID;
 
-  const { loading, error, data } = useQuery(GET_SINGLE_DIODE, { variables: singleDiodeInput });
-  const diode = data ? data.diodesQuery[0] : [];
-  const excludedFields = new Set(['__typename', 'componentType', 'model', 'price', 'amountAvailable']);
+  // const { loading, error, data } = useQuery(GET_SINGLE_DIODE, { variables: singleDiodeInput });
+  // const diode = data ? data.diodesQuery[0] : [];
+  // const excludedFields = new Set(['__typename', 'componentType', 'model', 'price', 'amountAvailable']);
 
-  const diodeAttributes = Object.entries(diode)
-    .filter(([key]) => !excludedFields.has(key))
-    .map(([key, value]) => [key, value]);
+  // const diodeAttributes = Object.entries(diode)
+  //   .filter(([key]) => !excludedFields.has(key))
+  //   .map(([key, value]) => [key, value]);
 
-  const packageImage = diodeImages[diode.package];
+  // const packageImage = diodeImages[diode.package];
 
-  const isInCart = isComponentInCart("diode", diodeComponentID);
-  const [cartButton, setInCart] = useState(isInCart);    
+  // const isInCart = isComponentInCart("diode", diodeComponentID);
+  // const [cartButton, setInCart] = useState(isInCart);  
+  
+  ////////////////////////////
+
+  const [packageImage, setPackageImage] = useState()
+  const [cartButton, setInCart] = useState(false);  
+  const [diode, setDiode] = useState({});
+  const [diodeAttributes, setDiodeAttributes] = useState([]);
+  
+  
+  useEffect(() => {
+    getDiode();
+  }, []); 
+
+  const getDiode = async () => {
+    try {
+      singleDiodeInput.inputs.id = diodeComponentID;
+
+      const data = await fetchData(GET_SINGLE_DIODE, singleDiodeInput);
+      console.log(data.diodesQuery)
+      setDiode(data.diodesQuery[0])
+
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  useEffect(()=>{
+
+    const attrToRemove = ["price", "amountAvailable", "componentType"]
+    
+    setInCart(isComponentInCart("diode", diodeComponentID))
+
+    var attrs = Object.entries(diode).filter(function ([key, value]) {
+      return !attrToRemove.includes(key);
+    });
+    console.log(attrs)
+
+    setDiodeAttributes(attrs)
+
+    setPackageImage(diodeImages[diode.package])
+
+  }, [diode])
 
   return (
     <div className="container pt-5">
