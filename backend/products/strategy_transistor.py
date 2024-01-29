@@ -51,7 +51,10 @@ class TransistorQuery:
         """
 
         filter_kwargs.pop("transistor_type")
+        print("/"*40)
+        print(filter_kwargs)
         filter_kwargs = self._transistor_strategy.check_transistor_type_input_field(filter_kwargs)
+        print(filter_kwargs)
         transistors = self._transistor_strategy.query_transistors(filter_kwargs)
         return transistors
 
@@ -73,7 +76,6 @@ class ConcreteStrategyBJT(TransistorStrategy):
         Returns:
             dict: dict with all the fields to filter the query to the db.
         """
-
         for field_name, field_value in filter_kwargs["bjt_input"].items():
             if field_value is None:
                 continue
@@ -127,7 +129,6 @@ class ConcreteStrategyMOSFET(TransistorStrategy):
         Returns:
             dict: dict with all the fields to filter the query to the db.
         """             
-
         for field_name, field_value in filter_kwargs["mosfet_input"].items():
             if field_value is None:
                 continue
@@ -192,7 +193,7 @@ class ConcreteStrategyIGBT(TransistorStrategy):
                 filter_kwargs[field_name] = field_value.value
             else:
                 filter_kwargs[field_name] = field_value
-        
+            
         
         filter_kwargs.pop("mosfet_input")
         filter_kwargs.pop("bjt_input")

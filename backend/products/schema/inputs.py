@@ -8,7 +8,6 @@ from products.schema.enums import (
     MaterialCoreTypesEnum,
     MountingTechnologyEnum,
     TransistorTypesEnum,
-    ComponentModelListEnum,
 )
 
 
@@ -63,11 +62,8 @@ class IGBTInput(graphene.InputObjectType):
 
 
 class TransistorInput(BaseInput):
-    transistor_type = graphene.Field(TransistorTypesEnum)
-    bjt_input = graphene.Field(BJTInput)
-    mosfet_input = graphene.Field(MOSFETInput)
-    igbt_input = graphene.Field(IGBTInput)
+    transistor_type = graphene.Field(TransistorTypesEnum, required=True)
+    bjt_input = graphene.Field(BJTInput, required=True)
+    mosfet_input = graphene.Field(MOSFETInput, required=True)
+    igbt_input = graphene.Field(IGBTInput, required=True)
 
-class ConponentModelListInput(BaseInput):
-    component_type = ComponentModelListEnum()
-    component_model = graphene.String()
