@@ -128,7 +128,7 @@ class InductorType(BaseProductModelType):
 
     def resolve_inductance(self, info):
         inductance = int(self.inductance)
-        if self.package == "P2220":
+        if self.package == "2220":
             return f"{inductance}nH"
         return f"{inductance}mH"
 
