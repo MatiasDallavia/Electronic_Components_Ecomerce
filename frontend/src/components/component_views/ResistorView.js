@@ -1,32 +1,57 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
 import { GET_SINGLE_RESISTOR, singleResistorInput } from '../../graphql_queries/single_product_query/SingleResistorQuery';
 import ProductCharacteristicRow from './ProductCharacteristicRow';
 
 import { parseComponentAttributeText } from '../../utils/callbacks';
 import { getResistorImage } from '../../utils/getComponetImages';
 import { addToCart, removeFromCart, isComponentInCart } from '../../utils/cartFunctions';
+import {fetchData} from "../../utils/fetchData"
 
 
 function ResistorView() {
-    const { resistorComponentID } = useParams();
-    singleResistorInput.inputs.id = resistorComponentID;
-    const { loading, error, data } = useQuery(GET_SINGLE_RESISTOR, { variables: singleResistorInput });
-  
-    const resistor = data ? data.resistorsQuery[0] : {};
-    const excludedFields = new Set(['__typename', 'package', 'componentType', 'model', 'price', 'amountAvailable']);
-    const resistorAttributes = Object.keys(resistor)
-      .filter((key) => !excludedFields.has(key))
-      .map((key) => [key, resistor[key]])
-      .filter(Boolean);
-  
-  
-    const resistorImage = getResistorImage(resistor);
 
-    const isInCart = isComponentInCart("resistor", resistorComponentID);
-    const [cartButton, setInCart] = useState(isInCart);
+  const { resistorComponentID } = useParams();
+
+  const [packageImage, setPackageImage] = useState()
+  const [cartButton, setInCart] = useState(false);  
+  const [resistor, setResistor] = useState({});
+  const [resistorAttributes, setResistorAttributes] = useState([]);  
+
+    useEffect(() => {
+      getResistor();
+    }, []); 
+  
+    const getResistor = async () => {
+      try {
+        singleResistorInput.inputs.id = resistorComponentID;
+  
+        const data = await fetchData(GET_SINGLE_RESISTOR, singleResistorInput);
+        console.log(data.resistorsQuery)
+        setResistor(data.resistorsQuery[0])
+  
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+  
+    useEffect(()=>{
+  
+      const attrToRemove = ["price", "amountAvailable", "componentType", "model"]
+      
+      setInCart(isComponentInCart("resistor", resistorComponentID))
+  
+      var attrs = Object.entries(resistor).filter(function ([key, value]) {
+        return !attrToRemove.includes(key);
+      });
+      console.log(attrs)
+  
+      setResistorAttributes(attrs)
+  
+      setPackageImage(getResistorImage(resistor))
+  
+    }, [resistor])    
 
 
     return (
@@ -35,7 +60,7 @@ function ResistorView() {
           <div className="col-4">
             <div className="container d-flex flex-column align-items-center justify-content-between main-attributes">
               <div>
-                <img id="cover-image-product" src={resistorImage} alt="Resistor" />
+                <img id="cover-image-product" src={packageImage} alt="Resistor" />
   
                 <table>
                   <tr>

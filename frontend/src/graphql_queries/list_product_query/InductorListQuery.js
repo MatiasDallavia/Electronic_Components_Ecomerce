@@ -17,6 +17,7 @@ query Inductor($inputs: InductorInput!) {
     inductance
     current
     vr
+    componentType
   }
 }
 `;

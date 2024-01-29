@@ -257,6 +257,7 @@ input.in-cart-checkbox {
 #cover-image-product{
     padding: 20px;
     padding-bottom: 30px;
+    height: 200px;
     width: 300px;
 }
 
@@ -284,12 +285,13 @@ input.in-cart-checkbox {
 .main-attributes table{
   width: 300px;
   padding: 50px;
+  height: 150px;
   margin-bottom: 50px;
 
 }
 
 .main-attributes{
-  height: 600px;
+  height: 500px;
   padding: 20px;
 }
 

@@ -1,6 +1,5 @@
-import { gql } from '@apollo/client';
 
-const GET_SINGLE_RESISTOR = gql`
+const GET_SINGLE_RESISTOR = `
     query Resistors($inputs: ResistorInput!){
         resistorsQuery(inputs: $inputs) {
             model

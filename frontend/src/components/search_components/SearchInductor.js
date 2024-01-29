@@ -23,6 +23,7 @@ function SearchInductor() {
       console.log(queryVariables)
       const data = await fetchData(GET_LIST_INDUCTORS, queryVariables);
       setInductors(data.inductorsQuery);
+      console.log(inductors)
     } catch (error) {
       console.error('Error fetching data:', error);
     }

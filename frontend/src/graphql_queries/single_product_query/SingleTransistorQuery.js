@@ -1,6 +1,5 @@
-import { gql } from '@apollo/client';
 
-const GET_SINGLE_TRANSISTOR = gql`
+const GET_SINGLE_TRANSISTOR = `
 query Transistors($inputs: TransistorInput!){
     transistorsQuery(inputs: $inputs) {
         __typename
@@ -54,11 +53,28 @@ query Transistors($inputs: TransistorInput!){
     }`;
 
 const singleTransistorInput = {
-    inputs: {
-        transistorType: null,
-        id: null
-        
+    "inputs": {
+      "id": null,
+      "transistorType": "IGBT",
+      "model": "",
+      "mountingTechnology": null,
+      "manufacturer": null,
+      "bjtInput":{
+        "bjtType": null,
+        "icMax": null,
+        "dcCurrentGain": null
+      },
+      "mosfetInput":{
+        "vds": null,
+        "driveVoltage": null,
+        "rdsOn": null
+      },
+      "igbtInput": {
+        "vc": null,
+        "ic": null,
+        "powerMax": null
       }
+    }
   }
   
   

@@ -1,6 +1,5 @@
-import { gql } from '@apollo/client';
 
-const GET_SINGLE_INDUCTOR = gql`
+const GET_SINGLE_INDUCTOR = `
 query GetInductors($inputs: InductorInput!){
   inductorsQuery(inputs: $inputs) {
       model

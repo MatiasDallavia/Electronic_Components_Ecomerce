@@ -1,7 +1,6 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
 import { GET_SINGLE_TRANSISTOR, singleTransistorInput } from '../../graphql_queries/single_product_query/SingleTransistorQuery';
 import ProductCharacteristicRow from './ProductCharacteristicRow';
 
@@ -10,24 +9,54 @@ import {transistorImages} from "../../images/components/component_images_objects
 import { parseComponentAttributeText } from '../../utils/callbacks';
 import { addToCart, removeFromCart, isComponentInCart } from '../../utils/cartFunctions';
 
+import {fetchData} from "../../utils/fetchData"
+
+
 
 function TransistorView() {
 
-    const { transistorType, transistorComponentID } = useParams();
-    const singleTransistorInput = { inputs: { id: transistorComponentID, transistorType } };
-    const { loading, error, data } = useQuery(GET_SINGLE_TRANSISTOR, { variables: singleTransistorInput });
+    const { transistorType, transistorComponentID } = useParams();  
+
+
+    singleTransistorInput.inputs.id = transistorComponentID
+    singleTransistorInput.inputs.transistorType = transistorType
+
+    const [packageImage, setPackageImage] = useState()
+    const [cartButton, setInCart] = useState(false);  
+    const [transistor, setTransistor] = useState({});
+    const [transistorAttributes, setTransistorAttributes] = useState([]);
+    
+    
+    useEffect(() => {
+      getTransistor();
+    }, []); 
   
-    const transistor = data ? data.transistorsQuery[0] : {};
-    const excludedFields = new Set(['__typename', 'componentType', 'model', 'price', 'amountAvailable']);
-    const transistorAttributes = Object.keys(transistor)
-      .filter((key) => !excludedFields.has(key))
-      .map((key) => [key, transistor[key]])
-      .filter(Boolean);
+    const getTransistor = async () => {
+      try {
+        console.log(singleTransistorInput)
+        const data = await fetchData(GET_SINGLE_TRANSISTOR, singleTransistorInput);
+        console.log(data.transistorsQuery)
+        setTransistor(data.transistorsQuery[0])
+  
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+  
+    useEffect(()=>{
 
-    const { package: transistorPackage, price, amountAvailable } = transistor;
-
-    const isInCart = isComponentInCart(transistorType, transistorComponentID);
-    const [cartButton, setInCart] = useState(isInCart);
+      const attrToRemove = ["price", "amountAvailable", "componentType"]
+      
+      setInCart(isComponentInCart("transistor", transistorComponentID))
+  
+      var attrs = Object.entries(transistor).filter(function ([key, value]) {
+        return !attrToRemove.includes(key);
+      });
+  
+      setTransistorAttributes(attrs)
+      setPackageImage(transistorImages[transistor.package])
+  
+    }, [transistor])       
 
 
     return (
@@ -36,15 +65,15 @@ function TransistorView() {
           <div className="col-4">
             <div className="container d-flex flex-column align-items-center justify-content-between main-attributes">
               <div>
-                <img id="cover-image-product" src={transistorImages[transistorPackage]} alt="Transistor" />
+                <img id="cover-image-product" src={packageImage} alt="Transistor" />
                 <table>
                   <tr>
                     <td>Price</td>
-                    <td>${price}</td>
+                    <td>${transistor.price}</td>
                   </tr>
                   <tr>
                     <td>Units Available</td>
-                    <td>{amountAvailable}</td>
+                    <td>{transistor.amountAvailable}</td>
                   </tr>
                   <tr>
                     <td>Component Type</td>

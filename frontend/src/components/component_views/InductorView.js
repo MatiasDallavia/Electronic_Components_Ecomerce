@@ -38,7 +38,7 @@ function InductorView() {
 
   useEffect(()=>{
 
-    const attrToRemove = ["price", "amountAvailable", "componentType"]
+    const attrToRemove = ["price", "amountAvailable", "componentType", "model"]
     
     setInCart(isComponentInCart("inductor", inductorComponentID))
 
@@ -48,8 +48,7 @@ function InductorView() {
     console.log(attrs)
 
     setInductorAttributes(attrs)
-
-    setPackageImage(getInductorPackageImage[inductor.package])
+    setPackageImage(getInductorPackageImage(inductor))
 
   }, [inductor])
 
