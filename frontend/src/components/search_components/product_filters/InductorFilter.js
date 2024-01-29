@@ -61,8 +61,12 @@ function InductorFilter({queryVariables, setQueryVariables}) {
                 onChange={(e) => handleInputChange('inductance', e.target.value)}                
             >
                 <option value="ALL">All</option>
-                <option value="330">330uH</option>
-                <option value="1000">1000uH</option>
+                <option value="10">10nH</option>
+                <option value="22">22uH</option>
+                <option value="33">33uH</option>
+                <option value="47">47uH</option>
+                <option value="150">150uH</option>
+                <option value="220">220uH</option>
             </select>
         </div>
 
