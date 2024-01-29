@@ -29,7 +29,7 @@ function TransistorFilter({transistorType, transistorTypeFilterChange, setQueryV
       <div class="filter-group me-3">
             <label for="model" class="filter-label">Model:</label>
             <input 
-                class="form-control filter-field"
+                className="form-control filter-field model"
                 type="text" 
                 placeholder="Default input"
                 onChange={(e) => handleInputChange(setQueryVariables, 'model', e.target.value)}

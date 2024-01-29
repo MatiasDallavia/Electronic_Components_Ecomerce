@@ -11,7 +11,8 @@ function SearchResistor() {
 
     const [queryVariables, setQueryVariables] = useState(ResistorListInput);
     const [resistors, setResistors] = useState([]);
-  
+    const [noResistorsFound, setNoResistorsFound] = useState(false)
+
 
   
     useEffect(() => {
@@ -22,7 +23,13 @@ function SearchResistor() {
       try {
         console.log(queryVariables)
         const data = await fetchData(GET_LIST_RESISTORS, queryVariables);
-        setResistors(data.resistorsQuery);
+        console.log(data.resistorsQuery)
+        if (data.resistorsQuery.length === 0 ){
+          setNoResistorsFound(true)
+        } else{        
+          setResistors(data.resistorsQuery);
+          setNoResistorsFound(false)
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -36,7 +43,13 @@ function SearchResistor() {
       <button type="button" className="btn btn-primary submit" onClick={getResistors}>
         Search
       </button>
-      <ProductList products={resistors} />
+      {
+        noResistorsFound?
+        <h3 id="no-result-title">
+            No results were founds with the parameters given...
+        </h3> :
+        <ProductList products={resistors} />
+      }  
     </div>
   )
 }

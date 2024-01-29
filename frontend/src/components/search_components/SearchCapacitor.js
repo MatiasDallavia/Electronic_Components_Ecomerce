@@ -10,6 +10,8 @@ function SearchCapacitor() {
 
   const [queryVariables, setQueryVariables] = useState(capacitorListInput);
   const [capacitors, setCapacitors] = useState([]);
+  const [noCapacitorFound, setNoCapacitorFound] = useState(false)
+
 
 
 
@@ -20,7 +22,12 @@ function SearchCapacitor() {
   const getCapacitors = async () => {
     try {
       const data = await fetchData(GET_LIST_CAPACITORS, queryVariables);
-      setCapacitors(data.capacitorsQuery);
+      if (data.capacitorsQuery.length === 0 ){
+        setNoCapacitorFound(true)
+      } else{
+        setNoCapacitorFound(false)
+        setCapacitors(data.capacitorsQuery);
+      }
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -33,7 +40,14 @@ function SearchCapacitor() {
       <button type="button" className="btn btn-primary submit" onClick={getCapacitors}>
         Search
       </button>
-      <ProductList products={capacitors} />
+      
+      {
+        noCapacitorFound?
+        <h3 id="no-result-title">
+            No results were founds with the parameters given...
+        </h3> :
+              <ProductList products={capacitors} />
+      }      
     </div>
   )
 }

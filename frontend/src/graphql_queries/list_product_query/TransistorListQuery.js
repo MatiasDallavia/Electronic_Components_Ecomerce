@@ -12,6 +12,7 @@ query Transistors($inputs: TransistorInput!){
             manufacturer
             package
             componentType
+            mountingTechnology
         }
         ... on MOSFETType {
             id
@@ -22,6 +23,8 @@ query Transistors($inputs: TransistorInput!){
             manufacturer
             package
             componentType
+            mountingTechnology
+
         }
         ... on IGBTType{
             id
@@ -32,6 +35,8 @@ query Transistors($inputs: TransistorInput!){
             manufacturer
             package
             componentType
+            mountingTechnology
+
         }
     }
     }`;

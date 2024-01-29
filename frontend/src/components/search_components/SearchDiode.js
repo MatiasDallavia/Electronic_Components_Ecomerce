@@ -11,6 +11,7 @@ function SearchDiode() {
 
     const [queryVariables, setQueryVariables] = useState(diodeListInput);
     const [diodes, setDiodes] = useState([]);
+    const [noDiodesFound, setNoDiodesFound] = useState(false)
   
 
     useEffect(() => {
@@ -21,7 +22,12 @@ function SearchDiode() {
       try {
         console.log(queryVariables)
         const data = await fetchData(GET_LIST_DIODES, queryVariables);
-        setDiodes(data.diodesQuery);
+        if (data.diodesQuery.length === 0 ){
+          setNoDiodesFound(true)
+        } else{        
+          setDiodes(data.diodesQuery);
+          setNoDiodesFound(false)
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -35,7 +41,13 @@ function SearchDiode() {
       <button type="button" className="btn btn-primary submit" onClick={getDiodes}>
         Search
       </button>
-      <ProductList products={diodes} />
+      {
+        noDiodesFound?
+        <h3 id="no-result-title">
+            No results were founds with the parameters given...
+        </h3> :
+              <ProductList products={diodes} />
+      }  
     </div>
   )
 }

@@ -10,6 +10,7 @@ function SearchTransistor() {
   const [queryVariables, setQueryVariables] = useState(TransistorListInput);
   const [transistors, setTransistors] = useState([]);
   const [transistorType, setTransistorType] = useState('BJT');
+  const [noTransistorsFound, setNoTransistorsFound] = useState(false)  
 
   const transistorTypeFilterChange = (transistorType) => {
     setTransistorType(transistorType);
@@ -24,18 +25,30 @@ function SearchTransistor() {
 
   useEffect(() => {
     // Realizar la consulta al cargar la página
-    getTransistors();
+
+    setNoTransistorsFound(false)     
+    document.querySelector(".manufacturer").value = "ALL"
+    document.querySelector(".model").value = ""
+    getTransistors(true);
   }, [transistorType]);
 
-  useEffect(() => {
-    getTransistors();
-  }, []); 
 
-  const getTransistors = async () => {
+
+  const getTransistors = async (resetQuery=null) => {
     try {
-      console.log(queryVariables)
-      const data = await fetchData(GET_LIST_TRANSISTORS, queryVariables);
-      setTransistors(data.transistorsQuery);
+      let transistorQueryVariables = queryVariables
+      if (resetQuery){
+        transistorQueryVariables.inputs.model = ""
+        transistorQueryVariables.inputs.manufacturer = null      
+      }
+      console.log(transistorQueryVariables)
+      const data = await fetchData(GET_LIST_TRANSISTORS, transistorQueryVariables);
+      if (data.transistorsQuery.length === 0 ){
+        setNoTransistorsFound(true)
+      } else{
+        setNoTransistorsFound(false)
+        setTransistors(data.transistorsQuery);
+      }      
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -54,7 +67,13 @@ function SearchTransistor() {
       <button type="button" className="btn btn-primary submit" onClick={getTransistors}>
         Search
       </button>
-      <ProductList products={transistors} />
+      {
+        noTransistorsFound?
+        <h3 id="no-result-title">
+            No results were founds with the parameters given...
+        </h3> :
+              <ProductList products={transistors} />
+      } 
     </div>
   );
 }

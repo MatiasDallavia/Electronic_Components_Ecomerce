@@ -49,14 +49,14 @@ function ResistorFilter({setQueryVariables}) {
 
 
         <div class="filter-group me-3">
-            <label for="ic" class="filter-label">Resistance:</label>
+            <label for="ic" class="filter-label">Tolerance:</label>
             <select 
                 class="form-select filter-field type transistor"
                 onChange={(e) => handleInputChange('tolerance', e.target.value)}                
             >
                 <option value="ALL">All</option>
-                <option value="0.1">0.1%,</option>
-                <option value="0.5">0.5%,</option>
+                <option value="1">1%,</option>
+                <option value="5">5%,</option>
 
             </select>
         </div>          

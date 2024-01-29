@@ -12,6 +12,7 @@ function SearchInductor() {
 
   const [queryVariables, setQueryVariables] = useState(InductorListInput);
   const [inductors, setInductors] = useState([]);
+  const [noInductorsFound, setNoInductorsFound] = useState(false)
 
 
   useEffect(() => {
@@ -22,8 +23,12 @@ function SearchInductor() {
     try {
       console.log(queryVariables)
       const data = await fetchData(GET_LIST_INDUCTORS, queryVariables);
-      setInductors(data.inductorsQuery);
-      console.log(inductors)
+      if (data.inductorsQuery.length === 0 ){
+        setNoInductorsFound(true)
+      } else{        
+        setInductors(data.inductorsQuery);
+        setNoInductorsFound(false)
+      }
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -41,7 +46,13 @@ function SearchInductor() {
       >
         Search
       </button>
-      {<ProductList products={inductors} />}
+      {
+        noInductorsFound?
+        <h3 id="no-result-title">
+            No results were founds with the parameters given...
+        </h3> :
+              <ProductList products={inductors} />
+      }  
     </div>
   )
 }
