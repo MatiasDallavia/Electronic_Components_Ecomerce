@@ -44,7 +44,6 @@ function Cart() {
 
     const variables = createOrderInput
     variables.inputs.productsToPurchase = productsToPurchase
-    console.log(productsToPurchase)
 
     const checkProductAmount = (variables) => {
       const componentWithZeroCount = variables.inputs.productsToPurchase.filter((component)=>(
@@ -75,7 +74,6 @@ function Cart() {
 
         setErrorMessage("")
         const token = await getJWT()
-        console.log("TOKENNN: ", token)
         const data = await fetchData(CREATE_ORDER, variables, token);
         const paymentUrl = data.createOrder.url
 
@@ -83,7 +81,6 @@ function Cart() {
         window.open(paymentUrl,"_self")
 
       } catch (errors) {
-        console.log(errors.graphQLErrors)
         document.querySelector(".cart-content").style.display = "block"
         serIsLoading(false)
         setErrorMessage("An error occurred")

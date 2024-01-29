@@ -29,7 +29,6 @@ function DiodeView() {
       singleDiodeInput.inputs.id = diodeComponentID;
 
       const data = await fetchData(GET_SINGLE_DIODE, singleDiodeInput);
-      console.log(data.diodesQuery)
       setDiode(data.diodesQuery[0])
 
     } catch (error) {
@@ -46,8 +45,6 @@ function DiodeView() {
     var attrs = Object.entries(diode).filter(function ([key, value]) {
       return !attrToRemove.includes(key);
     });
-    console.log(attrs)
-
     setDiodeAttributes(attrs)
 
     setPackageImage(diodeImages[diode.package])

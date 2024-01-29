@@ -28,7 +28,6 @@ function ResistorView() {
         singleResistorInput.inputs.id = resistorComponentID;
   
         const data = await fetchData(GET_SINGLE_RESISTOR, singleResistorInput);
-        console.log(data.resistorsQuery)
         setResistor(data.resistorsQuery[0])
   
       } catch (error) {
@@ -45,7 +44,6 @@ function ResistorView() {
       var attrs = Object.entries(resistor).filter(function ([key, value]) {
         return !attrToRemove.includes(key);
       });
-      console.log(attrs)
   
       setResistorAttributes(attrs)
   

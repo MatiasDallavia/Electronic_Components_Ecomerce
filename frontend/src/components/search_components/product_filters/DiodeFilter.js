@@ -3,7 +3,6 @@ import React from 'react'
 function DiodeFilter({ queryVariables, setQueryVariables}) {
 
     const handleInputChange = (inputName, value) => {
-        console.log("HANDLE")
 
         if (!isNaN(value)){
             value = Number(value)
@@ -19,7 +18,6 @@ function DiodeFilter({ queryVariables, setQueryVariables}) {
             [inputName]: value
           }
         });
-        console.log(queryVariables)
       };
 
   return (

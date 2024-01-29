@@ -22,8 +22,6 @@ const getInductorPackageImage = (inductor) => {
 
 
 const getResistorImage = (resistor) => {
-  console.log("first")
-  console.log(resistor)
     const { mountingTechnology, power, package: resistorPackage } = resistor;
 
     if (mountingTechnology === "THT") {

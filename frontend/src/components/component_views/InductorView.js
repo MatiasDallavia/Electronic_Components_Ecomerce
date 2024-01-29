@@ -28,7 +28,6 @@ function InductorView() {
       singleInductorInput.inputs.id = inductorComponentID;
 
       const data = await fetchData(GET_SINGLE_INDUCTOR, singleInductorInput);
-      console.log(data.inductorsQuery)
       setInductor(data.inductorsQuery[0])
 
     } catch (error) {
@@ -45,7 +44,6 @@ function InductorView() {
     var attrs = Object.entries(inductor).filter(function ([key, value]) {
       return !attrToRemove.includes(key);
     });
-    console.log(attrs)
 
     setInductorAttributes(attrs)
     setPackageImage(getInductorPackageImage(inductor))

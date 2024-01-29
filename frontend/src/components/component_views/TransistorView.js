@@ -33,9 +33,7 @@ function TransistorView() {
   
     const getTransistor = async () => {
       try {
-        console.log(singleTransistorInput)
         const data = await fetchData(GET_SINGLE_TRANSISTOR, singleTransistorInput);
-        console.log(data.transistorsQuery)
         setTransistor(data.transistorsQuery[0])
   
       } catch (error) {

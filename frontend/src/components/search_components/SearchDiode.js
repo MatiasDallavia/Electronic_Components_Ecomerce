@@ -20,7 +20,6 @@ function SearchDiode() {
   
     const getDiodes = async () => {
       try {
-        console.log(queryVariables)
         const data = await fetchData(GET_LIST_DIODES, queryVariables);
         if (data.diodesQuery.length === 0 ){
           setNoDiodesFound(true)

@@ -1,5 +1,4 @@
 const handleInputChange = (setQueryVariables, inputName, value) => {
-    console.log(value)
 
     if (!isNaN(value) && inputName !== "model"){
         value = Number(value)
@@ -21,8 +20,6 @@ const handleInputChange = (setQueryVariables, inputName, value) => {
 
     
     let value = e.target.value;
-    console.log(transistorTypefield, typeof(value))
-    console.log(value === "")
 
     if (!isNaN(value)){
         value = Number(value)

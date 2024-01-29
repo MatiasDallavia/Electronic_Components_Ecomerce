@@ -3,7 +3,6 @@ import React from 'react'
 function CapacitorFilter({ queryVariables, setQueryVariables}) {
 
     const handleInputChange = (inputName, value) => {
-        console.log("HANDLE", value)
   
         if (!isNaN(value)){
             value = Number(value)
@@ -21,7 +20,6 @@ function CapacitorFilter({ queryVariables, setQueryVariables}) {
             [inputName]: value
           }
         });
-        console.log(queryVariables)
       };
 
 

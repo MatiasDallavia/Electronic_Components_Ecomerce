@@ -21,9 +21,7 @@ function SearchResistor() {
   
     const getResistors = async () => {
       try {
-        console.log(queryVariables)
         const data = await fetchData(GET_LIST_RESISTORS, queryVariables);
-        console.log(data.resistorsQuery)
         if (data.resistorsQuery.length === 0 ){
           setNoResistorsFound(true)
         } else{        

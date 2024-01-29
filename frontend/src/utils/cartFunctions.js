@@ -27,7 +27,6 @@ function isComponentInCart (componentType, componentID){
     const result = cart.filter((component) => 
         (JSON.stringify(component) === JSON.stringify([componentType, componentID]))
     );
-    console.log(result.length)
     if (result.length){
         return true
     }

@@ -13,7 +13,6 @@ import zenerImage from '../images/components/zener.jpeg'
 function ProductView() {
 
   const { componentModel } = useParams();
-  console.log("params: ",componentModel)
 
 
   return (

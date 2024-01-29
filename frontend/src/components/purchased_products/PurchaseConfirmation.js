@@ -34,12 +34,6 @@ function PurchaseConfirmation() {
       console.error('Error fetching data:', error);
     }
   };
-  
-
-
-  
-  console.log(token)
-
 
   useEffect(()=>{captureOrderMutation()},[])
   return (

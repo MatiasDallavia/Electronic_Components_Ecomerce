@@ -41,7 +41,6 @@ function SearchTransistor() {
         transistorQueryVariables.inputs.model = ""
         transistorQueryVariables.inputs.manufacturer = null      
       }
-      console.log(transistorQueryVariables)
       const data = await fetchData(GET_LIST_TRANSISTORS, transistorQueryVariables);
       if (data.transistorsQuery.length === 0 ){
         setNoTransistorsFound(true)

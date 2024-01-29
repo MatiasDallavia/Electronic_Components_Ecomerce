@@ -22,16 +22,13 @@ function Login() {
       ...mutationVariables,
       [formField]: value
     });
-    console.log(mutationVariables)
   };  
 
   const handleLogin = async () => {
-    console.log("first")
     try {
       const result = await loginMutation({
         variables: mutationVariables
       });
-      console.log(result.data); // Handle success
       saveTokens(result.data.login)
     } catch (error) {
       console.error(error); // Handle error

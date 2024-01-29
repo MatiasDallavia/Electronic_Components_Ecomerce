@@ -25,16 +25,13 @@ function Register() {
       ...mutationVariables,
       [formField]: value
     });
-    console.log(mutationVariables)
   };  
 
   const handleRegister = async () => {
-    console.log("first")
     try {
       const result = await registerUser({
         variables: mutationVariables
       });
-      console.log(result.data); // Handle success
       navigate("/login")      
     } catch (error) {
       console.error(error); // Handle error

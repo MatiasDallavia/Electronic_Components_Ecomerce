@@ -35,9 +35,6 @@ const getJWT = async () => {
         
 
     if (currentTime >= tokenExpiration){
-        console.log("se expiro")
-        console.log("INPUT: ", refreshToken)
-
         const requestOptions = {
             method: 'POST',
             headers: {
@@ -65,13 +62,12 @@ const getJWT = async () => {
 
 
     }    
-    console.log(token)
+
     return token
 }
 
 
 const saveTokens = (tokenResponse) => {
-    console.log(tokenResponse)
     localStorage.setItem('token', tokenResponse.token);
     localStorage.setItem('refreshToken', tokenResponse.refreshToken);
     localStorage.setItem('token', tokenResponse.token);

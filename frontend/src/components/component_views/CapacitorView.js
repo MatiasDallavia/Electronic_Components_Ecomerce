@@ -29,7 +29,6 @@ function CapacitorView() {
       SingleCapacitorInput.inputs.id = capacitorComponentID;
 
       const data = await fetchData(GET_SINGLE_CAPACITOR, SingleCapacitorInput);
-      console.log(data.capacitorsQuery)
       setCapacitor(data.capacitorsQuery[0])
       setImage(getCapacitorImage(data.capacitorsQuery[0]))
 
@@ -47,7 +46,6 @@ function CapacitorView() {
     var attrs = Object.entries(capacitor).filter(function ([key, value]) {
       return !attrToRemove.includes(key);
     });
-    console.log(attrs)
 
     setCapacitorAttributes(attrs)
 

@@ -4,7 +4,6 @@ function InductorFilter({queryVariables, setQueryVariables}) {
 
 
     const handleInputChange = (inputName, value) => {
-        console.log("HANDLE")
         if (!isNaN(value)){
             value = Number(value)
         }
@@ -12,7 +11,6 @@ function InductorFilter({queryVariables, setQueryVariables}) {
             value = null
         }        
 
-        console.log("1: ", queryVariables)
         setQueryVariables({
           ...queryVariables,
           inputs: {
@@ -20,7 +18,6 @@ function InductorFilter({queryVariables, setQueryVariables}) {
             [inputName]: value
           }
         });
-        console.log(queryVariables)
       };
 
 

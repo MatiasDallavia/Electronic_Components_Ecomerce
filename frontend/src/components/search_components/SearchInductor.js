@@ -21,7 +21,6 @@ function SearchInductor() {
 
   const getInductors = async () => {
     try {
-      console.log(queryVariables)
       const data = await fetchData(GET_LIST_INDUCTORS, queryVariables);
       if (data.inductorsQuery.length === 0 ){
         setNoInductorsFound(true)

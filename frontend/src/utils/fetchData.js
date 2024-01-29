@@ -24,12 +24,10 @@ async function fetchData(SCHEMA, variables, JWT=null) {
       });
   
       if (!response.ok) {
-        console.log("!!!!!!!!!")
         throw new Error('An error occurred while doing the query');
       }
   
       const data = await response.json();
-      console.log("FIN. ", data)
       return data.data
   
     } catch (error) {

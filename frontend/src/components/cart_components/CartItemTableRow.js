@@ -64,10 +64,7 @@ function CartItemTableRow(
 
     const getComponent = async () => {
       try {
-        console.log(inputVariables)
-        console.log(querySchema)
         const data = await fetchData(querySchema, inputVariables);
-        console.log("DATA: ", data)
         setComponent(data[queryComponentType][0])
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -83,7 +80,6 @@ function CartItemTableRow(
           setPrevProductCount(currentCount) 
          const newCount = currentCount + number
          const newValue = newCount * component.price
-         console.log(newValue)
          setProductCountValue(newValue.toFixed(2))         
          return newCount 
         }
@@ -93,8 +89,6 @@ function CartItemTableRow(
   }
 
   useEffect(() => {
-    console.log("PRODUCT CHANGE")
-    console.log(component)
     setProductsToPurchase((prevProductsToPurchase) => {
       return [...prevProductsToPurchase, {
         "componentType" : componentType,
@@ -152,7 +146,6 @@ function CartItemTableRow(
 
 
       useEffect(()=>{
-        console.log("CAMBIO 3")
         const result = productsToPurchase.filter((item) => 
         (item.componentType !== componentType && item.componentId !== componentID)
         )
