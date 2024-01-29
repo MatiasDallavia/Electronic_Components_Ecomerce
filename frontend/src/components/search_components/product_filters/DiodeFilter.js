@@ -63,11 +63,11 @@ function DiodeFilter({ queryVariables, setQueryVariables}) {
             >
                 <option value="ALL">All</option>
                 <option value="0.5">500mA</option>
-                <option value="0.8">800mA</option>
                 <option value="1">1A</option>
-                <option value="1.2">1.2A</option>
                 <option value="1.5">1.5A</option>
-                <option value="2">2A</option>
+                <option value="2.5">2.5A</option>
+                <option value="3">3A</option>
+                <option value="5">5A</option>
             </select>
         </div>        
 
