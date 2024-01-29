@@ -41,44 +41,38 @@ function CapacitorFilter({ queryVariables, setQueryVariables}) {
             </select>
         </div>
 
+
+
+        <div class="d-flex flex-row align-items-center">
         <div class="filter-group">
-            <label for="raitingCapacitance">Capacitance:</label>
+            <label>Capacitance:</label>
             <select 
-                id="typePNP"    
-                class="form-select filter-field type raiting"
-                onChange={(e) => handleInputChange('capacitance', e.target.value)}    
+                id="diode-type" 
+                class="form-select filter-field type diode"
+                onChange={(e) => handleInputChange('capacitance', e.target.value)}
             >
-                <option value="ALL">All</option>                
+                <option value="ALL">All</option>
+                <option value="10">10nF</option>
+                <option value="15">15nF</option>
+                <option value="22">22nF</option>
+                <option value="47">47uF</option>
                 <option value="100">100uF</option>
-                <option value="1000">1000uF</option>
+                <option value="220">220uF</option>
+                <option value="330">330uF</option>
             </select>
         </div>
 
         <div class="filter-group">
-            <label for="ratingVoltage">Voltage:</label>
-            <select 
-                id="ratingVoltage" 
-                class="form-select filter-field raiting voltage"
-                onChange={(e) => handleInputChange('voltage', e.target.value)}
-            >
-                <option value="ALL">All</option>                
-                <option>10</option>
-                <option>15</option>
-                <option>20</option>
-                <option>25</option>
-            </select>
-        </div>
-
-        <div class="filter-group">
-            <label>Mounting Surface:</label>
+            <label>Voltage:</label>
             <select 
                 id="mounting-surface" 
                 class="form-select filter-field mounting-surface"
-                onChange={(e) => handleInputChange('mountingTechnology', e.target.value)}
+                onChange={(e) => handleInputChange('voltage', e.target.value)}
             >
                 <option value="ALL">All</option>                
-                <option value="THT">THT</option>
-                <option value="SMD">SMD</option>
+                <option value="10">10V</option>
+                <option value="25">25V</option>
+                <option value="35">35V</option>
             </select>
         </div>
 
@@ -98,6 +92,8 @@ function CapacitorFilter({ queryVariables, setQueryVariables}) {
             </select>
         </div>
     </div>
+    </div>
+
   )
 }
 
