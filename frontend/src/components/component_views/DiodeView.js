@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
 import { GET_SINGLE_DIODE, singleDiodeInput } from '../../graphql_queries/single_product_query/SingleDiodeQuery';
 import ProductCharacteristicRow from './ProductCharacteristicRow';
 
@@ -14,21 +13,6 @@ import {fetchData} from "../../utils/fetchData"
 function DiodeView() {
   const { diodeComponentID } = useParams();
   singleDiodeInput.inputs.id = diodeComponentID;
-
-  // const { loading, error, data } = useQuery(GET_SINGLE_DIODE, { variables: singleDiodeInput });
-  // const diode = data ? data.diodesQuery[0] : [];
-  // const excludedFields = new Set(['__typename', 'componentType', 'model', 'price', 'amountAvailable']);
-
-  // const diodeAttributes = Object.entries(diode)
-  //   .filter(([key]) => !excludedFields.has(key))
-  //   .map(([key, value]) => [key, value]);
-
-  // const packageImage = diodeImages[diode.package];
-
-  // const isInCart = isComponentInCart("diode", diodeComponentID);
-  // const [cartButton, setInCart] = useState(isInCart);  
-  
-  ////////////////////////////
 
   const [packageImage, setPackageImage] = useState()
   const [cartButton, setInCart] = useState(false);  

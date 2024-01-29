@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
 import { GET_SINGLE_CAPACITOR, SingleCapacitorInput } from '../../graphql_queries/single_product_query/SingleCapacitorQuery';
 import ProductCharacteristicRow from './ProductCharacteristicRow';
 

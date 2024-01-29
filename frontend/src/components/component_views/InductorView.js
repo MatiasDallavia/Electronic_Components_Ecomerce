@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
 import { GET_SINGLE_INDUCTOR, singleInductorInput } from '../../graphql_queries/single_product_query/SingleInductorQuery';
 import ProductCharacteristicRow from './ProductCharacteristicRow';
 
@@ -8,27 +7,51 @@ import { parseComponentAttributeText } from '../../utils/callbacks';
 import { getInductorPackageImage } from '../../utils/getComponetImages';
 
 import { addToCart, removeFromCart, isComponentInCart } from '../../utils/cartFunctions';
+import {fetchData} from "../../utils/fetchData"
 
 
 function InductorView() {
   const { inductorComponentID } = useParams();
+
+  const [packageImage, setPackageImage] = useState()
+  const [cartButton, setInCart] = useState(false);  
+  const [inductor, setInductor] = useState({});
+  const [inductorAttributes, setInductorAttributes] = useState([]);
   
-  singleInductorInput.inputs.id = inductorComponentID;
-  const { loading, error, data } = useQuery(GET_SINGLE_INDUCTOR, { variables: singleInductorInput });
+  
+  useEffect(() => {
+    getInductor();
+  }, []); 
 
-  const inductor = data ? data.inductorsQuery[0] : [];
-  const excludedFields = new Set(['__typename', 'package', 'componentType', 'model', 'price', 'amountAvailable']);
+  const getInductor = async () => {
+    try {
+      singleInductorInput.inputs.id = inductorComponentID;
 
-  const inductorAttributes = Object.entries(inductor)
-    .filter(([key]) => !excludedFields.has(key))
-    .map(([key, value]) => [key, value]);
+      const data = await fetchData(GET_SINGLE_INDUCTOR, singleInductorInput);
+      console.log(data.inductorsQuery)
+      setInductor(data.inductorsQuery[0])
 
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
-  const packageImage = getInductorPackageImage(inductor);
+  useEffect(()=>{
 
+    const attrToRemove = ["price", "amountAvailable", "componentType"]
+    
+    setInCart(isComponentInCart("inductor", inductorComponentID))
 
-  const isInCart = isComponentInCart("inductor", inductorComponentID);
-  const [cartButton, setInCart] = useState(isInCart);  
+    var attrs = Object.entries(inductor).filter(function ([key, value]) {
+      return !attrToRemove.includes(key);
+    });
+    console.log(attrs)
+
+    setInductorAttributes(attrs)
+
+    setPackageImage(getInductorPackageImage[inductor.package])
+
+  }, [inductor])
 
   return (
     <div className="container pt-5">
