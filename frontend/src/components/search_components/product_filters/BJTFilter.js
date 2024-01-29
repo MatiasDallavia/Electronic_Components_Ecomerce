@@ -22,23 +22,31 @@ function BJTFilter({setQueryVariables}) {
         </div>
 
         <div class="filter-group me-3">
-            <label for="dcCurrentGain" class="filter-label">DC Current Gain:</label>
-            <input 
-                class="form-control filter-field"  
-                type="text" 
-                placeholder="Default input"
+            <label for="dcGain" class="filter-label">DC Current Gain:</label>
+            <select 
+                class="form-select filter-field type transistor"
                 onChange={handleNestedFieldChange(setQueryVariables, 'bjtInput', 'dcCurrentGain')}
-            />
+            >
+                <option value="ALL">All</option>
+                <option value="100">100</option>
+                <option value="150">150</option>
+                <option value="200">200</option>
+                <option value="300">300</option>
+            </select>
         </div>
 
+
         <div class="filter-group me-3">
-            <label for="icMax" class="filter-label">Current Collector Max(IC):</label>
-            <input 
-                class="form-control filter-field" 
-                type="text" 
-                placeholder="Default input"
+            <label for="dcGain" class="filter-label">Current Collector(IC):</label>
+            <select 
+                class="form-select filter-field type transistor"
                 onChange={handleNestedFieldChange(setQueryVariables, 'bjtInput', 'icMax')}
-            />
+            >
+                <option value="ALL">All</option>
+                <option value="0.5">0.5</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+            </select>
         </div>
 
 
