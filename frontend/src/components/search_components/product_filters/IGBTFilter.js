@@ -7,34 +7,34 @@ function IGBTFilter({setQueryVariables}) {
     <>
 
         <div class="filter-group me-3">
-            <label for="vc" class="filter-label">Voltage Collector(vc):</label>
-            <input 
-                class="form-control filter-field" 
-                type="text" 
-                placeholder="Default input"
-                onChange={handleNestedFieldChange(setQueryVariables, 'igbtInput','vc')}
-                />
-        </div>
-
-        <div class="filter-group me-3">
             <label for="ic" class="filter-label">Current Collector:</label>
-            <input 
-                class="form-control filter-field" 
-                type="text" 
-                placeholder="Default input"
-                onChange={handleNestedFieldChange(setQueryVariables, 'igbtInput','ic')}
-            />
-        </div>
+            <select 
+                class="form-select filter-field type transistor"
+                onChange={handleNestedFieldChange(setQueryVariables, 'igbtInput', 'ic')}
+            >
+                <option value="ALL">All</option>
+                <option value="20">20</option>
+                <option value="25">25</option>
+                <option value="30">30</option>
+                <option value="30">40</option>
+                <option value="30">45</option>
+            </select>
+        </div>            
+
+
 
         <div class="filter-group me-3">
-            <label for="powerMax" class="filter-label">Power Max:</label>
-            <input 
-                class="form-control filter-field" 
-                type="text" 
-                placeholder="Default input"
-                onChange={handleNestedFieldChange(setQueryVariables, 'igbtInput','powerMax')}
-            />
-        </div>
+            <label for="ic" class="filter-label">Voltage Collector(vc):</label>
+            <select 
+                class="form-select filter-field type transistor"
+                onChange={handleNestedFieldChange(setQueryVariables, 'igbtInput', 'vc')}
+            >
+                <option value="ALL">All</option>
+                <option value="600">600</option>
+                <option value="800">800</option>
+                <option value="1200">1200</option>
+            </select>
+        </div>            
   
     </>
   )
