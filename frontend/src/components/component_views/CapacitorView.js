@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { GET_SINGLE_CAPACITOR, SingleCapacitorInput } from '../../graphql_queries/single_product_query/SingleCapacitorQuery';
@@ -9,23 +9,50 @@ import { getCapacitorImage } from '../../utils/getComponetImages';
 
 import { addToCart, removeFromCart, isComponentInCart } from '../../utils/cartFunctions';
 
+import {fetchData} from "../../utils/fetchData"
 
 
 function CapacitorView() {
   const { capacitorComponentID } = useParams();
-  SingleCapacitorInput.inputs.id = capacitorComponentID;
-  const { loading, error, data } = useQuery(GET_SINGLE_CAPACITOR, { variables: SingleCapacitorInput });
 
-  const capacitor = data ? data.capacitorsQuery[0] : {};
-  const excludedFields = new Set(['__typename', 'componentType', 'model', 'price', 'amountAvailable']);
-  const capacitorAttributes = Object.entries(capacitor)
-    .filter(([key]) => !excludedFields.has(key))
-    .map(([key, value]) => [key, value]);
+  const [cartButton, setInCart] = useState(false);  
+  const [image, setImage] = useState();
+  const [capacitor, setCapacitor] = useState({});
+  const [capacitorAttributes, setCapacitorAttributes] = useState([]);
+  
+  
+  useEffect(() => {
+    getCapacitor();
+  }, []); 
 
-  let image = getCapacitorImage(capacitor);
+  const getCapacitor = async () => {
+    try {
+      SingleCapacitorInput.inputs.id = capacitorComponentID;
 
-  const isInCart = isComponentInCart("capacitor", capacitorComponentID);
-  const [cartButton, setInCart] = useState(isInCart);    
+      const data = await fetchData(GET_SINGLE_CAPACITOR, SingleCapacitorInput);
+      console.log(data.capacitorsQuery)
+      setCapacitor(data.capacitorsQuery[0])
+      setImage(getCapacitorImage(data.capacitorsQuery[0]))
+
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  useEffect(()=>{
+
+    const attrToRemove = ["price", "amountAvailable", "componentType"]
+    
+    setInCart(isComponentInCart("capacitor", capacitorComponentID))
+
+    var attrs = Object.entries(capacitor).filter(function ([key, value]) {
+      return !attrToRemove.includes(key);
+    });
+    console.log(attrs)
+
+    setCapacitorAttributes(attrs)
+
+  }, [capacitor])
 
   return (
     <div className="container pt-5">
