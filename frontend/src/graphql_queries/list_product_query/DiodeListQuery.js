@@ -10,6 +10,7 @@ const GET_LIST_DIODES = `
             manufacturer
             package
             componentType
+            mountingTechnology
         }
     }`;
 

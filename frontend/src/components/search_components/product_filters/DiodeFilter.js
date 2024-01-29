@@ -46,25 +46,30 @@ function DiodeFilter({ queryVariables, setQueryVariables}) {
                 onChange={(e) => handleInputChange('dcReverse', e.target.value)}
             >
                 <option value="ALL">All</option>
-                <option value="10">10V</option>
-                <option value="20">20V</option>
+                <option value="24">24V</option>
+                <option value="25">25V</option>
+                <option value="35">35V</option>
+                <option value="65">65V</option>
+                <option value="100">100V</option>
             </select>
-        </div>
+        </div>         
+
 
         <div class="filter-group">
-            <label>current:</label>
+            <label>Current:</label>
             <select 
-                id="rating-current" 
-                class="form-select filter-field raiting current"
-                onChange={(e) => handleInputChange('current', e.target.value)}
+                class="form-select filter-field raiting inductance"
+                onChange={(e) => handleInputChange('current', e.target.value)}                
             >
                 <option value="ALL">All</option>
-                <option value="10">10</option>
-                <option>15</option>
-                <option>20</option>
-                <option>25</option>
+                <option value="0.5">500mA</option>
+                <option value="0.8">800mA</option>
+                <option value="1">1A</option>
+                <option value="1.2">1.2A</option>
+                <option value="1.5">1.5A</option>
+                <option value="2">2A</option>
             </select>
-        </div>
+        </div>        
 
         <div class="filter-group">
             <label for="mountingSurface">Mounting Surface:</label>
