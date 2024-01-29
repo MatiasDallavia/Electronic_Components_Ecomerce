@@ -11,7 +11,7 @@ function ResistorFilter({setQueryVariables}) {
         if (!isNaN(value)){
             value = Number(value)
         }
-        if (value === "All" || value === 0){
+        if (value === "ALL" || value === 0){
             value = null
         }
         
@@ -27,34 +27,52 @@ function ResistorFilter({setQueryVariables}) {
   return (
     <div class="d-flex flex-row align-items-center">
 
-        <div class="filter-group me-3">
-            <label for="resistance" class="filter-label">Tolerance:</label>
-            <input 
-                class="form-control filter-field" 
-                type="text" placeholder="Default input"
-                onChange={(e) => handleInputChange('tolerance', e.target.value)}
-            />                
-        </div>
-
 
         <div class="filter-group me-3">
-            <label for="resistance" class="filter-label">Resistance:</label>
-            <input 
-                class="form-control filter-field" 
-                type="text" placeholder="Default input"
-                onChange={(e) => handleInputChange('resistance', e.target.value)}
-            />                
-        </div>
+            <label for="ic" class="filter-label">Resistance:</label>
+            <select 
+                class="form-select filter-field type transistor"
+                onChange={(e) => handleInputChange('resistance', e.target.value)}                
+            >
+                <option value="ALL">All</option>
+                <option value="100">100Ω,</option>
+                <option value="220">220Ω,</option>
+                <option value="470">470Ω,</option>
+                <option value="1000">1kΩ,</option>
+                <option value="3300">3.3kΩ,</option>
+                <option value="4700">4.7kΩ,</option>
+                <option value="2200">2.2kΩ,</option>
+                <option value="20000">20kΩ,</option>
+                <option value="33000">3.3kΩ,</option>
+            </select>
+        </div>     
 
 
         <div class="filter-group me-3">
-            <label for="power" class="filter-label">Power:</label>
-            <input 
-                class="form-control filter-field" 
-                type="text" placeholder="Default input"
-                onChange={(e) => handleInputChange('power', e.target.value)}
-            />
-        </div>
+            <label for="ic" class="filter-label">Resistance:</label>
+            <select 
+                class="form-select filter-field type transistor"
+                onChange={(e) => handleInputChange('tolerance', e.target.value)}                
+            >
+                <option value="ALL">All</option>
+                <option value="0.1">0.1%,</option>
+                <option value="0.5">0.5%,</option>
+
+            </select>
+        </div>          
+
+
+        <div class="filter-group me-3">
+            <label for="ic" class="filter-label">Power:</label>
+            <select 
+                class="form-select filter-field type transistor"
+                onChange={(e) => handleInputChange('power', e.target.value)}                
+            >
+                <option value="ALL">All</option>
+                <option value="0.25">250mW,</option>
+                <option value="5">5w,</option>
+            </select>
+        </div>  
 
         <div class="filter-group">
             <label for="mountingSurface">Mounting Surface:</label>
