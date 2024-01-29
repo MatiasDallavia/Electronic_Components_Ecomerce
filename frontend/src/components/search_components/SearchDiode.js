@@ -1,43 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import { GET_LIST_DIODES, diodeListInput } from '../../graphql_queries/list_product_query/DiodeListQuery';
 import DiodeFilter from './product_filters/DiodeFilter';
-import { useLazyQuery } from '@apollo/client';
 import ProductList from '../ProductList';
+
+import {fetchData} from "../../utils/fetchData"
 
 
 function SearchDiode() {
 
 
-    const [queryProducts, { loading, error, data }] = useLazyQuery(GET_LIST_DIODES);
     const [queryVariables, setQueryVariables] = useState(diodeListInput);
-
+    const [diodes, setDiodes] = useState([]);
+  
 
     useEffect(() => {
-      console.log("FIRST QUERY")
-      // Realizar la consulta al cargar la página
-      queryProducts({ variables: queryVariables });
-      console.log(error);
-      console.log(data);
-    }, []);
-    
+      getDiodes();
+    }, []); 
   
-    const handleSearch = () => {
-      console.log("QUERY")
-      console.log(queryVariables)
-      queryProducts({ variables: queryVariables });
-      console.log(error)
-      console.log(data)
-    };    
-
-    const products = data ? data.diodeListQuery : [];
+    const getDiodes = async () => {
+      try {
+        console.log(queryVariables)
+        const data = await fetchData(GET_LIST_DIODES, queryVariables);
+        setDiodes(data.diodesQuery);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
     
+
+
   return (
     <div className="container filters g-3">
       <DiodeFilter queryVariables={queryVariables} setQueryVariables={setQueryVariables}/>
-      <button type="button" className="btn btn-primary submit" onClick={handleSearch}>
+      <button type="button" className="btn btn-primary submit" onClick={getDiodes}>
         Search
       </button>
-      <ProductList products={products} />
+      <ProductList products={diodes} />
     </div>
   )
 }

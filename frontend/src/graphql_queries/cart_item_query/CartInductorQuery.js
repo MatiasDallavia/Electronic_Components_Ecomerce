@@ -1,8 +1,7 @@
-import { gql } from '@apollo/client';
 
-const GET_INDUCTOR_FROM_CART = gql`
+const GET_INDUCTOR_FROM_CART = `
 query GetInductors($inputs: InductorInput!){
-  inductorListQuery(inputs: $inputs) {
+  inductorsQuery(inputs: $inputs) {
       model
       price
       inductance

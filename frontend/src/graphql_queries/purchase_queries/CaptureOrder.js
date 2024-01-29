@@ -1,10 +1,9 @@
-import { gql } from '@apollo/client';
 
-const CAPTURE_ORDER = gql`
+const CAPTURE_ORDER = `
 mutation captureOrder($inputs: ConfirmOrderInput!){
   captureOrder(inputs: $inputs) {
     
-    errors
+    
     purchases{
         quantity
         componentNode{

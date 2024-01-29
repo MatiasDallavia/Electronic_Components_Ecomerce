@@ -14,7 +14,7 @@ function DiodeView() {
   singleDiodeInput.inputs.id = diodeComponentID;
 
   const { loading, error, data } = useQuery(GET_SINGLE_DIODE, { variables: singleDiodeInput });
-  const diode = data ? data.diodeListQuery[0] : [];
+  const diode = data ? data.diodesQuery[0] : [];
   const excludedFields = new Set(['__typename', 'componentType', 'model', 'price', 'amountAvailable']);
 
   const diodeAttributes = Object.entries(diode)

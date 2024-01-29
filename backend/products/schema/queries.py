@@ -90,7 +90,6 @@ class ProductListQuery(graphene.ObjectType):
                 strategy = ConcreteStrategyIGBT()
 
             filter_kwargs = clean_inputs(inputs)
-
             transistor_context = TransistorQuery(strategy)
 
             return transistor_context.execute(filter_kwargs)
@@ -119,15 +118,6 @@ def clean_inputs(inputs):
         if isinstance(field_value, Enum):
             filter_kwargs[input_field] = field_value.value
 
-        # for transistors_query
-        elif input_field in ["bjt_input", "mosfet_input", "igbt_input"]:
-            for transistor_field, transistor_field_value in field_value.items():
-                if transistor_field_value is None:
-                    continue
-                if isinstance(transistor_field_value, Enum):
-                    filter_kwargs[transistor_field] = transistor_field_value.value
-                else:
-                    filter_kwargs[transistor_field] = transistor_field_value
 
         elif input_field == "model":
             field_value = field_value.upper()

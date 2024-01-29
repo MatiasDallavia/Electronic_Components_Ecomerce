@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 const GET_SINGLE_DIODE = gql`
     query Diodes($inputs: DiodeInput!){
-    diodeListQuery(inputs: $inputs) {
+    diodesQuery(inputs: $inputs) {
             model
             description
             price

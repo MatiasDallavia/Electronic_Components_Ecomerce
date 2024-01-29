@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { useQuery } from '@apollo/client';
-import { gql } from '@apollo/client';
+
+import minusIcon from '../../images/icons/minus.png'
+import plusIcon from '../../images/icons/plus.png'
+import xIcon from '../../images/icons/x.webp'
+
+import {GET_CAPACITOR_FROM_CART} from "../../graphql_queries/cart_item_query/CartCapacitorQuery"
+import {GET_DIODE_FROM_CART} from "../../graphql_queries/cart_item_query/CartDiodeQuery"
+import {GET_RESISTOR_FOR_CART} from "../../graphql_queries/cart_item_query/CartResistorQuery"
+import {GET_TRANSISTOR_FOR_CART} from "../../graphql_queries/cart_item_query/CartTransistorQuery"
+import {GET_INDUCTOR_FROM_CART} from "../../graphql_queries/cart_item_query/CartInductorQuery"
+
+import {fetchData} from "../../utils/fetchData"
 
 
-import minusIcon from '../images/icons/minus.png'
-import plusIcon from '../images/icons/plus.png'
-import xIcon from '../images/icons/x.webp'
-
-import {GET_CAPACITOR_FROM_CART} from "../graphql_queries/cart_item_query/CartCapacitorQuery"
-import {GET_DIODE_FROM_CART} from "../graphql_queries/cart_item_query/CartDiodeQuery"
-import {GET_RESISTOR_FOR_CART} from "../graphql_queries/cart_item_query/CartResistorQuery"
-import {GET_TRANSISTOR_FOR_CART} from "../graphql_queries/cart_item_query/CartTransistorQuery"
-import {GET_INDUCTOR_FROM_CART} from "../graphql_queries/cart_item_query/CartInductorQuery"
-
-
-function CartItemTableRow({componentType, componentID, removeItemFromList, serTotalValue,productsToPurchase, setProductsToPurchase}) {
+function CartItemTableRow(
+  {componentType, componentID, removeItemFromList, serTotalValue,productsToPurchase, setProductsToPurchase}
+  ) {
   const [count, setProductCount] = useState(0)
   const [prevCount, setPrevProductCount] = useState(0)
   const [productCountValue, setProductCountValue] = useState(0)
-
-
+  const [component, setComponent] = useState({})
 
 
   let queryComponentType;
@@ -33,36 +33,48 @@ function CartItemTableRow({componentType, componentID, removeItemFromList, serTo
     switch (componentType) {
         case "inductor":
           querySchema = GET_INDUCTOR_FROM_CART;
-          queryComponentType = "inductorListQuery"
+          queryComponentType = "inductorsQuery"
           break;
         case "capacitor":
            querySchema = GET_CAPACITOR_FROM_CART;
-           queryComponentType = "capacitorListQuery"
+           queryComponentType = "capacitorsQuery"
            break;
         case "resistor":
           querySchema = GET_RESISTOR_FOR_CART
-          queryComponentType = "resistorListQuery"
+          queryComponentType = "resistorsQuery"
           break;          
         case "diode":
            querySchema = GET_DIODE_FROM_CART
-           queryComponentType = "diodeListQuery"
+           queryComponentType = "diodesQuery"
            break;
         case "BJT":
         case "MOSFET":
         case "IGBT":
            querySchema = GET_TRANSISTOR_FOR_CART
-           queryComponentType = "transistorListQuery"
+           queryComponentType = "transistorsQuery"
            inputVariables.inputs.transistorType = componentType
            break;
      
       }
  
+  
+    useEffect(() => {
+      getComponent();
+    }, []); 
 
+    const getComponent = async () => {
+      try {
+        console.log(inputVariables)
+        console.log(querySchema)
+        const data = await fetchData(querySchema, inputVariables);
+        console.log("DATA: ", data)
+        setComponent(data[queryComponentType][0])
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    
 
-  const { loading, error, data } = useQuery(querySchema, { variables: inputVariables });
-
-
-  const component = data ? data[queryComponentType][0] : [];    
 
 
   function updateProductCount(number) {
@@ -71,6 +83,7 @@ function CartItemTableRow({componentType, componentID, removeItemFromList, serTo
           setPrevProductCount(currentCount) 
          const newCount = currentCount + number
          const newValue = newCount * component.price
+         console.log(newValue)
          setProductCountValue(newValue.toFixed(2))         
          return newCount 
         }
@@ -80,6 +93,8 @@ function CartItemTableRow({componentType, componentID, removeItemFromList, serTo
   }
 
   useEffect(() => {
+    console.log("PRODUCT CHANGE")
+    console.log(component)
     setProductsToPurchase((prevProductsToPurchase) => {
       return [...prevProductsToPurchase, {
         "componentType" : componentType,
@@ -137,7 +152,7 @@ function CartItemTableRow({componentType, componentID, removeItemFromList, serTo
 
 
       useEffect(()=>{
-
+        console.log("CAMBIO 3")
         const result = productsToPurchase.filter((item) => 
         (item.componentType !== componentType && item.componentId !== componentID)
         )

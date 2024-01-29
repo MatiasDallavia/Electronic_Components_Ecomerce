@@ -1,18 +1,25 @@
 import { gql } from '@apollo/client';
 
-const GET_LIST_INDUCTORS = gql`
-query GetInductors($inputs: InductorInput!){
-  inductorListQuery(inputs: $inputs) {
-        id
-        model
-        description
-        price
-        amountAvailable
-        manufacturer
-        package
-        componentType
-    }
-}`;
+const GET_LIST_INDUCTORS = `
+query Inductor($inputs: InductorInput!) {
+  inductorsQuery(inputs: $inputs) {
+    id
+    model
+    description
+    price
+    mountingTechnology
+    operatingTemperature
+    amountAvailable
+    manufacturer
+    package
+    inductorType
+    coreMaterial
+    inductance
+    current
+    vr
+  }
+}
+`;
 
 
 const InductorListInput = {

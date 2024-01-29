@@ -1,13 +1,19 @@
+const HOST = process.env.REACT_APP_HOST;
+const PORT = process.env.REACT_APP_PORT;
+
+const registerURL = `${HOST}:${PORT}/register`
 
 
 
+const getJWT = async () => {
 
-const getJWT = () => {
+  const HOST = process.env.REACT_APP_HOST;
+  const PORT = process.env.REACT_APP_DJANGO_PORT;
 
-
+  const uri = `${HOST}:${PORT}/graphql`
 
     const REFRESH_TOKEN = `
-    mutation RefreshToken($refreshToken: String!) {
+    mutation RefreshTokesn($refreshToken: String!) {
     refreshToken(refreshToken: $refreshToken) {
         token
         payload
@@ -17,7 +23,7 @@ const getJWT = () => {
     }
     `;
 
-    const token = localStorage.getItem("tokenExpiration");
+    let token = localStorage.getItem("token");
     const refreshToken = localStorage.getItem("refreshToken")
     const refreshExpiresIn = localStorage.getItem("refreshExpiresIn");
     const tokenExpiration = localStorage.getItem("tokenExpiration");
@@ -25,11 +31,12 @@ const getJWT = () => {
     const currentTime = new Date().getTime() / 1000;
 
     if (currentTime >= refreshExpiresIn )
-        console.log("se paso")
+      window.open(registerURL, "_self")
+        
 
     if (currentTime >= tokenExpiration){
         console.log("se expiro")
-
+        console.log("INPUT: ", refreshToken)
 
         const requestOptions = {
             method: 'POST',
@@ -44,13 +51,12 @@ const getJWT = () => {
           };
 
 
-        fetch("http://127.0.0.1:8000/graphql", requestOptions)
+        await fetch(uri, requestOptions)
         .then(response => response.json())
         .then(data => {
           // Manejar la respuesta de la solicitud aquí
-          console.log(data);
-          saveTokens(data.refreshToken)
-          return(data.refreshToken.token)
+          saveTokens(data.data.refreshToken)
+          token = data.data.refreshToken.token
         })
         .catch(error => {
           // Manejar errores de la solicitud aquí
@@ -59,6 +65,7 @@ const getJWT = () => {
 
 
     }    
+    console.log(token)
     return token
 }
 

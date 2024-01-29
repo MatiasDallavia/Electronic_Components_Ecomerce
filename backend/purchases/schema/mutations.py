@@ -4,6 +4,7 @@ import graphene
 from django.contrib.auth.models import User
 from graphene import Mutation
 from graphql import GraphQLError
+from graphql_jwt.decorators import login_required
 
 from products.models import BJT, IGBT, MOSFET, Capacitor, Diode, Inductor, Resistor
 from purchases.paypal.paypal_purchase_facade import PaypalPurchaseFacade
@@ -54,10 +55,11 @@ class CreateOrderMutation(Mutation):
 
     url = graphene.String()
 
+    @login_required
     def mutate(self, info, inputs):
-        logger.info("#"*10 + " Starting CreateOrder Mutation." + "#"*10)
+        logger.info("#" * 10 + " Starting CreateOrder Mutation." + "#" * 10)
         logger.debug("Input Fields: %s", inputs)
-        try:            
+        try:
             purchase_facede = PaypalPurchaseFacade(inputs)
             url = purchase_facede.create_order()
             return CreateOrderMutation(url=url)
@@ -76,8 +78,9 @@ class CaptureOrderMutation(Mutation):
 
     purchases = graphene.List(ProductPurchaseType)
 
+    @login_required
     def mutate(self, info, inputs):
-        logger.info("#"*10 + " Starting CaptureOrder Mutation." + "#"*10)
+        logger.info("#" * 10 + " Starting CaptureOrder Mutation." + "#" * 10)
         logger.debug("Input Fields: %s", inputs)
         try:
             purchase_facede = PaypalPurchaseFacade(inputs)

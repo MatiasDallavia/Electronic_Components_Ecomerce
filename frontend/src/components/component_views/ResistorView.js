@@ -15,7 +15,7 @@ function ResistorView() {
     singleResistorInput.inputs.id = resistorComponentID;
     const { loading, error, data } = useQuery(GET_SINGLE_RESISTOR, { variables: singleResistorInput });
   
-    const resistor = data ? data.resistorListQuery[0] : {};
+    const resistor = data ? data.resistorsQuery[0] : {};
     const excludedFields = new Set(['__typename', 'package', 'componentType', 'model', 'price', 'amountAvailable']);
     const resistorAttributes = Object.keys(resistor)
       .filter((key) => !excludedFields.has(key))

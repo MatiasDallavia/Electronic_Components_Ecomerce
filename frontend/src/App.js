@@ -15,12 +15,31 @@ import CapacitorView from "./components/component_views/CapacitorView.js";
 import TransistorView from "./components/component_views/TransistorView.js";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import Cart from "./components/Cart";
+import Cart from "./components/cart_components/Cart.js";
 import PurchaseConfirmation from "./components/purchased_products/PurchaseConfirmation.js";
 
+import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client';
+
+
+
 function App() {
+
+  const HOST = process.env.REACT_APP_HOST;
+  const PORT = process.env.REACT_APP_DJANGO_PORT;
+
+  const uri = `${HOST}:${PORT}/graphql`
+
+  const client = new ApolloClient({
+    uri: uri,
+    connectToDevTools: process.env.NODE_ENV === 'development',
+    cache: new InMemoryCache(),
+  });
+
+
+
   return (
     <div>
+      <ApolloProvider client={client}>
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -52,6 +71,8 @@ function App() {
           <Route path="/register" element={<Register/>} />
           <Route path="/cart" element={<Cart/>} />
         </Routes>
+      </ApolloProvider>
+  
     </div>
     );
 }

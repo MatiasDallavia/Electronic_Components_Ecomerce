@@ -1,8 +1,7 @@
-import { gql } from '@apollo/client';
 
-const GET_CAPACITOR_FROM_CART = gql`
+const GET_CAPACITOR_FROM_CART = `
     query Capacitors($inputs: CapacitorInput!){
-        capacitorListQuery(inputs: $inputs) {
+        capacitorsQuery(inputs: $inputs) {
             price
             amountAvailable
             package

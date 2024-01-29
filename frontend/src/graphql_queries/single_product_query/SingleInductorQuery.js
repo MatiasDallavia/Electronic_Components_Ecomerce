@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 const GET_SINGLE_INDUCTOR = gql`
 query GetInductors($inputs: InductorInput!){
-  inductorListQuery(inputs: $inputs) {
+  inductorsQuery(inputs: $inputs) {
       model
       description
       price

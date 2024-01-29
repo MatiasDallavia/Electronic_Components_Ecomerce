@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 import fairchildLogo from '../images/manufacturers/fairchild.png'
 import seimensLogo from '../images/manufacturers/siemens.png'
@@ -19,10 +19,8 @@ function ProductTableRow({product}) {
   const [ inCart, setInCart ] = useState(false)
 
   const redirectModelView = (productType ,productID) =>{
-    console.log("productType:", productType);
 
     const transistorTypes = ["BJT", "MOSFET", "IGBT"];
-    console.log("transistorTypes:", transistorTypes);
   
     if (transistorTypes.includes(productType)) {
       navigate(`/transistor/view/${productType}/${productID}`);
@@ -36,10 +34,6 @@ function ProductTableRow({product}) {
   }
 
 
-  console.log(product?.componentType)
-  console.log(product?.package)
-  console.log(transistorImages[product?.package])
-  console.log(product)
   let packageImage;
   switch (product?.componentType){
     case ("BJT"):
@@ -60,7 +54,7 @@ function ProductTableRow({product}) {
       packageImage = getInductorPackageImage(product)
     break     
   }
-  console.log(packageImage)
+
   return (
     <tr onClick={() => redirectModelView(product?.componentType, product?.id)}>
         <td class="table-row-product image">

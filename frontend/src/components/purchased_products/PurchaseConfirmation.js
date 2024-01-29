@@ -3,8 +3,10 @@ import PurchasedComponentTable from './PurchasedComponentTable';
 import WaitingSpinner from './WaitingSpinner';
 import { useLocation } from 'react-router-dom';
 import {CAPTURE_ORDER, captureOrderInput} from "../../graphql_queries/purchase_queries/CaptureOrder"
-import { useMutation } from '@apollo/client';
 import { useEffect, useState } from 'react';
+
+import {fetchData} from "../../utils/fetchData"
+import { getJWT } from '../../utils/token';
 
 
 
@@ -19,28 +21,27 @@ function PurchaseConfirmation() {
   captureOrderInput.inputs.token = token
   captureOrderInput.inputs.username = username
 
-  const [mutate, { loading, error, data }] = useMutation(CAPTURE_ORDER);
 
-  const CreateOrder = async () => {
-    setIsLoading(true)
+
+  const captureOrderMutation = async () => {
     try {
-      console.log(captureOrderInput)
-      const result = await mutate({
-        variables: captureOrderInput
-        ,
-      });
+      setIsLoading(true)
+      const token = await getJWT()
+      const data = await fetchData(CAPTURE_ORDER, captureOrderInput, token);
       setIsLoading(false)
-      console.log(result.data);
-      setPurchasedItems(result.data.captureOrder.purchases)
+      setPurchasedItems(data.captureOrder.purchases)
     } catch (error) {
-      console.error(error);
+      console.error('Error fetching data:', error);
     }
-  };  
+  };
+  
+
+
   
   console.log(token)
 
 
-  useEffect(()=>{CreateOrder()},[])
+  useEffect(()=>{captureOrderMutation()},[])
   return (
     <>
       {isLoading === true && <WaitingSpinner/>}

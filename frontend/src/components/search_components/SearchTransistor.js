@@ -1,62 +1,62 @@
 import React, { useState, useEffect } from 'react';
 import { GET_LIST_TRANSISTORS, TransistorListInput } from '../../graphql_queries/list_product_query/TransistorListQuery';
 import TransistorFilter from './product_filters/TransistorFilter';
-import { useLazyQuery } from '@apollo/client';
 import ProductList from '../ProductList';
 
+import {fetchData} from "../../utils/fetchData"
+
+
 function SearchTransistor() {
+  const [queryVariables, setQueryVariables] = useState(TransistorListInput);
+  const [transistors, setTransistors] = useState([]);
+  const [transistorType, setTransistorType] = useState('BJT');
 
+  const transistorTypeFilterChange = (transistorType) => {
+    setTransistorType(transistorType);
+    setQueryVariables((prevQueryVariables) => ({
+      ...prevQueryVariables,
+      inputs: {
+        ...prevQueryVariables.inputs,
+        "transistorType": transistorType,
+      },
+    }));
+  };
 
-    const [queryProducts, { loading, error, data }] = useLazyQuery(GET_LIST_TRANSISTORS);
-    const [queryVariables, setQueryVariables] = useState(TransistorListInput);
+  useEffect(() => {
+    // Realizar la consulta al cargar la página
+    getTransistors();
+  }, [transistorType]);
 
-    const [transistorType, setTransistorType] = useState('BJT');
+  useEffect(() => {
+    getTransistors();
+  }, []); 
 
-    const transistorTypeFilterChange = (transistorType) => {
-        setTransistorType(transistorType)
-        setQueryVariables((prevQueryVariables) => ({
-            ...prevQueryVariables,
-            inputs: {
-            ...prevQueryVariables.inputs,
-            "transistorType" : transistorType
-            }
-        }));
-      }
-    
-
-    useEffect(() => {
-      console.log("FIRST QUERY")
-      // Realizar la consulta al cargar la página
-      queryProducts({ variables: queryVariables });
-      console.log(error);
-      console.log(data);
-    }, [transistorType]);
-    
-  
-    const handleSearch = () => {
-      console.log("QUERY")
+  const getTransistors = async () => {
+    try {
       console.log(queryVariables)
-      queryProducts({ variables: queryVariables });
-      console.log(error)
-      console.log(data)
-    };    
+      const data = await fetchData(GET_LIST_TRANSISTORS, queryVariables);
+      setTransistors(data.transistorsQuery);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
-    const products = data ? data.transistorListQuery : [];
-    console.log(products)
+
+
   return (
     <div className="container filters g-3">
-      <TransistorFilter 
-            transistorType={transistorType}
-            transistorTypeFilterChange={transistorTypeFilterChange}
-            queryVariables={queryVariables} 
-            setQueryVariables={setQueryVariables}
-        />
-      <button type="button" className="btn btn-primary submit" onClick={handleSearch}>
+      <TransistorFilter
+        transistorType={transistorType}
+        transistorTypeFilterChange={transistorTypeFilterChange}
+        queryVariables={queryVariables}
+        setQueryVariables={setQueryVariables}
+      />
+      <button type="button" className="btn btn-primary submit" onClick={getTransistors}>
         Search
       </button>
-      <ProductList products={products} />
+      <ProductList products={transistors} />
     </div>
-  )
+  );
 }
 
 export default SearchTransistor
