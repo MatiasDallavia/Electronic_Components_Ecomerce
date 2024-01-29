@@ -80,9 +80,9 @@ class ConcreteStrategyBJT(TransistorStrategy):
             if field_value is None:
                 continue
             if isinstance(field_value, Enum):
-                filter_kwargs["bjt_input"][field_name] = field_value.value
+                filter_kwargs[field_name] = field_value.value
             else:
-                filter_kwargs["bjt_input"][field_name] = field_value
+                filter_kwargs[field_name] = field_value
 
         filter_kwargs.pop("mosfet_input")
         filter_kwargs.pop("bjt_input")
