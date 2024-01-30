@@ -1,18 +1,23 @@
 import React, {useState} from 'react'
 import { Link } from 'react-router-dom'
-import { useMutation } from '@apollo/client';
+import ErrorMessage from './ErrorMessage';
 import {LOGIN_USER} from "../graphql_queries/user_query/LoginMutation"
+import { useNavigate } from "react-router-dom";
 
 import {saveTokens} from "../utils/token"
+import {fetchData} from "../utils/fetchData"
 
-function Login() {
+function Login({setIsLogin}) {
+
+  const navigate = useNavigate();
+
+  const [errorMesage, setErrorMessage] = useState(false);
 
   const [mutationVariables, setMutationVariables] = useState({
     username: null,
     password: null
   });
 
-  const [loginMutation, { loading, error, data }] = useMutation(LOGIN_USER, {variables : mutationVariables});
   
 
 
@@ -26,10 +31,14 @@ function Login() {
 
   const handleLogin = async () => {
     try {
-      const result = await loginMutation({
-        variables: mutationVariables
-      });
-      saveTokens(result.data.login)
+      const data = await fetchData(LOGIN_USER, mutationVariables);
+      if (data.login === null) {
+        setErrorMessage("The credentials were invalid")
+      } else {
+        saveTokens(data.login)
+        setIsLogin(true)
+        navigate("/")
+      }
     } catch (error) {
       console.error(error); // Handle error
     }
@@ -38,6 +47,8 @@ function Login() {
   return (
     <div class="d-flex justify-content-center align-items-center vh-100 m-5">
         <div class="container m-5" style={{width: 500, height: 700}}>
+        {errorMesage.length > 0  && <ErrorMessage error={errorMesage}/>}    
+
         <form>
             <h1 class="h3 mb-3 fw-normal">Please Log In</h1>
     

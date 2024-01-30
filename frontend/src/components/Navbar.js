@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 
 
-function Navbar() {
+function Navbar({isLogin}) {
 
 
   const navigate = useNavigate();
@@ -13,6 +13,8 @@ function Navbar() {
   };
 
   const productsInCart = JSON.parse(localStorage.getItem('cart')) || [];
+  const username = localStorage.getItem("username");
+
 
   return (
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
@@ -27,7 +29,10 @@ function Navbar() {
                     <Link to="/" className="nav-link mt-1 mt-md-0">Home</Link>
                 </li>
                 <li class="nav-item">
-                    <Link to="/login" className="nav-link mt-1 mt-md-0">Login</Link>
+                    {
+                        isLogin ? <Link to="/login" disabled className="nav-link mt-1 mt-md-0">{username}</Link> :
+                        <Link to="/login" className="nav-link mt-1 mt-md-0">Login</Link>
+                    }
                 </li>
                     <li id="cart-icon" class="nav-item" onClick={redirectToCart}>
                         < div class="nav-link mt-1 mt-md-0" aria-disabled="true">

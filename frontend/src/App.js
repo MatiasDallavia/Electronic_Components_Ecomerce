@@ -1,5 +1,5 @@
 // App.js
-import React from "react";
+import React, {useState} from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
@@ -17,6 +17,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Cart from "./components/cart_components/Cart.js";
 import PurchaseConfirmation from "./components/purchased_products/PurchaseConfirmation.js";
+import { isUserLogin } from "./utils/token.js";
 
 import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client';
 
@@ -35,12 +36,13 @@ function App() {
     cache: new InMemoryCache(),
   });
 
+  const [isLogin, setIsLogin] = useState(isUserLogin())
 
 
   return (
     <div>
       <ApolloProvider client={client}>
-        <Navbar />
+        <Navbar isLogin={isLogin}/>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="transistor">
@@ -67,8 +69,8 @@ function App() {
           <Route path="purchase-confirmation" element={<PurchaseConfirmation/>}/>
       
           
-          <Route path="/login" element={<Login/>} />
-          <Route path="/register" element={<Register/>} />
+          <Route path="/login" element={<Login setIsLogin={setIsLogin}/>} />
+          <Route path="/register" element={<Register setIsLogin={setIsLogin}/>} />
           <Route path="/cart" element={<Cart/>} />
         </Routes>
       </ApolloProvider>

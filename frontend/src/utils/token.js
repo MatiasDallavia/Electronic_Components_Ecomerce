@@ -1,7 +1,7 @@
 const HOST = process.env.REACT_APP_HOST;
 const PORT = process.env.REACT_APP_PORT;
 
-const registerURL = `${HOST}:${PORT}/register`
+const loginURL = `${HOST}:${PORT}/login`
 
 
 
@@ -31,7 +31,7 @@ const getJWT = async () => {
     const currentTime = new Date().getTime() / 1000;
 
     if (currentTime >= refreshExpiresIn )
-      window.open(registerURL, "_self")
+      window.open(loginURL, "_self")
         
 
     if (currentTime >= tokenExpiration){
@@ -78,5 +78,16 @@ const saveTokens = (tokenResponse) => {
   }
 
 
+const isUserLogin = () => {
+  const refreshExpiresIn = localStorage.getItem("refreshExpiresIn");
+  const currentTime = new Date().getTime() / 1000;
 
-export {getJWT, saveTokens}
+  if (currentTime >= refreshExpiresIn )
+      return false
+  return true  
+
+}  
+
+
+
+export {getJWT, saveTokens, isUserLogin}
