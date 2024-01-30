@@ -22,7 +22,7 @@ function CapacitorView() {
   
   useEffect(() => {
     getCapacitor();
-  }, []); 
+  }); 
 
   const getCapacitor = async () => {
     try {

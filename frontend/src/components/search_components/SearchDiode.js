@@ -16,7 +16,7 @@ function SearchDiode() {
 
     useEffect(() => {
       getDiodes();
-    }, []); 
+    }); 
   
     const getDiodes = async () => {
       try {

@@ -17,7 +17,7 @@ function SearchCapacitor() {
 
   useEffect(() => {
     getCapacitors();
-  }, []); 
+  }); 
 
   const getCapacitors = async () => {
     try {

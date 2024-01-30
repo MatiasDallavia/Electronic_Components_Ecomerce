@@ -17,7 +17,7 @@ function SearchResistor() {
   
     useEffect(() => {
       getResistors();
-    }, []); 
+    }); 
   
     const getResistors = async () => {
       try {

@@ -29,7 +29,7 @@ function TransistorView() {
     
     useEffect(() => {
       getTransistor();
-    }, []); 
+    }); 
   
     const getTransistor = async () => {
       try {

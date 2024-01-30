@@ -21,7 +21,7 @@ function InductorView() {
   
   useEffect(() => {
     getInductor();
-  }, []); 
+  }); 
 
   const getInductor = async () => {
     try {

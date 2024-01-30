@@ -17,7 +17,7 @@ function SearchInductor() {
 
   useEffect(() => {
     getInductors();
-  }, []); 
+  }); 
 
   const getInductors = async () => {
     try {

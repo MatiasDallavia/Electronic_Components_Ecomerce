@@ -41,7 +41,7 @@ function Navbar({isLogin}) {
                         </div>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Search Products</a>
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Search Products</a>
                         <ul className="dropdown-menu">
                             <li><Link to="/transistor/search" className="dropdown-item">Transistors</Link></li>
                             <li><Link to="/resistor/search" className="dropdown-item">Resistors</Link></li>

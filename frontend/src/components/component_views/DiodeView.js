@@ -22,7 +22,7 @@ function DiodeView() {
   
   useEffect(() => {
     getDiode();
-  }, []); 
+  }); 
 
   const getDiode = async () => {
     try {

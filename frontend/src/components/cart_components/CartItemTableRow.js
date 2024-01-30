@@ -54,13 +54,15 @@ function CartItemTableRow(
            queryComponentType = "transistorsQuery"
            inputVariables.inputs.transistorType = componentType
            break;
-     
+        default:
+          querySchema = GET_DIODE_FROM_CART
+          queryComponentType = "diodesQuery"             
       }
  
   
     useEffect(() => {
       getComponent();
-    }, []); 
+    }); 
 
     const getComponent = async () => {
       try {
@@ -98,7 +100,7 @@ function CartItemTableRow(
         } ]
       }
     );
-  }, []);
+  });
 
 
     let productName;
@@ -120,6 +122,8 @@ function CartItemTableRow(
             productName = componentType + " " + component.model        
 
            break;
+        default:
+          productName = componentType + " " + component.model        
       }
 
       //takes cara of updating the sum of all product taking into account their quantity
