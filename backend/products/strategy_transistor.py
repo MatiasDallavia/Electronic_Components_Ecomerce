@@ -51,10 +51,12 @@ class TransistorQuery:
         """
 
         filter_kwargs.pop("transistor_type")
-        print("/"*40)
-        print(filter_kwargs)
-        filter_kwargs = self._transistor_strategy.check_transistor_type_input_field(filter_kwargs)
-        print(filter_kwargs)
+        if not filter_kwargs.get("id"):
+            filter_kwargs = self._transistor_strategy.check_transistor_type_input_field(filter_kwargs)
+
+        filter_kwargs.pop("mosfet_input", None)
+        filter_kwargs.pop("bjt_input", None)
+        filter_kwargs.pop("igbt_input", None)            
         transistors = self._transistor_strategy.query_transistors(filter_kwargs)
         return transistors
 
@@ -84,9 +86,7 @@ class ConcreteStrategyBJT(TransistorStrategy):
             else:
                 filter_kwargs[field_name] = field_value
 
-        filter_kwargs.pop("mosfet_input")
-        filter_kwargs.pop("bjt_input")
-        filter_kwargs.pop("igbt_input")
+
 
         return filter_kwargs    
 
@@ -136,11 +136,6 @@ class ConcreteStrategyMOSFET(TransistorStrategy):
                 filter_kwargs[field_name] = field_value.value
             else:
                 filter_kwargs[field_name] = field_value
-
-        filter_kwargs.pop("mosfet_input")
-        filter_kwargs.pop("bjt_input")
-        filter_kwargs.pop("igbt_input")
-
 
         return filter_kwargs
 
@@ -194,11 +189,6 @@ class ConcreteStrategyIGBT(TransistorStrategy):
             else:
                 filter_kwargs[field_name] = field_value
             
-        
-        filter_kwargs.pop("mosfet_input")
-        filter_kwargs.pop("bjt_input")
-        filter_kwargs.pop("igbt_input")
-                
         
         return filter_kwargs
 
