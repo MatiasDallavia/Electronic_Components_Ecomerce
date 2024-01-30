@@ -63,7 +63,7 @@ function SearchTransistor() {
         queryVariables={queryVariables}
         setQueryVariables={setQueryVariables}
       />
-      <button type="button" className="btn btn-primary submit" onClick={getTransistors}>
+      <button type="button" className="btn btn-primary submit" onClick={() => getTransistors(false)}>
         Search
       </button>
       {

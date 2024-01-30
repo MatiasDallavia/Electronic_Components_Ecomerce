@@ -1,4 +1,3 @@
-import { gql } from '@apollo/client';
 
 const GET_SINGLE_CAPACITOR = `
     query Capacitors($inputs: CapacitorInput!){

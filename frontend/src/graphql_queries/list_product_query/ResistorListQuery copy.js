@@ -1,4 +1,3 @@
-import { gql } from '@apollo/client';
 
 const GET_RESISTORS = gql`
     query Resistors($inputs: ResistorInput!){

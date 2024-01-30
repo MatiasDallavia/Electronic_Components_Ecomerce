@@ -1,4 +1,3 @@
-import { gql } from '@apollo/client';
 
 const GET_LIST_INDUCTORS = `
 query Inductor($inputs: InductorInput!) {

@@ -1,6 +1,5 @@
-import { gql } from '@apollo/client';
 
-const GET_TRANSISTOR_FOR_CART = gql`
+const GET_TRANSISTOR_FOR_CART = `
 query Transistors($inputs: TransistorInput!){
     transistorsQuery(inputs: $inputs) {
         __typename
@@ -22,13 +21,30 @@ query Transistors($inputs: TransistorInput!){
     }
     }`;
 
-const singleTransistorInput = {
-    inputs: {
-        transistorType: null,
-        id: null
-        
+    const singleTransistorInput = {
+        inputs: {
+            id: null,
+            transistorType: null,
+            model: null,
+            mountingTechnology: null,
+            manufacturer: null,
+            bjtInput:{
+              bjtType: null,
+              icMax: null,
+              dcCurrentGain: null
+            },
+            mosfetInput:{
+              vds: null,
+              driveVoltage: null,
+              rdsOn: null
+            },
+            igbtInput: {
+              vc: null,
+              ic: null,
+              powerMax: null
+            }
+          }
       }
-  }
   
   
   export {GET_TRANSISTOR_FOR_CART, singleTransistorInput}    
