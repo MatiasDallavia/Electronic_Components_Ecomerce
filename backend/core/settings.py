@@ -14,9 +14,7 @@ from datetime import timedelta
 from pathlib import Path
 
 import dj_database_url
-from dotenv import load_dotenv
 
-load_dotenv()
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,12 +25,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-&7*@e4q7f@4_5h=*jt^gygwxo!x80_(+492a8w!^dr+k&8g9xo"
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(os.environ.get("DEBUG", default=0))
 
-ALLOWED_HOSTS = []
+# 'DJANGO_ALLOWED_HOSTS' should be a single string of hosts with a space between each.
+# For example: 'DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]'
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
 
 # Application definition
@@ -93,12 +92,23 @@ DB_USER = os.getenv("DB_USER")
 DB_PASSWORD = os.getenv("DB_PASSWORD")
 DB_PORT = os.getenv("DB_PORT")
 DB_NAME = os.getenv("DB_NAME")
+DB_HOST = os.getenv("DB_HOST")
 
 
+# DATABASES = {
+#     "default": dj_database_url.config(
+#         default=f"postgres://{DB_USER}:{DB_PASSWORD}@db:{DB_PORT}/{DB_NAME}"
+#     )
+# }
 DATABASES = {
-    "default": dj_database_url.config(
-        default=f"postgres://{DB_USER}:{DB_PASSWORD}@localhost:{DB_PORT}/{DB_NAME}"
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': DB_NAME,
+        'USER': DB_USER,
+        'PASSWORD': DB_PASSWORD,
+        'HOST': DB_HOST,  # Nombre del contenedor de la base de datos
+        'PORT': DB_PORT,
+    }
 }
 
 # Password validation
@@ -195,8 +205,8 @@ AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
 ]
 
-HOST = os.environ["HOST"]
-REACT_PORT = os.environ["REACT_PORT"]
+HOST = os.environ.get("HOST")
+REACT_PORT = os.environ.get("REACT_PORT")
 
 
 CORS_ALLOWED_ORIGINS = [
