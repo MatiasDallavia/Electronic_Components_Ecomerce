@@ -1,7 +1,6 @@
-const HOST = process.env.REACT_APP_HOST;
 const PORT = process.env.REACT_APP_PORT;
 
-const loginURL = `${HOST}:${PORT}/login`
+const loginURL = `localhost:${PORT}/login`
 
 
 

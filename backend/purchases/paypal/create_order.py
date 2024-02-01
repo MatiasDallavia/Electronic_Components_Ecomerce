@@ -17,7 +17,6 @@ SECRET = os.environ["SECRET"]
 SECRET = os.environ["SECRET"]
 
 REACT_PORT = os.environ["REACT_PORT"]
-HOST = os.environ["HOST"]
 
 base_url = "https://api-m.sandbox.paypal.com"
 logger = logging.getLogger(__name__)
@@ -81,8 +80,8 @@ class OrderCreationHandler:
                         "locale": "en-US",
                         "landing_page": "LOGIN",
                         "user_action": "PAY_NOW",
-                        "return_url": f"{HOST}:{REACT_PORT}/purchase-confirmation",
-                        "cancel_url": f"{HOST}:{REACT_PORT}/Cart",
+                        "return_url": f"http://:{REACT_PORT}/purchase-confirmation",
+                        "cancel_url": f"http://:{REACT_PORT}/Cart",
                     }
                 }
             },

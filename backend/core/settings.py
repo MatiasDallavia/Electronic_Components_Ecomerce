@@ -205,10 +205,9 @@ AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
 ]
 
-HOST = os.environ.get("HOST")
 REACT_PORT = os.environ.get("REACT_PORT")
 
 
 CORS_ALLOWED_ORIGINS = [
-    f"{HOST}:{REACT_PORT}",
+    f"http://localhost:{REACT_PORT}",
 ]
