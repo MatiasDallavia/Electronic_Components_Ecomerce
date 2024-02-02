@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ProductList from '../ProductList';
 import { GET_LIST_INDUCTORS, InductorListInput } from '../../graphql_queries/list_product_query/InductorListQuery';
 import InductorFilter from './product_filters/InductorFilter';
+import  WaitingSpinner  from "../purchased_products/WaitingSpinner"
 
 import {fetchData} from "../../utils/fetchData"
 
@@ -9,7 +10,7 @@ import {fetchData} from "../../utils/fetchData"
 
 function SearchInductor() {
 
-
+  const [isLoading, setIsLoading] = useState(false)
   const [queryVariables, setQueryVariables] = useState(InductorListInput);
   const [inductors, setInductors] = useState([]);
   const [noInductorsFound, setNoInductorsFound] = useState(false)
@@ -17,9 +18,10 @@ function SearchInductor() {
 
   useEffect(() => {
     getInductors();
-  }); 
+  }, []); 
 
   const getInductors = async () => {
+    setIsLoading(true)
     try {
       const data = await fetchData(GET_LIST_INDUCTORS, queryVariables);
       if (data.inductorsQuery.length === 0 ){
@@ -31,6 +33,7 @@ function SearchInductor() {
     } catch (error) {
       console.error('Error fetching data:', error);
     }
+    setIsLoading(false)
   };
   
 
@@ -45,13 +48,18 @@ function SearchInductor() {
       >
         Search
       </button>
-      {
-        noInductorsFound?
-        <h3 id="no-result-title">
-            No results were founds with the parameters given...
-        </h3> :
-              <ProductList products={inductors} />
-      }  
+      {isLoading === true && <WaitingSpinner />}
+      {!isLoading && (
+        <>
+          {noInductorsFound ? (
+            <h3 id="no-result-title">
+              No results were found with the parameters given...
+            </h3>
+          ) : (
+            <ProductList products={inductors} />
+          )}
+        </>
+      )}   
     </div>
   )
 }

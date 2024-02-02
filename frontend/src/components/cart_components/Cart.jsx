@@ -83,6 +83,7 @@ function Cart() {
       } catch (errors) {
         document.querySelector(".cart-content").style.display = "block"
         serIsLoading(false)
+        console.log(errors)
         setErrorMessage("An error occurred")
         window.scrollTo({
           top: 0,

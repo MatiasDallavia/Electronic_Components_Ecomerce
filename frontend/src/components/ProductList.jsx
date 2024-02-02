@@ -1,7 +1,6 @@
 import React from 'react'
 import Table from 'react-bootstrap/Table';
 import ProductTableRow from './ProductTableRow';
-import Paginatior from './Paginatior';
 
 
 
@@ -30,9 +29,6 @@ function ProductList({products}) {
    
         </tbody>
         </Table>
-
-
-        <Paginatior/>
 
     </div>    
   )

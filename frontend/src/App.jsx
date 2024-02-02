@@ -1,4 +1,3 @@
-// App.js
 import React, {useState} from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
@@ -8,22 +7,18 @@ import SearchCapacitor from "./components/search_components/SearchCapacitor";
 import SearchInductor from "./components/search_components/SearchInductor";
 import SearchResistor from "./components/search_components/SearchResistor";
 import SearchTransistor from "./components/search_components/SearchTransistor";
-import DiodeView from "./components/component_views/DiodeView.js"
-import ResistorView from "./components/component_views/ResistorView.js";
-import InductorView from "./components/component_views/InductorView.js";
-import CapacitorView from "./components/component_views/CapacitorView.js";
-import TransistorView from "./components/component_views/TransistorView.js";
+import DiodeView from "./components/component_views/DiodeView.jsx"
+import ResistorView from "./components/component_views/ResistorView.jsx";
+import InductorView from "./components/component_views/InductorView.jsx";
+import CapacitorView from "./components/component_views/CapacitorView.jsx";
+import TransistorView from "./components/component_views/TransistorView.jsx";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import Cart from "./components/cart_components/Cart.js";
-import PurchaseConfirmation from "./components/purchased_products/PurchaseConfirmation.js";
+import Cart from "./components/cart_components/Cart.jsx";
+import PurchaseConfirmation from "./components/purchased_products/PurchaseConfirmation.jsx";
 import { isUserLogin } from "./utils/token.js";
 
-
-
-
 function App() {
-
   const [isLogin, setIsLogin] = useState(isUserLogin())
 
 
@@ -65,4 +60,4 @@ function App() {
     );
 }
 
-export default App;
+export default App

@@ -62,7 +62,7 @@ function CartItemTableRow(
   
     useEffect(() => {
       getComponent();
-    }); 
+    }, []); 
 
     const getComponent = async () => {
       try {
@@ -100,7 +100,7 @@ function CartItemTableRow(
         } ]
       }
     );
-  });
+  }, []);
 
 
     let productName;

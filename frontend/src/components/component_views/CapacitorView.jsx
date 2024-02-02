@@ -1,35 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { GET_SINGLE_DIODE, singleDiodeInput } from '../../graphql_queries/single_product_query/SingleDiodeQuery';
+import { GET_SINGLE_CAPACITOR, SingleCapacitorInput } from '../../graphql_queries/single_product_query/SingleCapacitorQuery';
 import ProductCharacteristicRow from './ProductCharacteristicRow';
 
-import { diodeImages } from "../../images/components/component_images_objects/diodePackages";
 import { parseComponentAttributeText } from '../../utils/callbacks';
+import { getCapacitorImage } from '../../utils/getComponetImages';
+
 import { addToCart, removeFromCart, isComponentInCart } from '../../utils/cartFunctions';
 
 import {fetchData} from "../../utils/fetchData"
 
 
-function DiodeView() {
-  const { diodeComponentID } = useParams();
-  singleDiodeInput.inputs.id = diodeComponentID;
+function CapacitorView() {
+  const { capacitorComponentID } = useParams();
 
-  const [packageImage, setPackageImage] = useState()
   const [cartButton, setInCart] = useState(false);  
-  const [diode, setDiode] = useState({});
-  const [diodeAttributes, setDiodeAttributes] = useState([]);
+  const [image, setImage] = useState();
+  const [capacitor, setCapacitor] = useState({});
+  const [capacitorAttributes, setCapacitorAttributes] = useState([]);
   
   
   useEffect(() => {
-    getDiode();
-  }); 
+    getCapacitor();
+  }, []); 
 
-  const getDiode = async () => {
+  const getCapacitor = async () => {
     try {
-      singleDiodeInput.inputs.id = diodeComponentID;
+      SingleCapacitorInput.inputs.id = capacitorComponentID;
 
-      const data = await fetchData(GET_SINGLE_DIODE, singleDiodeInput);
-      setDiode(data.diodesQuery[0])
+      const data = await fetchData(GET_SINGLE_CAPACITOR, SingleCapacitorInput);
+      setCapacitor(data.capacitorsQuery[0])
+      setImage(getCapacitorImage(data.capacitorsQuery[0]))
 
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -40,16 +41,15 @@ function DiodeView() {
 
     const attrToRemove = ["price", "amountAvailable", "componentType"]
     
-    setInCart(isComponentInCart("diode", diodeComponentID))
+    setInCart(isComponentInCart("capacitor", capacitorComponentID))
 
-    var attrs = Object.entries(diode).filter(function ([key, value]) {
+    var attrs = Object.entries(capacitor).filter(function ([key, value]) {
       return !attrToRemove.includes(key);
     });
-    setDiodeAttributes(attrs)
 
-    setPackageImage(diodeImages[diode.package])
+    setCapacitorAttributes(attrs)
 
-  }, [diode])
+  }, [capacitor])
 
   return (
     <div className="container pt-5">
@@ -57,33 +57,27 @@ function DiodeView() {
         <div className="col-4">
           <div className="container d-flex flex-column align-items-center justify-content-between main-attributes">
             <div>
-              <img id="cover-image-product" src={packageImage} alt="Diode Package" />
+              <img id="cover-image-product" src={image} alt="Capacitor" />
               <table>
-                <tbody>
-                  <tr>
-                    <td className="ModelCell">Model</td>
-                    <th className="ModelCell">{diode.model}</th>
-                  </tr>
-                  <tr>
-                    <td>Price</td>
-                    <td>${diode.price}</td>
-                  </tr>
-                  <tr>
-                    <td>Units Available</td>
-                    <td>{diode.amountAvailable}</td>
-                  </tr>
-                  <tr>
-                    <td>Component Type</td>
-                    <td>Diode</td>
-                  </tr>
-                </tbody>
+                <tr>
+                  <td>Price</td>
+                  <td>${capacitor.price}</td>
+                </tr>
+                <tr>
+                  <td>Units Available</td>
+                  <td>{capacitor.amountAvailable}</td>
+                </tr>
+                <tr>
+                  <td>Component Type</td>
+                  <td>capacitor</td>
+                </tr>
               </table>
             </div>
             {cartButton === false && (
                 <button
                   type="button"
                   className="btn btn-success btn-lg btn-block"
-                  onClick={() => { setInCart(true); addToCart("diode", diodeComponentID);}}
+                  onClick={() => { setInCart(true); addToCart("capacitor", capacitorComponentID);}}
                 >
                   Add to Cart
                 </button>
@@ -92,7 +86,7 @@ function DiodeView() {
                 <button
                   type="button"
                   className="btn btn-warning btn-lg btn-block"
-                  onClick={() => { setInCart(false); removeFromCart("diode", diodeComponentID);}}
+                  onClick={() => { setInCart(false); removeFromCart("capacitor", capacitorComponentID);}}
                 >
                   Remove from Cart
                 </button>
@@ -107,10 +101,10 @@ function DiodeView() {
               </tr>
             </thead>
             <tbody>
-              {diodeAttributes.map(([attr, value]) => (
-                <ProductCharacteristicRow 
+              {capacitorAttributes.map(([attr, value]) => (
+                <ProductCharacteristicRow
                   key={attr}
-                  attribute={parseComponentAttributeText(attr)} 
+                  attribute={parseComponentAttributeText(attr)}
                   value={value}
                 />
               ))}
@@ -122,4 +116,4 @@ function DiodeView() {
   );
 }
 
-export default DiodeView;
+export default CapacitorView;

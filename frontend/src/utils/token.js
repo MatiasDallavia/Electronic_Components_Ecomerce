@@ -1,15 +1,16 @@
-const PORT = process.env.REACT_APP_PORT;
+//const HOST = process.env.REACT_APP_HOST;
+// const PORT = process.env.REACT_APP_PORT;
 
-const loginURL = `localhost:${PORT}/login`
+const loginURL = `http://localhost:3000/login`
 
 
 
 const getJWT = async () => {
 
-  const HOST = process.env.REACT_APP_HOST;
-  const PORT = process.env.REACT_APP_DJANGO_PORT;
+  //const HOST = process.env.REACT_APP_HOST;
+  // const PORT = process.env.REACT_APP_DJANGO_PORT;
 
-  const uri = `${HOST}:${PORT}/graphql`
+  const uri = `http://localhost:8000/graphql`
 
     const REFRESH_TOKEN = `
     mutation RefreshTokesn($refreshToken: String!) {
@@ -38,7 +39,6 @@ const getJWT = async () => {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              // Puedes incluir cualquier encabezado adicional necesario, como tokens de autenticación si es necesario
             },
             body: JSON.stringify({
                 query: REFRESH_TOKEN,
@@ -50,12 +50,10 @@ const getJWT = async () => {
         await fetch(uri, requestOptions)
         .then(response => response.json())
         .then(data => {
-          // Manejar la respuesta de la solicitud aquí
           saveTokens(data.data.refreshToken)
           token = data.data.refreshToken.token
         })
         .catch(error => {
-          // Manejar errores de la solicitud aquí
           console.error('Error:', error);
         });   
 

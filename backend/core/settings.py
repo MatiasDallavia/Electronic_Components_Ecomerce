@@ -31,8 +31,8 @@ DEBUG = bool(os.environ.get("DEBUG", default=0))
 
 # 'DJANGO_ALLOWED_HOSTS' should be a single string of hosts with a space between each.
 # For example: 'DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]'
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
-
+# ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -205,9 +205,10 @@ AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
 ]
 
+HOST = os.environ["HOST"]
 REACT_PORT = os.environ.get("REACT_PORT")
 
 
 CORS_ALLOWED_ORIGINS = [
-    f"http://localhost:{REACT_PORT}",
+    f"{HOST}:{REACT_PORT}",
 ]

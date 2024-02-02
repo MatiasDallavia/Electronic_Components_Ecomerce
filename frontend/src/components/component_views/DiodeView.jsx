@@ -1,34 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { GET_SINGLE_INDUCTOR, singleInductorInput } from '../../graphql_queries/single_product_query/SingleInductorQuery';
+import { GET_SINGLE_DIODE, singleDiodeInput } from '../../graphql_queries/single_product_query/SingleDiodeQuery';
 import ProductCharacteristicRow from './ProductCharacteristicRow';
 
+import { diodeImages } from "../../images/components/component_images_objects/diodePackages";
 import { parseComponentAttributeText } from '../../utils/callbacks';
-import { getInductorPackageImage } from '../../utils/getComponetImages';
-
 import { addToCart, removeFromCart, isComponentInCart } from '../../utils/cartFunctions';
+
 import {fetchData} from "../../utils/fetchData"
 
 
-function InductorView() {
-  const { inductorComponentID } = useParams();
+function DiodeView() {
+  const { diodeComponentID } = useParams();
+  singleDiodeInput.inputs.id = diodeComponentID;
 
   const [packageImage, setPackageImage] = useState()
   const [cartButton, setInCart] = useState(false);  
-  const [inductor, setInductor] = useState({});
-  const [inductorAttributes, setInductorAttributes] = useState([]);
+  const [diode, setDiode] = useState({});
+  const [diodeAttributes, setDiodeAttributes] = useState([]);
   
   
   useEffect(() => {
-    getInductor();
-  }); 
+    getDiode();
+  }, []); 
 
-  const getInductor = async () => {
+  const getDiode = async () => {
     try {
-      singleInductorInput.inputs.id = inductorComponentID;
+      singleDiodeInput.inputs.id = diodeComponentID;
 
-      const data = await fetchData(GET_SINGLE_INDUCTOR, singleInductorInput);
-      setInductor(data.inductorsQuery[0])
+      const data = await fetchData(GET_SINGLE_DIODE, singleDiodeInput);
+      setDiode(data.diodesQuery[0])
 
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -37,18 +38,18 @@ function InductorView() {
 
   useEffect(()=>{
 
-    const attrToRemove = ["price", "amountAvailable", "componentType", "model"]
+    const attrToRemove = ["price", "amountAvailable", "componentType"]
     
-    setInCart(isComponentInCart("inductor", inductorComponentID))
+    setInCart(isComponentInCart("diode", diodeComponentID))
 
-    var attrs = Object.entries(inductor).filter(function ([key, value]) {
+    var attrs = Object.entries(diode).filter(function ([key, value]) {
       return !attrToRemove.includes(key);
     });
+    setDiodeAttributes(attrs)
 
-    setInductorAttributes(attrs)
-    setPackageImage(getInductorPackageImage(inductor))
+    setPackageImage(diodeImages[diode.package])
 
-  }, [inductor])
+  }, [diode])
 
   return (
     <div className="container pt-5">
@@ -56,20 +57,24 @@ function InductorView() {
         <div className="col-4">
           <div className="container d-flex flex-column align-items-center justify-content-between main-attributes">
             <div>
-              <img id="cover-image-product" src={packageImage} alt="Package Image" />
+              <img id="cover-image-product" src={packageImage} alt="Diode Package" />
               <table>
                 <tbody>
                   <tr>
+                    <td className="ModelCell">Model</td>
+                    <th className="ModelCell">{diode.model}</th>
+                  </tr>
+                  <tr>
                     <td>Price</td>
-                    <td>${inductor.price}</td>
+                    <td>${diode.price}</td>
                   </tr>
                   <tr>
                     <td>Units Available</td>
-                    <td>{inductor.amountAvailable}</td>
+                    <td>{diode.amountAvailable}</td>
                   </tr>
                   <tr>
                     <td>Component Type</td>
-                    <td>inductor</td>
+                    <td>Diode</td>
                   </tr>
                 </tbody>
               </table>
@@ -78,7 +83,7 @@ function InductorView() {
                 <button
                   type="button"
                   className="btn btn-success btn-lg btn-block"
-                  onClick={() => { setInCart(true); addToCart("inductor", inductorComponentID);}}
+                  onClick={() => { setInCart(true); addToCart("diode", diodeComponentID);}}
                 >
                   Add to Cart
                 </button>
@@ -87,7 +92,7 @@ function InductorView() {
                 <button
                   type="button"
                   className="btn btn-warning btn-lg btn-block"
-                  onClick={() => { setInCart(false); removeFromCart("inductor", inductorComponentID);}}
+                  onClick={() => { setInCart(false); removeFromCart("diode", diodeComponentID);}}
                 >
                   Remove from Cart
                 </button>
@@ -102,11 +107,11 @@ function InductorView() {
               </tr>
             </thead>
             <tbody>
-              {inductorAttributes.map((attr) => (
-                <ProductCharacteristicRow
-                  key={attr[0]}
-                  attribute={parseComponentAttributeText(attr[0])}
-                  value={attr[1]}
+              {diodeAttributes.map(([attr, value]) => (
+                <ProductCharacteristicRow 
+                  key={attr}
+                  attribute={parseComponentAttributeText(attr)} 
+                  value={value}
                 />
               ))}
             </tbody>
@@ -117,5 +122,4 @@ function InductorView() {
   );
 }
 
-
-export default InductorView;
+export default DiodeView;

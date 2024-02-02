@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { GET_LIST_CAPACITORS, capacitorListInput } from '../../graphql_queries/list_product_query/CapacitorListQuery';
 import CapacitorFilter from './product_filters/CapacitorFilter';
 import ProductList from '../ProductList';
+import  WaitingSpinner  from "../purchased_products/WaitingSpinner"
 
 import {fetchData} from "../../utils/fetchData"
 
 
 function SearchCapacitor() {
 
+  const [isLoading, setIsLoading] = useState(false)
   const [queryVariables, setQueryVariables] = useState(capacitorListInput);
   const [capacitors, setCapacitors] = useState([]);
   const [noCapacitorFound, setNoCapacitorFound] = useState(false)
@@ -17,9 +19,10 @@ function SearchCapacitor() {
 
   useEffect(() => {
     getCapacitors();
-  }); 
+  }, []); 
 
   const getCapacitors = async () => {
+    setIsLoading(true)
     try {
       const data = await fetchData(GET_LIST_CAPACITORS, queryVariables);
       if (data.capacitorsQuery.length === 0 ){
@@ -31,6 +34,8 @@ function SearchCapacitor() {
     } catch (error) {
       console.error('Error fetching data:', error);
     }
+    setIsLoading(false)
+
   };
 
     
@@ -41,13 +46,18 @@ function SearchCapacitor() {
         Search
       </button>
       
-      {
-        noCapacitorFound?
-        <h3 id="no-result-title">
-            No results were founds with the parameters given...
-        </h3> :
-              <ProductList products={capacitors} />
-      }      
+      {isLoading === true && <WaitingSpinner />}
+      {!isLoading && (
+        <>
+          {noCapacitorFound ? (
+            <h3 id="no-result-title">
+              No results were found with the parameters given...
+            </h3>
+          ) : (
+            <ProductList products={capacitors} />
+          )}
+        </>
+      )}      
     </div>
   )
 }

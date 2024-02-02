@@ -1,36 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { GET_SINGLE_CAPACITOR, SingleCapacitorInput } from '../../graphql_queries/single_product_query/SingleCapacitorQuery';
+import { GET_SINGLE_INDUCTOR, singleInductorInput } from '../../graphql_queries/single_product_query/SingleInductorQuery';
 import ProductCharacteristicRow from './ProductCharacteristicRow';
 
 import { parseComponentAttributeText } from '../../utils/callbacks';
-import { getCapacitorImage } from '../../utils/getComponetImages';
+import { getInductorPackageImage } from '../../utils/getComponetImages';
 
 import { addToCart, removeFromCart, isComponentInCart } from '../../utils/cartFunctions';
-
 import {fetchData} from "../../utils/fetchData"
 
 
-function CapacitorView() {
-  const { capacitorComponentID } = useParams();
+function InductorView() {
+  const { inductorComponentID } = useParams();
 
+  const [packageImage, setPackageImage] = useState()
   const [cartButton, setInCart] = useState(false);  
-  const [image, setImage] = useState();
-  const [capacitor, setCapacitor] = useState({});
-  const [capacitorAttributes, setCapacitorAttributes] = useState([]);
+  const [inductor, setInductor] = useState({});
+  const [inductorAttributes, setInductorAttributes] = useState([]);
   
   
   useEffect(() => {
-    getCapacitor();
-  }); 
+    getInductor();
+  }, []); 
 
-  const getCapacitor = async () => {
+  const getInductor = async () => {
     try {
-      SingleCapacitorInput.inputs.id = capacitorComponentID;
+      singleInductorInput.inputs.id = inductorComponentID;
 
-      const data = await fetchData(GET_SINGLE_CAPACITOR, SingleCapacitorInput);
-      setCapacitor(data.capacitorsQuery[0])
-      setImage(getCapacitorImage(data.capacitorsQuery[0]))
+      const data = await fetchData(GET_SINGLE_INDUCTOR, singleInductorInput);
+      setInductor(data.inductorsQuery[0])
 
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -39,17 +37,18 @@ function CapacitorView() {
 
   useEffect(()=>{
 
-    const attrToRemove = ["price", "amountAvailable", "componentType"]
+    const attrToRemove = ["price", "amountAvailable", "componentType", "model"]
     
-    setInCart(isComponentInCart("capacitor", capacitorComponentID))
+    setInCart(isComponentInCart("inductor", inductorComponentID))
 
-    var attrs = Object.entries(capacitor).filter(function ([key, value]) {
+    var attrs = Object.entries(inductor).filter(function ([key, value]) {
       return !attrToRemove.includes(key);
     });
 
-    setCapacitorAttributes(attrs)
+    setInductorAttributes(attrs)
+    setPackageImage(getInductorPackageImage(inductor))
 
-  }, [capacitor])
+  }, [inductor])
 
   return (
     <div className="container pt-5">
@@ -57,27 +56,29 @@ function CapacitorView() {
         <div className="col-4">
           <div className="container d-flex flex-column align-items-center justify-content-between main-attributes">
             <div>
-              <img id="cover-image-product" src={image} alt="Capacitor" />
+              <img id="cover-image-product" src={packageImage} alt="Package Image" />
               <table>
-                <tr>
-                  <td>Price</td>
-                  <td>${capacitor.price}</td>
-                </tr>
-                <tr>
-                  <td>Units Available</td>
-                  <td>{capacitor.amountAvailable}</td>
-                </tr>
-                <tr>
-                  <td>Component Type</td>
-                  <td>capacitor</td>
-                </tr>
+                <tbody>
+                  <tr>
+                    <td>Price</td>
+                    <td>${inductor.price}</td>
+                  </tr>
+                  <tr>
+                    <td>Units Available</td>
+                    <td>{inductor.amountAvailable}</td>
+                  </tr>
+                  <tr>
+                    <td>Component Type</td>
+                    <td>inductor</td>
+                  </tr>
+                </tbody>
               </table>
             </div>
             {cartButton === false && (
                 <button
                   type="button"
                   className="btn btn-success btn-lg btn-block"
-                  onClick={() => { setInCart(true); addToCart("capacitor", capacitorComponentID);}}
+                  onClick={() => { setInCart(true); addToCart("inductor", inductorComponentID);}}
                 >
                   Add to Cart
                 </button>
@@ -86,7 +87,7 @@ function CapacitorView() {
                 <button
                   type="button"
                   className="btn btn-warning btn-lg btn-block"
-                  onClick={() => { setInCart(false); removeFromCart("capacitor", capacitorComponentID);}}
+                  onClick={() => { setInCart(false); removeFromCart("inductor", inductorComponentID);}}
                 >
                   Remove from Cart
                 </button>
@@ -101,11 +102,11 @@ function CapacitorView() {
               </tr>
             </thead>
             <tbody>
-              {capacitorAttributes.map(([attr, value]) => (
+              {inductorAttributes.map((attr) => (
                 <ProductCharacteristicRow
-                  key={attr}
-                  attribute={parseComponentAttributeText(attr)}
-                  value={value}
+                  key={attr[0]}
+                  attribute={parseComponentAttributeText(attr[0])}
+                  value={attr[1]}
                 />
               ))}
             </tbody>
@@ -116,4 +117,5 @@ function CapacitorView() {
   );
 }
 
-export default CapacitorView;
+
+export default InductorView;

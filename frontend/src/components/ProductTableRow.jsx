@@ -30,7 +30,7 @@ function ProductTableRow({product}) {
   }
 
   const getProductInCart = () => {
-    inCart = setInCart[!inCart];
+    setInCart[!inCart];
   }
 
 
