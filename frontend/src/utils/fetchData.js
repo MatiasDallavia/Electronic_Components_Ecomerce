@@ -1,10 +1,11 @@
 
+
 async function fetchData(SCHEMA, variables, JWT=null) {
 
-    //const HOST = process.env.REACT_APP_HOST;
-    // const PORT = process.env.REACT_APP_DJANGO_PORT;
-  
-    const apiUrl = `http://localhost:8000/graphql`
+    const API_PORT = import.meta.env.VITE_API_PORT
+    const HOST = import.meta.env.VITE_HOST
+
+    const apiUrl = `${HOST}:${API_PORT}/graphql`
   
     if (JWT){
       JWT = "JWT " + JWT
