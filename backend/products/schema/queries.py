@@ -39,8 +39,8 @@ class ProductListQuery(graphene.ObjectType):
     def resolve_capacitors_query(self, info, inputs):
         try:
             logger.info( "#"*10 + " Initializing Capacitor Query." + "#"*10)
-            logger.debug("Input Fields: %s", inputs)
             filter_kwargs = clean_inputs(inputs)
+            logger.debug("// Filter Kwargs: %s", filter_kwargs)
             return Capacitor.objects.filter(**filter_kwargs)
         except Exception as e:
             logger.error("!!  Internal Error: %s", e)
@@ -49,8 +49,8 @@ class ProductListQuery(graphene.ObjectType):
     def resolve_diodes_query(self, info, inputs):
         try: 
             logger.info("#"*10 + " Initializing Diode Query." + "#"*10)
-            logger.debug("Input Fields: %s", inputs)
             filter_kwargs = clean_inputs(inputs)
+            logger.debug("// Filter Kwargs: %s", filter_kwargs)
             return Diode.objects.filter(**filter_kwargs)
         except Exception as e:
             logger.error("!!  Internal Error: %s", e)
@@ -59,8 +59,8 @@ class ProductListQuery(graphene.ObjectType):
     def resolve_resistors_query(self, info, inputs):
         try:
             logger.info("#"*10 + " Initializing Resistor Query." + "#"*10)
-            logger.debug("Input Fields: %s", inputs)
             filter_kwargs = clean_inputs(inputs)
+            logger.debug("// Filter Kwargs: %s", filter_kwargs)
             return Resistor.objects.filter(**filter_kwargs)
         except Exception as e:
             logger.error("!!  Internal Error: %s", e)
@@ -69,8 +69,8 @@ class ProductListQuery(graphene.ObjectType):
     def resolve_inductors_query(self, info, inputs):
         try:
             logger.info("#"*10 + "## Initializing Inductor Query." + "#"*10)
-            logger.debug("Input Fields: %s", inputs)
             filter_kwargs = clean_inputs(inputs)
+            logger.debug("// Filter Kwargs: %s", filter_kwargs)
             return Inductor.objects.filter(**filter_kwargs)
         except Exception as e:
             logger.error("!!  Internal Error: %s", e)
@@ -80,7 +80,6 @@ class ProductListQuery(graphene.ObjectType):
     def resolve_transistors_query(self, info, inputs):
         try:
             logger.info("#"*10 +"Initializing Transistor Query."+ "#"*10)
-            logger.debug("Input Fields: %s", inputs)
 
             if inputs.transistor_type == "BJT":
                 strategy = ConcreteStrategyBJT()

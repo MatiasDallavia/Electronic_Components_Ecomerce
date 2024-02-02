@@ -1,9 +1,7 @@
 import logging
 from abc import ABC, abstractmethod
-from typing import List
 from enum import Enum
-
-from graphql import GraphQLError
+from typing import List
 
 from products.models import BJT, IGBT, MOSFET
 from products.schema.types import BJTType, IGBTType, MOSFETType
@@ -27,6 +25,7 @@ class TransistorStrategy(ABC):
     @abstractmethod
     def check_transistor_type_input_field(self, data):
         pass
+
 
 class TransistorQuery:
     """
@@ -52,11 +51,14 @@ class TransistorQuery:
 
         filter_kwargs.pop("transistor_type")
         if not filter_kwargs.get("id"):
-            filter_kwargs = self._transistor_strategy.check_transistor_type_input_field(filter_kwargs)
+            filter_kwargs = self._transistor_strategy.check_transistor_type_input_field(
+                filter_kwargs
+            )
 
         filter_kwargs.pop("mosfet_input", None)
         filter_kwargs.pop("bjt_input", None)
-        filter_kwargs.pop("igbt_input", None)            
+        filter_kwargs.pop("igbt_input", None)
+        logger.debug("// Filter Kwargs: %s", filter_kwargs)
         transistors = self._transistor_strategy.query_transistors(filter_kwargs)
         return transistors
 
@@ -86,9 +88,7 @@ class ConcreteStrategyBJT(TransistorStrategy):
             else:
                 filter_kwargs[field_name] = field_value
 
-
-
-        return filter_kwargs    
+        return filter_kwargs
 
     def query_transistors(self, filter_kwargs: dict) -> List[BJTType]:
         bjts = [
@@ -118,7 +118,7 @@ class ConcreteStrategyMOSFET(TransistorStrategy):
     in an MOSFETType object
     """
 
-    def check_transistor_type_input_field(self, filter_kwargs) -> dict: 
+    def check_transistor_type_input_field(self, filter_kwargs) -> dict:
         """
         Cleans input parameters of 'mosfet_input' by removing empty filter values and extracs the  actual
         values from the Enums objets.
@@ -128,7 +128,7 @@ class ConcreteStrategyMOSFET(TransistorStrategy):
 
         Returns:
             dict: dict with all the fields to filter the query to the db.
-        """             
+        """
         for field_name, field_value in filter_kwargs["mosfet_input"].items():
             if field_value is None:
                 continue
@@ -179,7 +179,7 @@ class ConcreteStrategyIGBT(TransistorStrategy):
 
         Returns:
             dict: dict with all the fields to filter the query to the db.
-        """        
+        """
 
         for field_name, field_value in filter_kwargs["igbt_input"].items():
             if field_value is None:
@@ -188,8 +188,7 @@ class ConcreteStrategyIGBT(TransistorStrategy):
                 filter_kwargs[field_name] = field_value.value
             else:
                 filter_kwargs[field_name] = field_value
-            
-        
+
         return filter_kwargs
 
     def query_transistors(self, filter_kwargs: dict) -> List[IGBTType]:

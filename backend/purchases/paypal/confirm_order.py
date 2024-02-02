@@ -3,7 +3,6 @@ import os
 from typing import List
 
 import requests
-from dotenv import load_dotenv
 from graphql import GraphQLError
 
 from products.models import BJT, IGBT, MOSFET, Capacitor, Diode, Inductor, Resistor
@@ -19,7 +18,6 @@ from products.schema.types import (
 from purchases.models import ProductPurchase, User
 from purchases.schema.types import ComponentUnionType, ProductPurchaseType
 
-load_dotenv()
 logger = logging.getLogger(__name__)
 
 

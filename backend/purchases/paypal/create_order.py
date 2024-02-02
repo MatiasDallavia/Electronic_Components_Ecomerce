@@ -4,11 +4,8 @@ import os
 from typing import List, Tuple
 
 import requests
-from dotenv import load_dotenv
 
 from products.models import BJT, IGBT, MOSFET, Capacitor, Diode, Inductor, Resistor
-
-load_dotenv()
 
 
 CLIENT_ID = os.environ["CLIENT_ID"]
