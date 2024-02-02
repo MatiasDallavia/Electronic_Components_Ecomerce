@@ -13,8 +13,6 @@ import os
 from datetime import timedelta
 from pathlib import Path
 
-import dj_database_url
-
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -29,10 +27,8 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 
 DEBUG = bool(os.environ.get("DEBUG", default=0))
 
-# 'DJANGO_ALLOWED_HOSTS' should be a single string of hosts with a space between each.
-# For example: 'DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]'
-# ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
-ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
 # Application definition
 
@@ -95,18 +91,13 @@ DB_NAME = os.getenv("DB_NAME")
 DB_HOST = os.getenv("DB_HOST")
 
 
-# DATABASES = {
-#     "default": dj_database_url.config(
-#         default=f"postgres://{DB_USER}:{DB_PASSWORD}@db:{DB_PORT}/{DB_NAME}"
-#     )
-# }
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': DB_NAME,
         'USER': DB_USER,
         'PASSWORD': DB_PASSWORD,
-        'HOST': DB_HOST,  # Nombre del contenedor de la base de datos
+        'HOST': DB_HOST, 
         'PORT': DB_PORT,
     }
 }
