@@ -63,7 +63,7 @@ function ProductTableRow({product}) {
 
         </td>
         <td className="table-row-product description">{product?.description}</td>
-        <td className="table-row-product price">{product?.price}</td>
+        <td className="table-row-product price">${product?.price}</td>
         <td className="table-row-product in-stock">{product?.amountAvailable}</td>
         <td className="table-row-product mounting-technology">{product?.mountingTechnology}</td>
         <td className="table-row-product package">{product?.package}</td>
