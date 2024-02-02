@@ -43,7 +43,7 @@ function TransistorView() {
   
     useEffect(()=>{
 
-      const attrToRemove = ["price", "amountAvailable", "componentType"]
+      const attrToRemove = ["price", "amountAvailable", "componentType", "__typename"]
       
       setInCart(isComponentInCart("transistor", transistorComponentID))
   
