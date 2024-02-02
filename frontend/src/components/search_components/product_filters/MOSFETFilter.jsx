@@ -4,10 +4,10 @@ import { handleNestedFieldChange } from '../../../utils/callbacks';
 function MOSFETFilter({setQueryVariables}) {
   return (
     <>
-        <div class="filter-group me-3">
-            <label for="currentCollector" class="filter-label">Voltage Drain Source(Vds):</label>
+        <div className="filter-group me-3">
+            <label for="currentCollector" className="filter-label">Voltage Drain Source(Vds):</label>
             <select 
-                class="form-select filter-field type transistor"
+                className="form-select filter-field type transistor"
                 onChange={handleNestedFieldChange(setQueryVariables, 'mosfetInput', 'vds')}
             >
                 <option value="ALL">All</option>
@@ -19,10 +19,10 @@ function MOSFETFilter({setQueryVariables}) {
         </div>    
 
 
-        <div class="filter-group me-3">
-            <label for="rdsON" class="filter-label">Rds ON:</label>
+        <div className="filter-group me-3">
+            <label for="rdsON" className="filter-label">Rds ON:</label>
             <select 
-                class="form-select filter-field type transistor"
+                className="form-select filter-field type transistor"
                 onChange={handleNestedFieldChange(setQueryVariables, 'mosfetInput', 'rdsOn')}
             >
                 <option value="ALL">All</option>

@@ -57,22 +57,22 @@ function ProductTableRow({product}) {
 
   return (
     <tr onClick={() => redirectModelView(product?.componentType, product?.id)}>
-        <td class="table-row-product image">
-          {<img src={packageImage} class="image-product"/>}
+        <td className="table-row-product image">
+          {<img src={packageImage} className="image-product"/>}
 
 
         </td>
-        <td class="table-row-product description">{product?.description}</td>
-        <td class="table-row-product price">{product?.price}</td>
-        <td class="table-row-product in-stock">{product?.amountAvailable}</td>
-        <td class="table-row-product mounting-technology">{product?.mountingTechnology}</td>
-        <td class="table-row-product package">{product?.package}</td>
-        <td class="table-row-product manufacturer">
-            {product?.manufacturer == 'Infineon' && <img src={InfineonLogo} class="image-product"/>}
-            {product?.manufacturer == 'Fairchild' && <img src={fairchildLogo} class="image-product"/>}
-            {product?.manufacturer == 'Texas Instruments' && <img src={texasInstrumentsLogo} class="image-product"/>}
-            {product?.manufacturer == 'Siemens' && <img src={seimensLogo} class="image-product"/>}
-            {product?.manufacturer == 'Samsung' && <img src={SamsungLogo} class="image-product"/>}
+        <td className="table-row-product description">{product?.description}</td>
+        <td className="table-row-product price">{product?.price}</td>
+        <td className="table-row-product in-stock">{product?.amountAvailable}</td>
+        <td className="table-row-product mounting-technology">{product?.mountingTechnology}</td>
+        <td className="table-row-product package">{product?.package}</td>
+        <td className="table-row-product manufacturer">
+            {product?.manufacturer == 'Infineon' && <img src={InfineonLogo} className="image-product"/>}
+            {product?.manufacturer == 'Fairchild' && <img src={fairchildLogo} className="image-product"/>}
+            {product?.manufacturer == 'Texas Instruments' && <img src={texasInstrumentsLogo} className="image-product"/>}
+            {product?.manufacturer == 'Siemens' && <img src={seimensLogo} className="image-product"/>}
+            {product?.manufacturer == 'Samsung' && <img src={SamsungLogo} className="image-product"/>}
         </td>
 
     </tr>

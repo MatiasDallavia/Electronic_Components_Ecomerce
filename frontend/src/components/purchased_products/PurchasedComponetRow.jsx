@@ -46,12 +46,12 @@ function PurchasedComponetRow({item}) {
 
   return (
     <tr className='column-values'>
-        <td class="product-image"><img src={productImage}/></td>
-        <td class="product-name">{productName  }</td>
-        <td class="product-mounting-technology">{mountingTechnology}</td>
-        <td class="product-price">{price}</td>
-        <td class="product-quantity">{item.quantity}</td>
-        <td class="product-total">{item.quantity*price}</td> 
+        <td className="product-image"><img src={productImage}/></td>
+        <td className="product-name">{productName  }</td>
+        <td className="product-mounting-technology">{mountingTechnology}</td>
+        <td className="product-price">{price}</td>
+        <td className="product-quantity">{item.quantity}</td>
+        <td className="product-total">{item.quantity*price}</td> 
     </tr>
   )
 }

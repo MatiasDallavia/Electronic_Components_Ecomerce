@@ -8,11 +8,11 @@ function BJTFilter({setQueryVariables}) {
 
     return (
     <>
-        <div class="filter-group me-3">
-            <label for="typePNP" class="filter-label">Type PNP/NPN:</label>
+        <div className="filter-group me-3">
+            <label for="typePNP" className="filter-label">Type PNP/NPN:</label>
             <select 
                 id="typePNP" 
-                class="form-select filter-field type transistor"
+                className="form-select filter-field type transistor"
                 onChange={handleNestedFieldChange(setQueryVariables, 'bjtInput', 'bjtType')}
             >
                 <option value="ALL">All</option>
@@ -21,10 +21,10 @@ function BJTFilter({setQueryVariables}) {
             </select>
         </div>
 
-        <div class="filter-group me-3">
-            <label for="dcGain" class="filter-label">DC Current Gain:</label>
+        <div className="filter-group me-3">
+            <label for="dcGain" className="filter-label">DC Current Gain:</label>
             <select 
-                class="form-select filter-field type transistor"
+                className="form-select filter-field type transistor"
                 onChange={handleNestedFieldChange(setQueryVariables, 'bjtInput', 'dcCurrentGain')}
             >
                 <option value="ALL">All</option>
@@ -36,10 +36,10 @@ function BJTFilter({setQueryVariables}) {
         </div>
 
 
-        <div class="filter-group me-3">
-            <label for="dcGain" class="filter-label">Current Collector(IC):</label>
+        <div className="filter-group me-3">
+            <label for="dcGain" className="filter-label">Current Collector(IC):</label>
             <select 
-                class="form-select filter-field type transistor"
+                className="form-select filter-field type transistor"
                 onChange={handleNestedFieldChange(setQueryVariables, 'bjtInput', 'icMax')}
             >
                 <option value="ALL">All</option>

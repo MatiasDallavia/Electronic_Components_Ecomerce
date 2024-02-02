@@ -2,8 +2,8 @@ import React from 'react'
 
 function WaitingSpinner() {
   return (
-    <div class="spinner-container">
-        <div class="spinner"></div>
+    <div className="spinner-container">
+        <div className="spinner"></div>
     </div>  )
 }
 

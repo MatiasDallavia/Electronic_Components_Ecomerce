@@ -22,12 +22,12 @@ function InductorFilter({queryVariables, setQueryVariables}) {
 
 
   return (
-    <div class="d-flex flex-row align-items-center">
-        <div class="filter-group">
+    <div className="d-flex flex-row align-items-center">
+        <div className="filter-group">
             <label>Type:</label>
                 <select 
                     id="rating-current"
-                    class="form-select filter-field type inductor"
+                    className="form-select filter-field type inductor"
                     onChange={(e) => handleInputChange('inductorType', e.target.value)}                
                 >
                     <option value="ALL">All</option>
@@ -37,10 +37,10 @@ function InductorFilter({queryVariables, setQueryVariables}) {
         </div>
         
 
-        <div class="filter-group">
+        <div className="filter-group">
             <label>Core Material:</label>
             <select 
-                class="form-select filter-field type core-material"
+                className="form-select filter-field type core-material"
                 onChange={(e) => handleInputChange('coreMaterial', e.target.value)}
             >
                 <option value="ALL">All</option>
@@ -51,10 +51,10 @@ function InductorFilter({queryVariables, setQueryVariables}) {
         </div>
 
 
-        <div class="filter-group">
+        <div className="filter-group">
             <label>Inductance:</label>
             <select 
-                class="form-select filter-field raiting inductance"
+                className="form-select filter-field raiting inductance"
                 onChange={(e) => handleInputChange('inductance', e.target.value)}                
             >
                 <option value="ALL">All</option>
@@ -67,11 +67,11 @@ function InductorFilter({queryVariables, setQueryVariables}) {
             </select>
         </div>
 
-        <div class="filter-group">
+        <div className="filter-group">
             <label for="mountingSurface">Mounting Surface:</label>
             <select 
                 id="mountingSurface"
-                class="form-select filter-field mounting-surface"
+                className="form-select filter-field mounting-surface"
                 onChange={(e) => handleInputChange('mountingTechnology', e.target.value)}    
             >
                 <option value="ALL">All</option>
@@ -80,11 +80,11 @@ function InductorFilter({queryVariables, setQueryVariables}) {
             </select>
         </div>
 
-        <div class="filter-group">
+        <div className="filter-group">
             <label for="manufacturerSelect">Manufacturer:</label>
             <select 
                 id="manufacturerSelect"
-                class="form-select filter-field manufacturer"
+                className="form-select filter-field manufacturer"
                 onChange={(e) => handleInputChange('manufacturer', e.target.value)}
             >
                 <option value="ALL">All</option>                

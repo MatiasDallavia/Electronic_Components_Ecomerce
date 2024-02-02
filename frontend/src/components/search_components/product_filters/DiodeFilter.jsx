@@ -21,12 +21,12 @@ function DiodeFilter({ queryVariables, setQueryVariables}) {
       };
 
   return (
-    <div class="d-flex flex-row align-items-center">
-        <div class="filter-group">
+    <div className="d-flex flex-row align-items-center">
+        <div className="filter-group">
             <label>Type:</label>
             <select 
                 id="diode-type" 
-                class="form-select filter-field type diode"
+                className="form-select filter-field type diode"
                 onChange={(e) => handleInputChange('diodeType', e.target.value)}
             >
                 <option value="ALL">All</option>
@@ -36,11 +36,11 @@ function DiodeFilter({ queryVariables, setQueryVariables}) {
             </select>
         </div>
 
-        <div class="filter-group">
+        <div className="filter-group">
             <label>Reverse Voltage:</label>
             <select 
                 id="reverse-voltage" 
-                class="form-select filter-field type raiting reverse-voltage"
+                className="form-select filter-field type raiting reverse-voltage"
                 onChange={(e) => handleInputChange('dcReverse', e.target.value)}
             >
                 <option value="ALL">All</option>
@@ -53,10 +53,10 @@ function DiodeFilter({ queryVariables, setQueryVariables}) {
         </div>         
 
 
-        <div class="filter-group">
+        <div className="filter-group">
             <label>Current:</label>
             <select 
-                class="form-select filter-field raiting inductance"
+                className="form-select filter-field raiting inductance"
                 onChange={(e) => handleInputChange('current', e.target.value)}                
             >
                 <option value="ALL">All</option>
@@ -69,11 +69,11 @@ function DiodeFilter({ queryVariables, setQueryVariables}) {
             </select>
         </div>        
 
-        <div class="filter-group">
+        <div className="filter-group">
             <label for="mountingSurface">Mounting Surface:</label>
             <select 
                 id="mountingSurface" 
-                class="form-select filter-field mounting-surface"
+                className="form-select filter-field mounting-surface"
                 onChange={(e) => handleInputChange('mountingTechnology', e.target.value)}
             >
                 <option value="ALL">All</option>
@@ -82,11 +82,11 @@ function DiodeFilter({ queryVariables, setQueryVariables}) {
             </select>
         </div>
 
-        <div class="filter-group">
+        <div className="filter-group">
             <label for="manufacturerSelect">Manufacturer:</label>
             <select 
                 id="manufacturerSelect" 
-                class="form-select filter-field manufacturer"
+                className="form-select filter-field manufacturer"
                 onChange={(e) => handleInputChange('manufacturer', e.target.value)}
             >
                 <option value="ALL">All</option>                

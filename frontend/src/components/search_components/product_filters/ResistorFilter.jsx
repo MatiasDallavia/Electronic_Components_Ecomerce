@@ -23,13 +23,13 @@ function ResistorFilter({setQueryVariables}) {
       };
 
   return (
-    <div class="d-flex flex-row align-items-center">
+    <div className="d-flex flex-row align-items-center">
 
 
-        <div class="filter-group me-3">
-            <label for="ic" class="filter-label">Resistance:</label>
+        <div className="filter-group me-3">
+            <label for="ic" className="filter-label">Resistance:</label>
             <select 
-                class="form-select filter-field type transistor"
+                className="form-select filter-field type transistor"
                 onChange={(e) => handleInputChange('resistance', e.target.value)}                
             >
                 <option value="ALL">All</option>
@@ -46,10 +46,10 @@ function ResistorFilter({setQueryVariables}) {
         </div>     
 
 
-        <div class="filter-group me-3">
-            <label for="ic" class="filter-label">Tolerance:</label>
+        <div className="filter-group me-3">
+            <label for="ic" className="filter-label">Tolerance:</label>
             <select 
-                class="form-select filter-field type transistor"
+                className="form-select filter-field type transistor"
                 onChange={(e) => handleInputChange('tolerance', e.target.value)}                
             >
                 <option value="ALL">All</option>
@@ -60,10 +60,10 @@ function ResistorFilter({setQueryVariables}) {
         </div>          
 
 
-        <div class="filter-group me-3">
-            <label for="ic" class="filter-label">Power:</label>
+        <div className="filter-group me-3">
+            <label for="ic" className="filter-label">Power:</label>
             <select 
-                class="form-select filter-field type transistor"
+                className="form-select filter-field type transistor"
                 onChange={(e) => handleInputChange('power', e.target.value)}                
             >
                 <option value="ALL">All</option>
@@ -72,11 +72,11 @@ function ResistorFilter({setQueryVariables}) {
             </select>
         </div>  
 
-        <div class="filter-group">
+        <div className="filter-group">
             <label for="mountingSurface">Mounting Surface:</label>
             <select 
                 id="mountingSurface" 
-                class="form-select filter-field mounting-surface"
+                className="form-select filter-field mounting-surface"
                 onChange={(e) => handleInputChange('mountingTechnology', e.target.value)}
                 >
                 <option value="ALL">All</option>                    
@@ -85,11 +85,11 @@ function ResistorFilter({setQueryVariables}) {
             </select>
         </div>
 
-        <div class="filter-group">
+        <div className="filter-group">
             <label for="manufacturerSelect">Manufacturer:</label>
             <select 
                 id="manufacturerSelect" 
-                class="form-select filter-field manufacturer"
+                className="form-select filter-field manufacturer"
                 onChange={(e) => handleInputChange('manufacturer', e.target.value)}
                 >
                 <option value="ALL">All</option>                

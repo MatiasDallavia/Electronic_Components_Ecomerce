@@ -24,12 +24,12 @@ function CapacitorFilter({ queryVariables, setQueryVariables}) {
 
 
   return (
-    <div class="d-flex flex-row align-items-center">
-        <div class="filter-group">
+    <div className="d-flex flex-row align-items-center">
+        <div className="filter-group">
             <label for="typeCapacitor">Type:</label>
             <select 
                 id="typeSelect" 
-                class="form-select filter-field type capacitor"
+                className="form-select filter-field type capacitor"
                 onChange={(e) => handleInputChange('capacitorType', e.target.value)}
             >
                 <option value="ALL">All</option>                
@@ -41,12 +41,12 @@ function CapacitorFilter({ queryVariables, setQueryVariables}) {
 
 
 
-        <div class="d-flex flex-row align-items-center">
-        <div class="filter-group">
+        <div className="d-flex flex-row align-items-center">
+        <div className="filter-group">
             <label>Capacitance:</label>
             <select 
                 id="diode-type" 
-                class="form-select filter-field type diode"
+                className="form-select filter-field type diode"
                 onChange={(e) => handleInputChange('capacitance', e.target.value)}
             >
                 <option value="ALL">All</option>
@@ -60,11 +60,11 @@ function CapacitorFilter({ queryVariables, setQueryVariables}) {
             </select>
         </div>
 
-        <div class="filter-group">
+        <div className="filter-group">
             <label>Voltage:</label>
             <select 
                 id="mounting-surface" 
-                class="form-select filter-field mounting-surface"
+                className="form-select filter-field mounting-surface"
                 onChange={(e) => handleInputChange('voltage', e.target.value)}
             >
                 <option value="ALL">All</option>                
@@ -74,11 +74,11 @@ function CapacitorFilter({ queryVariables, setQueryVariables}) {
             </select>
         </div>
 
-        <div class="filter-group">
+        <div className="filter-group">
             <label>Manufacturer:</label>
             <select 
                 id="manufacturer" 
-                class="form-select filter-field manufacturer"
+                className="form-select filter-field manufacturer"
                 onChange={(e) => handleInputChange('manufacturer', e.target.value)}
             >
                 <option value="ALL">All</option>                

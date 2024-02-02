@@ -26,8 +26,8 @@ function TransistorFilter({transistorType, transistorTypeFilterChange, setQueryV
       </div>
 
 
-      <div class="filter-group me-3">
-            <label for="model" class="filter-label">Model:</label>
+      <div className="filter-group me-3">
+            <label for="model" className="filter-label">Model:</label>
             <input 
                 className="form-control filter-field model"
                 type="text" 
@@ -43,11 +43,11 @@ function TransistorFilter({transistorType, transistorTypeFilterChange, setQueryV
       {transistorType === 'IGBT' && 
       <IGBTFilter setQueryVariables={setQueryVariables}/>}
 
-        <div class="filter-group">
-            <label for="manufacturerSelect" class="filter-label">Manufacturer:</label>
+        <div className="filter-group">
+            <label for="manufacturerSelect" className="filter-label">Manufacturer:</label>
             <select 
               id="manufacturerSelect" 
-              class="form-select filter-field manufacturer"
+              className="form-select filter-field manufacturer"
               onChange={(e) => handleInputChange(setQueryVariables, 'manufacturer', e.target.value)}
             >
                 <option value="ALL">All</option>                

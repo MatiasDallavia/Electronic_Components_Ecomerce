@@ -6,10 +6,10 @@ function IGBTFilter({setQueryVariables}) {
   return (
     <>
 
-        <div class="filter-group me-3">
-            <label for="ic" class="filter-label">Current Collector:</label>
+        <div className="filter-group me-3">
+            <label for="ic" className="filter-label">Current Collector:</label>
             <select 
-                class="form-select filter-field type transistor"
+                className="form-select filter-field type transistor"
                 onChange={handleNestedFieldChange(setQueryVariables, 'igbtInput', 'ic')}
             >
                 <option value="ALL">All</option>
@@ -23,10 +23,10 @@ function IGBTFilter({setQueryVariables}) {
 
 
 
-        <div class="filter-group me-3">
-            <label for="ic" class="filter-label">Voltage Collector(vc):</label>
+        <div className="filter-group me-3">
+            <label for="ic" className="filter-label">Voltage Collector(vc):</label>
             <select 
-                class="form-select filter-field type transistor"
+                className="form-select filter-field type transistor"
                 onChange={handleNestedFieldChange(setQueryVariables, 'igbtInput', 'vc')}
             >
                 <option value="ALL">All</option>

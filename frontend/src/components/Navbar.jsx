@@ -17,31 +17,31 @@ function Navbar({isLogin}) {
 
 
   return (
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-        <div class="container-fluid">
-            <div class="navbar-brand">Electronic Components</div>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div className="container-fluid">
+            <div className="navbar-brand">Electronic Components</div>
+            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto align-items-start"> 
-                <li class="nav-item">
+            <div className="collapse navbar-collapse" id="navbarNav">
+                <ul className="navbar-nav ml-auto align-items-start"> 
+                <li className="nav-item">
                     <Link to="/" className="nav-link mt-1 mt-md-0">Home</Link>
                 </li>
-                <li class="nav-item">
+                <li className="nav-item">
                     {
                         isLogin ? <Link to="/login" disabled className="nav-link mt-1 mt-md-0">{username}</Link> :
                         <Link to="/login" className="nav-link mt-1 mt-md-0">Login</Link>
                     }
                 </li>
-                    <li id="cart-icon" class="nav-item" onClick={redirectToCart}>
-                        < div class="nav-link mt-1 mt-md-0" aria-disabled="true">
+                    <li id="cart-icon" className="nav-item" onClick={redirectToCart}>
+                        < div className="nav-link mt-1 mt-md-0" aria-disabled="true">
                             Cart
-                            <span class="badge bg-primary rounded-pill m-1">{productsInCart.length}</span>
+                            <span className="badge bg-primary rounded-pill m-1">{productsInCart.length}</span>
                         </div>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Search Products</a>
+                    <li className="nav-item dropdown">
+                        <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Search Products</a>
                         <ul className="dropdown-menu">
                             <li><Link to="/transistor/search" className="dropdown-item">Transistors</Link></li>
                             <li><Link to="/resistor/search" className="dropdown-item">Resistors</Link></li>
