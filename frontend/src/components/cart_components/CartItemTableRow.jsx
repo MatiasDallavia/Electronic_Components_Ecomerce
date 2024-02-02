@@ -151,7 +151,7 @@ function CartItemTableRow(
 
       useEffect(()=>{
         const result = productsToPurchase.filter((item) => 
-        (item.componentType !== componentType && item.componentId !== componentID)
+        (item.componentType !== componentType || item.componentId !== componentID)
         )
         result.push({
           "componentType" : componentType,
