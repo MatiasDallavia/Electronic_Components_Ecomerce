@@ -5,7 +5,7 @@
 <br />
 
 <div align="center">
-  <img src="frontend/public/whiteRes.png" alt="Logo" width="80" height="80">
+  <img id="readme-top" src="frontend/public/whiteRes.png" alt="Logo" width="80" height="80">
 
   <h3 style="font-family: Roboto;" align="center">Electronic Components Ecommerce</h3>
 </div>
@@ -45,12 +45,8 @@ The website integrates PayPal Sandbox for payment processing, and employs JSON W
 
 ### 💻Prerequisites
 
-* docker
-* docker-compose
-
-  [http://localhost:3000](http://localhost:3000)
-  [http://localhost:3000](http://localhost:3000)
-  [http://localhost:3000](http://localhost:3000)
+  * [node](https://nodejs.org/en/)
+  * [docker-compose](https://docs.docker.com/get-docker/)
 
 <hr />
 
@@ -58,54 +54,47 @@ The website integrates PayPal Sandbox for payment processing, and employs JSON W
 ### 🚀 Installation 
 
 
-2. Clone the repo
+1. Clone the repo
    ```sh
    git clone https://github.com/MatiasDallavia/electronic_components_Ecomerce.git
    ```
-3. Navigate to the project directory
+2. Navigate to the project directory
    ```sh
    cd electronic_components_Ecomerce
    ```
 
-3. Create an .env.dev file in root and add the following
+3. Create the node_modules
+   ```sh
+   (cd frontend/ && npm install)
+   ```
+
+4. Create an .env.dev file in root and add the following
    ```env
-    #paypal
-    #Add your paypal sandbox credentials here. Not doing doing so will make 
-    #the app not able to proccess payments, but all other features will be just fine
-    CLIENT_ID=YOUR_CLIENT_ID
-    SECRET=YOUR_SECRET_KEY
-    
-    
-    #DJANGO
-    DJANGO_PORT=8000
-    REACT_PORT=3000
-    DEBUG=1
-    SECRET_KEY=foo
-    DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
-    HOST=http://localhost
-    
-    #POSTGRES
-    DB_USER=postgres
-    DB_PASSWORD=postgres
-    DB_PORT=5432
-    DB_NAME=electronic_components_db
-    DB_HOST=db
-    DATABASE=postgres
-    
-    #REACT
-    VITE_PORT=3000
-    VITE_API_PORT=8000
-    VITE_HOST=http://localhost
+      #paypal
+      #Add your paypal sandbox credentials here. Not doing doing so will make 
+      #the app not able to proccess payments, but all other features of the page will work fine
+      CLIENT_ID=YOUR_CLIENT_ID
+      SECRET=YOUR_SECRET_KEY
+      
+      
+      #DJANGO
+      DEBUG=1
+      SECRET_KEY=foo
+      DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
+      
+      #POSTGRES
+      DB_USER=postgres
+      DB_PASSWORD=postgres
+      DB_PORT=5432
+      DB_NAME=electronic_components_db
+      DB_HOST=db
+      DATABASE=postgres
     
     ```
-3. Build the containers
+5. Build the containers
    ```sh
    docker-compose up -d --build
    ```
-4. Load the db with the product rows in `products.tar`
-   ```sh
-   cat backend/products.tar | sudo docker exec -i db pg_restore -U postgres -d electronic_components_db -F t 2>/dev/null
-   ```
-5. Go to [http://localhost:3000](http://localhost:3000)`
+6. Go to [http://localhost:3000](http://localhost:3000)`
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
