@@ -1,7 +1,6 @@
 version: "3.8"
 
 services:
-
   backend:
     build: ./backend
     container_name: backend
@@ -21,12 +20,11 @@ services:
     ports:
       - "3000:3000"
     env_file:
-      - ./.env.dev      
+      - ./.env.dev
     volumes:
       - ./frontend:/usr/src/frontend   
 
   db:
-
     image: postgres:16.1
     container_name: db
     volumes:
