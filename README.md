@@ -46,7 +46,7 @@ The website integrates PayPal Sandbox for payment processing, and employs JSON W
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/MatiasDallavia/electronic_components_Ecomerce.git
+   git clone https://github.com/MatiasDallavia/Electronic_Components_Ecomerce.git
    ```
 2. Navigate to the project directory
 
