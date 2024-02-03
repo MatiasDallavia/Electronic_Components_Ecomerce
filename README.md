@@ -20,10 +20,10 @@
 
 
 
-<!-- ABOUT THE PROJECT -->
-## About The Project
+<!-- Description -->
+## Description
 
-Electronic Components is a full-stack e-commerce designed for purchasing electronic components.
+The project is a full-stack e-commerce designed for purchasing electronic components.
 
 The website integrates PayPal Sandbox for payment processing, and employs JSON Web Tokens  for authentication.
 
