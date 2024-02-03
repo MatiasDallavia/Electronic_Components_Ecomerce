@@ -2,10 +2,7 @@
 
 async function fetchData(SCHEMA, variables, JWT=null) {
 
-    const API_PORT = import.meta.env.VITE_API_PORT
-    const HOST = import.meta.env.VITE_HOST
-
-    const apiUrl = `${HOST}:${API_PORT}/graphql`
+    const apiUrl = `http://localhost:8000/graphql`
   
     if (JWT){
       JWT = "JWT " + JWT

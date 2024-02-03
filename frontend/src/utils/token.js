@@ -1,15 +1,10 @@
-
-const API_PORT = import.meta.env.VITE_API_PORT
-const PORT = import.meta.env.VITE_PORT
-const HOST = import.meta.env.VITE_HOST
-
-const loginURL = `${HOST}:${PORT}/login`
+const loginURL = `http://localhost:3000/login`
 
 
 
 const getJWT = async () => {
 
-  const uri = `${HOST}:${API_PORT}/graphql`
+  const uri = `http://localhost:8000/graphql`
 
   const REFRESH_TOKEN = `
     mutation RefreshTokesn($refreshToken: String!) {
