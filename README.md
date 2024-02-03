@@ -51,7 +51,7 @@ The website integrates PayPal Sandbox for payment processing, and employs JSON W
 2. Navigate to the project directory
 
    ```sh
-   cd electronic_components_Ecomerce
+   cd Electronic_Components_Ecomerce
    ```
 
 3. Create the node_modules
