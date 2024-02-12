@@ -26,9 +26,11 @@ services:
 
   db:
     image: postgres:16.1
-    container_name: db
+    container_name: db 
     volumes:
       - postgres_data:/var/lib/postgresql/data/
+      - ./init-database.sh:/docker-entrypoint-initdb.d/init-database.sh
+      - ./products.tar:/products.tar
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
