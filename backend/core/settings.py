@@ -9,11 +9,10 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+
 import os
 from datetime import timedelta
 from pathlib import Path
-
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -92,13 +91,13 @@ DB_HOST = os.getenv("DB_HOST")
 
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': DB_NAME,
-        'USER': DB_USER,
-        'PASSWORD': DB_PASSWORD,
-        'HOST': DB_HOST, 
-        'PORT': DB_PORT,
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": DB_NAME,
+        "USER": DB_USER,
+        "PASSWORD": DB_PASSWORD,
+        "HOST": DB_HOST,
+        "PORT": DB_PORT,
     }
 }
 
@@ -145,37 +144,42 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'verbose': {
-            'format': '// {levelname} {asctime} {module} {message}',
-            'style': '{',
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "// {levelname} {asctime} {module} {message}",
+            "style": "{",
         },
     },
-    'handlers': {
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
+    "handlers": {
+        "file": {
+            "level": "DEBUG",
+            "class": "logging.FileHandler",
+            "filename": f"{BASE_DIR}/logs.log",
             'formatter': 'verbose',
         },
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+        },
     },
-    'loggers': {
-        'django': {
-            'handlers': ['console'],
-            'level': 'INFO',
+    "loggers": {
+        "django": {
+            "handlers": ["console", "file"],
+            "level": "INFO",
         },
-        'products': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
+        "products": {
+            "handlers": ["console", "file"],
+            "level": "DEBUG",
         },
-        'purchases': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
-        },        
+        "purchases": {
+            "handlers": ["console", "file"],
+            "level": "DEBUG",
+        },
     },
 }
-
 
 GRAPHENE = {
     "SCHEMA": "core.schema.schema",
