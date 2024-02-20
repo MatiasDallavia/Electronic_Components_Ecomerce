@@ -4,9 +4,7 @@ import os
 from typing import List, Tuple
 
 import requests
-
 from products.models import BJT, IGBT, MOSFET, Capacitor, Diode, Inductor, Resistor
-
 
 CLIENT_ID = os.environ["CLIENT_ID"]
 SECRET = os.environ["SECRET"]
@@ -87,12 +85,9 @@ class OrderCreationHandler:
         if response.get("name") == "INVALID_REQUEST":
             raise Exception("Invalid Request: ", response)
 
-
         payment_url = response["links"][1]["href"]
 
-        logger.debug(
-            "Successful request.  URL recived %s", payment_url
-        )
+        logger.debug("Successful request.  URL recived %s", payment_url)
 
         return payment_url
 

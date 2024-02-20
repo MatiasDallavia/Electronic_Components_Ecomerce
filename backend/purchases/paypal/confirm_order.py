@@ -4,7 +4,6 @@ from typing import List
 
 import requests
 from graphql import GraphQLError
-
 from products.models import BJT, IGBT, MOSFET, Capacitor, Diode, Inductor, Resistor
 from products.schema.types import (
     BJTType,
