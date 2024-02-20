@@ -83,11 +83,15 @@ The website integrates PayPal Sandbox for payment processing, and employs JSON W
       DATABASE=postgres
 
    ```
-5. Build the containers
+5. If you want to track the logs from the django app in a file, you can do the following:
+   ```sh
+   touch backend/logs_file.log
+   ```
+6. Build the containers
    ```sh
    docker-compose up -d --build
-   ```
-6. Go to [http://localhost:3000](http://localhost:3000)`
+   ```   
+7. Go to [http://localhost:3000](http://localhost:3000)`
 
 <hr>
 
