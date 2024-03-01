@@ -4,7 +4,7 @@ services:
   backend:
     build: ./backend
     container_name: backend
-    command: python manage.py runserver 0.0.0.0:8000
+    command: gunicorn core.wsgi --bind 0.0.0.0:8000
     volumes:
       - ./backend/:/usr/src/backend/
     ports:
@@ -15,18 +15,30 @@ services:
       - db
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
     container_name: frontend
     ports:
       - "3000:3000"
     env_file:
       - ./.env.dev
     volumes:
-      - ./frontend:/usr/src/frontend   
+      - react_build:/react/dist
+
+  proxy:
+    image: nginx:latest
+    ports:
+      - 8080:8080
+    volumes:
+      - ./nginx/nginx-setup.conf:/etc/nginx/conf.d/default.conf:ro
+      - react_build:/var/www/react
+    depends_on:
+      - backend
+      - frontend
 
   db:
     image: postgres:16.1
-    container_name: db 
+    container_name: db
     volumes:
       - postgres_data:/var/lib/postgresql/data/
       - ./init-database.sh:/docker-entrypoint-initdb.d/init-database.sh
@@ -37,4 +49,5 @@ services:
       - POSTGRES_DB=electronic_components_db
 
 volumes:
+  react_build:
   postgres_data:
