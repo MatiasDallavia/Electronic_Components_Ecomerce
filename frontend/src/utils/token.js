@@ -1,4 +1,4 @@
-const loginURL = `http://localhost:3000/login`
+const loginURL = `http://localhost:8080/login`
 
 
 
@@ -25,6 +25,7 @@ const getJWT = async () => {
     const currentTime = new Date().getTime() / 1000;
 
     if (currentTime >= refreshExpiresIn || refreshToken === null)
+      console.log(loginURL)
       window.open(loginURL, "_self")
         
 

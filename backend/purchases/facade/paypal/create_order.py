@@ -72,8 +72,8 @@ class OrderCreationHandler:
                         "locale": "en-US",
                         "landing_page": "LOGIN",
                         "user_action": "PAY_NOW",
-                        "return_url": "http://localhost:3000/purchase-confirmation",
-                        "cancel_url": "http://localhost:3000/Cart",
+                        "return_url": "http://localhost:8080/purchase-confirmation",
+                        "cancel_url": "http://localhost:8080/Cart",
                     }
                 }
             },
