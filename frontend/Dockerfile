@@ -1,13 +1,9 @@
-FROM node:21.5-alpine
+FROM node:18 as build
 
-WORKDIR /usr/src/frontend
+WORKDIR /react
 
-EXPOSE 3000
-
-COPY package.json package-lock.json ./
+COPY package*.json ./
 
 RUN npm install
-
-COPY . ./
-
-CMD ["npm", "run", "dev"]
+COPY . .
+RUN npm run build
