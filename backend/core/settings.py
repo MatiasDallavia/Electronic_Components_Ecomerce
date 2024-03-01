@@ -157,7 +157,7 @@ LOGGING = {
             "level": "DEBUG",
             "class": "logging.FileHandler",
             "filename": f"{BASE_DIR}/logs_file.log",
-            'formatter': 'verbose',
+            "formatter": "verbose",
         },
         "console": {
             "level": "DEBUG",
@@ -202,5 +202,5 @@ AUTHENTICATION_BACKENDS = [
 
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
+    "http://localhost:8080",
 ]
