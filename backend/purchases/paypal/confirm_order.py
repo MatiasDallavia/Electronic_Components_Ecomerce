@@ -20,8 +20,8 @@ from purchases.schema.types import ComponentUnionType, ProductPurchaseType
 logger = logging.getLogger(__name__)
 
 
-CLIENT_ID = os.environ["CLIENT_ID"]
-SECRET = os.environ["SECRET"]
+CLIENT_ID = os.environ.get("CLIENT_ID", default="")
+SECRET = os.environ.get("SECRET", default="")
 
 base_url = "https://api-m.sandbox.paypal.com"
 
