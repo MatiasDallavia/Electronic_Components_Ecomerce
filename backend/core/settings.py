@@ -87,7 +87,7 @@ DB_USER = os.getenv("DB_USER", default="postgres")
 DB_PASSWORD = os.getenv("DB_PASSWORD", default="postgres")
 DB_PORT = os.getenv("DB_PORT", default="5432")
 DB_NAME = os.getenv("DB_NAME", default="electronic_components_db")
-DB_HOST = os.getenv("DB_HOST", default="db")
+DB_HOST = os.getenv("DB_HOST", default="localhost")
 
 
 DATABASES = {
