@@ -3,6 +3,7 @@ import ProductList from '../ProductList';
 import { GET_LIST_INDUCTORS, InductorListInput } from '../../graphql_queries/list_product_query/InductorListQuery';
 import InductorFilter from './product_filters/InductorFilter';
 import  WaitingSpinner  from "../purchased_products/WaitingSpinner"
+import Paginator from './Paginator';
 
 import {fetchData} from "../../utils/fetchData"
 
@@ -15,6 +16,12 @@ function SearchInductor() {
   const [inductors, setInductors] = useState([]);
   const [noInductorsFound, setNoInductorsFound] = useState(false)
 
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const itemsPerPage = 10;
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = inductors.slice(indexOfFirstItem, indexOfLastItem);
 
   useEffect(() => {
     getInductors();
@@ -56,8 +63,11 @@ function SearchInductor() {
               No results were found with the parameters given...
             </h3>
           ) : (
-            <ProductList products={inductors} />
-          )}
+            <div className="d-flex flex-column align-items-center justify-content-center">
+              <ProductList products={currentItems} />
+              <Paginator items={inductors} itemsPerPage={itemsPerPage} setCurrentPage={setCurrentPage} currentPage={currentPage}/>
+            </div>
+            )}
         </>
       )}   
     </div>

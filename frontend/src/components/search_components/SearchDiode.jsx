@@ -3,6 +3,7 @@ import { GET_LIST_DIODES, diodeListInput } from '../../graphql_queries/list_prod
 import DiodeFilter from './product_filters/DiodeFilter';
 import ProductList from '../ProductList';
 import  WaitingSpinner  from "../purchased_products/WaitingSpinner"
+import Paginator from './Paginator';
 
 import {fetchData} from "../../utils/fetchData"
 
@@ -15,6 +16,12 @@ function SearchDiode() {
     const [diodes, setDiodes] = useState([]);
     const [noDiodesFound, setNoDiodesFound] = useState(false)
   
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const itemsPerPage = 10;
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = diodes.slice(indexOfFirstItem, indexOfLastItem);
 
     useEffect(() => {
       getDiodes();
@@ -52,7 +59,10 @@ function SearchDiode() {
               No results were found with the parameters given...
             </h3>
           ) : (
-            <ProductList products={diodes} />
+            <div className="d-flex flex-column align-items-center justify-content-center">
+              <ProductList products={currentItems} />
+              <Paginator items={diodes} itemsPerPage={itemsPerPage} setCurrentPage={setCurrentPage} currentPage={currentPage}/>
+            </div>
           )}
         </>
       )}  

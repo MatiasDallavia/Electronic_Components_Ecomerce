@@ -415,3 +415,7 @@ input.in-cart-checkbox {
   color: #3498db; /* Color del texto */
   margin-bottom: 20px; /* Ajusta el margen inferior según sea necesario */
 }
+
+.page-item:hover{
+  cursor: pointer; 
+}

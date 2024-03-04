@@ -44,8 +44,18 @@ function parseComponentAttributeText(text) {
     const result = text.replace(/([A-Z])/g, ' $1');
     
     return result.charAt(0).toUpperCase() + result.slice(1);
-  }    
+  }  
+  
+  
+
+const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });    
+  };  
 
 
 
-  export {handleInputChange, handleNestedFieldChange, parseComponentAttributeText}
+  export {handleInputChange, handleNestedFieldChange, parseComponentAttributeText, handlePageChange}

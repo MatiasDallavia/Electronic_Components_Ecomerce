@@ -3,6 +3,7 @@ import { GET_LIST_CAPACITORS, capacitorListInput } from '../../graphql_queries/l
 import CapacitorFilter from './product_filters/CapacitorFilter';
 import ProductList from '../ProductList';
 import  WaitingSpinner  from "../purchased_products/WaitingSpinner"
+import Paginator from './Paginator';
 
 import {fetchData} from "../../utils/fetchData"
 
@@ -14,7 +15,12 @@ function SearchCapacitor() {
   const [capacitors, setCapacitors] = useState([]);
   const [noCapacitorFound, setNoCapacitorFound] = useState(false)
 
+  const [currentPage, setCurrentPage] = useState(1);
 
+  const itemsPerPage = 10;
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = capacitors.slice(indexOfFirstItem, indexOfLastItem);
 
 
   useEffect(() => {
@@ -54,7 +60,10 @@ function SearchCapacitor() {
               No results were found with the parameters given...
             </h3>
           ) : (
-            <ProductList products={capacitors} />
+            <div className="d-flex flex-column align-items-center justify-content-center">
+              <ProductList products={currentItems} />
+              <Paginator items={capacitors} itemsPerPage={itemsPerPage} setCurrentPage={setCurrentPage} currentPage={currentPage}/>
+            </div>
           )}
         </>
       )}      

@@ -3,6 +3,7 @@ import { GET_LIST_RESISTORS, ResistorListInput } from '../../graphql_queries/lis
 import ResistorFilter from './product_filters/ResistorFilter';
 import ProductList from '../ProductList';
 import  WaitingSpinner  from "../purchased_products/WaitingSpinner"
+import Paginator from './Paginator';
 
 
 import {fetchData} from "../../utils/fetchData"
@@ -15,6 +16,12 @@ function SearchResistor() {
     const [resistors, setResistors] = useState([]);
     const [noResistorsFound, setNoResistorsFound] = useState(false)
 
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const itemsPerPage = 10;
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = resistors.slice(indexOfFirstItem, indexOfLastItem);  
 
   
     useEffect(() => {
@@ -53,7 +60,10 @@ function SearchResistor() {
               No results were found with the parameters given...
             </h3>
           ) : (
-            <ProductList products={resistors} />
+            <div className="d-flex flex-column align-items-center justify-content-center">
+              <ProductList products={currentItems} />
+              <Paginator items={resistors} itemsPerPage={itemsPerPage} setCurrentPage={setCurrentPage} currentPage={currentPage}/>
+            </div>
           )}
         </>
       )}
