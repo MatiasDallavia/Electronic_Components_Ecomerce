@@ -28,6 +28,7 @@ function SearchDiode() {
     }, []); 
   
     const getDiodes = async () => {
+      setCurrentPage(1)
       setIsLoading(true)
       try {
         const data = await fetchData(GET_LIST_DIODES, queryVariables);

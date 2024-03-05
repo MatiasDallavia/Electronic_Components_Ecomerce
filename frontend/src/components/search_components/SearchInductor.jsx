@@ -28,6 +28,7 @@ function SearchInductor() {
   }, []); 
 
   const getInductors = async () => {
+    setCurrentPage(1)
     setIsLoading(true)
     try {
       const data = await fetchData(GET_LIST_INDUCTORS, queryVariables);

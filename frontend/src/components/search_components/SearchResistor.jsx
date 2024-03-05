@@ -29,6 +29,7 @@ function SearchResistor() {
     }, []); 
   
     const getResistors = async () => {
+      setCurrentPage(1)
       setIsLoading(true)
       try {
         const data = await fetchData(GET_LIST_RESISTORS, queryVariables);
