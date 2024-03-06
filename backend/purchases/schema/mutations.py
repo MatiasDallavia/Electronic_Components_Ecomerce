@@ -59,8 +59,10 @@ class CreateOrderMutation(Mutation):
     def mutate(self, info, inputs):
         logger.info("#" * 10 + " Starting CreateOrder Mutation." + "#" * 10)
         logger.debug("Input Fields: %s", inputs)
+        request_user = info.context.user
+        logger.debug("Username: %s", request_user)          
         try:
-            purchase_facede = PaypalPurchaseFacade(inputs)
+            purchase_facede = PaypalPurchaseFacade(inputs=inputs, user=request_user)
             url = purchase_facede.create_order()
             return CreateOrderMutation(url=url)
         except Exception as e:
@@ -82,8 +84,10 @@ class CaptureOrderMutation(Mutation):
     def mutate(self, info, inputs):
         logger.info("#" * 10 + " Starting CaptureOrder Mutation." + "#" * 10)
         logger.debug("Input Fields: %s", inputs)
+        request_user = info.context.user
+        logger.debug("Username: %s", request_user)            
         try:
-            purchase_facede = PaypalPurchaseFacade(inputs)
+            purchase_facede = PaypalPurchaseFacade(inputs=inputs, user=request_user)
             components_purchased = purchase_facede.confirm_order()
             return CaptureOrderMutation(purchases=components_purchased)
         except Exception as e:
