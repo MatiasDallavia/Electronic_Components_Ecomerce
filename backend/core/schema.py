@@ -7,9 +7,9 @@ from purchases.schema.mutations import (
     CreateOrderMutation,
     RegisterUserMutation,
 )
+from purchases.schema.queries import PurchasesQuery
 
-
-class Query(ProductListQuery):
+class Query(ProductListQuery, PurchasesQuery):
     pass
 
 
