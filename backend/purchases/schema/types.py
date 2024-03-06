@@ -37,4 +37,5 @@ class UserType(DjangoObjectType):
 class ProductPurchaseType(graphene.ObjectType):
     component_node = graphene.Field(ComponentUnionType)
     quantity = graphene.Int()
+    purchase_date = graphene.String()
 
