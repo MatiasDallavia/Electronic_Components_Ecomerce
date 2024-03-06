@@ -48,11 +48,10 @@ class PaypalPurchaseFacade:
         Returns:
             List[ProductPurchaseType]: List of purchased product.
         """
-        username = self._inputs["username"]
         token = self._inputs["token"]
 
         handler = OrderConfirmationHandler()
-        user = handler.get_user(username)
+        user = handler.get_user(self._user)
         response = handler.send_request(token)
         items = response["purchase_units"][0]["items"]
 
