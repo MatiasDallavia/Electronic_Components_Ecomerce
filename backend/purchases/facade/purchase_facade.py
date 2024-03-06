@@ -1,9 +1,9 @@
 import logging
 from typing import List
 
-from graphql import GraphQLError
-from purchases.paypal.confirm_order import OrderConfirmationHandler
-from purchases.paypal.create_order import OrderCreationHandler
+from purchases.facade.paypal.confirm_order import OrderConfirmationHandler
+from purchases.facade.paypal.create_order import OrderCreationHandler
+from purchases.facade.user_purchases import UserPurchasesHandler
 from purchases.schema.types import ProductPurchaseType
 
 logger = logging.getLogger(__name__)
@@ -15,8 +15,9 @@ class PaypalPurchaseFacade:
     """
 
     _inputs: dict
+    _user: str
 
-    def __init__(self, inputs: dict):
+    def __init__(self, inputs: dict = None, user: str = None):
         """
         Initializes the PaypalPurchaseFacade with input data.
 
@@ -24,6 +25,7 @@ class PaypalPurchaseFacade:
             inputs (dict): Dictionary containing input data.
         """
         self._inputs = inputs
+        self._user = user
 
     def create_order(self) -> str:
         """
@@ -57,3 +59,23 @@ class PaypalPurchaseFacade:
         components_purchased = handler.save_purchases(user, items)
 
         return components_purchased
+
+    def get_user_purchase_history(self) -> List[ProductPurchaseType]:
+
+        handler = UserPurchasesHandler()
+        raw_purchases_data = handler.retrvie_purchases_from_user(self._user)      
+
+        logger.debug(
+            "// User's purchases by component (ID): \n%s",
+            "\n".join(
+                [
+                    f"{component_type}: {values[1]}"
+                    for component_type, values in raw_purchases_data.items()
+                ]
+            ),
+        )         
+
+        purchased_components = handler.convert_products_to_nodes(raw_purchases_data)
+        
+
+        return purchased_components

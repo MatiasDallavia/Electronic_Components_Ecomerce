@@ -7,7 +7,7 @@ from graphql import GraphQLError
 from graphql_jwt.decorators import login_required
 
 from products.models import BJT, IGBT, MOSFET, Capacitor, Diode, Inductor, Resistor
-from purchases.paypal.paypal_purchase_facade import PaypalPurchaseFacade
+from purchases.facade.purchase_facade import PaypalPurchaseFacade
 from purchases.schema.inputs import ConfirmOrderInput, CreateOrderInput
 from purchases.schema.types import ProductPurchaseType, UserType
 
