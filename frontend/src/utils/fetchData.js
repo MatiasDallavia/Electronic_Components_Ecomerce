@@ -1,13 +1,12 @@
 
 
-async function fetchData(SCHEMA, variables, JWT=null) {
+async function fetchData(SCHEMA, variables=null, JWT=null) {
 
     const apiUrl = `http://localhost:8000/graphql`
   
     if (JWT){
       JWT = "JWT " + JWT
     }
-  
     try {
       const response = await fetch(apiUrl, {
         method: 'POST',
@@ -26,6 +25,7 @@ async function fetchData(SCHEMA, variables, JWT=null) {
       }
   
       const data = await response.json();
+
       return data.data
   
     } catch (error) {
