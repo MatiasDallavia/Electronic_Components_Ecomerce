@@ -51,7 +51,9 @@ class UserPurchasesHandler:
             purchased_components (dict): raw data of the purchased products by user.
         """
         user = User.objects.filter(username=username).first()
-        user_purchases = ProductPurchase.objects.filter(user=user)
+        user_purchases = ProductPurchase.objects.filter(user=user).order_by(
+            "created_at"
+        )
 
         # Groups the a set of all ids of products with a list every single id with their
         # quantity and purchase data, separeted by component type

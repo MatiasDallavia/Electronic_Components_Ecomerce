@@ -62,7 +62,7 @@ class PaypalPurchaseFacade:
     def get_user_purchase_history(self) -> List[ProductPurchaseType]:
 
         handler = UserPurchasesHandler()
-        raw_purchases_data = handler.retrvie_purchases_from_user(self._user)      
+        raw_purchases_data = handler.retrvie_purchases_from_user(self._user)
 
         logger.debug(
             "// User's purchases by component (ID): \n%s",
@@ -72,9 +72,11 @@ class PaypalPurchaseFacade:
                     for component_type, values in raw_purchases_data.items()
                 ]
             ),
-        )         
+        )
 
         purchased_components = handler.convert_products_to_nodes(raw_purchases_data)
-        
+        sorted_purchases = sorted(
+            purchased_components, key=lambda x: x.purchase_date, reverse=True
+        )
 
-        return purchased_components
+        return sorted_purchases
