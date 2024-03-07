@@ -24,9 +24,9 @@ const getJWT = async () => {
 
     const currentTime = new Date().getTime() / 1000;
 
-    if (currentTime >= refreshExpiresIn || refreshToken === null)
-      console.log(loginURL)
+    if (currentTime >= refreshExpiresIn){
       window.open(loginURL, "_self")
+    }
         
 
     if (currentTime >= tokenExpiration){
