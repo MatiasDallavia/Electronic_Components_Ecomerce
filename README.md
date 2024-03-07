@@ -91,7 +91,7 @@ The website integrates PayPal Sandbox for payment processing, and employs JSON W
    ```sh
    docker-compose up -d --build
    ```   
-7. Go to [http://localhost:3000](http://localhost:3000)`
+7. Go to [http://localhost](http://localhost)`
 
 <hr>
 
