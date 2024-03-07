@@ -30,7 +30,7 @@ function Navbar({isLogin}) {
                 </li>
                 <li className="nav-item">
                     {
-                        isLogin ? <Link to="/login" disabled className="nav-link mt-1 mt-md-0">{username}</Link> :
+                        isLogin ? <Link to="/purchase-history" disabled className="nav-link mt-1 mt-md-0">{username}</Link> :
                         <Link to="/login" className="nav-link mt-1 mt-md-0">Login</Link>
                     }
                 </li>
