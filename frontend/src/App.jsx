@@ -16,6 +16,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Cart from "./components/cart_components/Cart.jsx";
 import PurchaseConfirmation from "./components/purchased_products/PurchaseConfirmation.jsx";
+import PurchaseHistory from "./components/purchased_products/PurchaseHistory.jsx";
 import { isUserLogin } from "./utils/token.js";
 
 function App() {
@@ -49,6 +50,7 @@ function App() {
           </Route>
 
           <Route path="purchase-confirmation" element={<PurchaseConfirmation/>}/>
+          <Route path="purchase-history" element={<PurchaseHistory/>}/>
       
           
           <Route path="/login" element={<Login setIsLogin={setIsLogin}/>} />
