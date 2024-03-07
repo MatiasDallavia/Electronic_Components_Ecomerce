@@ -10,7 +10,7 @@ services:
     ports:
       - 8000:8000
     env_file:
-      - ./.env.dev
+      - ./.env
     depends_on:
       - db
 
@@ -21,14 +21,14 @@ services:
     ports:
       - "3000:3000"
     env_file:
-      - ./.env.dev
+      - ./.env
     volumes:
       - react_build:/react/dist
 
   proxy:
     image: nginx:latest
     ports:
-      - 8080:8080
+      - 80:8080
     volumes:
       - ./nginx/nginx-setup.conf:/etc/nginx/conf.d/default.conf:ro
       - react_build:/var/www/react
