@@ -31,7 +31,7 @@ The website integrates PayPal Sandbox for payment processing, and employs JSON W
 - <img alt='React' src='https://img.shields.io/badge/React-100000?style=for-the-badge&logo=React&logoColor=white&labelColor=51dbff&color=D9E7E1'/>
 - <img alt='Postgresql' src='https://img.shields.io/badge/PostgresQL-100000?style=for-the-badge&logo=Postgresql&logoColor=white&labelColor=0064a5&color=D9E7E1'/>
 - <img alt='Docker' src='https://img.shields.io/badge/Docker-100000?style=for-the-badge&logo=Docker&logoColor=white&labelColor=0db7ed&color=D9E7E1'/>
-- <img alt='bootstrap' src='https://img.shields.io/badge/Boostrap-100000?style=for-the-badge&logo=bootstrap&logoColor=white&labelColor=563d7c&color=D9E7E1'/>
+- <img alt='bootstrap' src='https://img.shields.io/badge/Nginx-100000?style=for-the-badge&logo=nginx&logoColor=white&labelColor=009900&color=D9E7E1'/>
 
 <hr />
 
@@ -60,7 +60,7 @@ The website integrates PayPal Sandbox for payment processing, and employs JSON W
    (cd frontend/ && npm install)
    ```
 
-4. Create an .env.dev file in root and add the following
+4. Create an .env file in root and add the following
    ```env
       #paypal
       #Add your paypal sandbox credentials here. Not doing doing so will make
