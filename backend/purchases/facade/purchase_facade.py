@@ -67,7 +67,7 @@ class PaypalPurchaseFacade:
             List[ProductPurchaseType]: List of purchased product by user.
         """
         handler = UserPurchasesHandler()
-        raw_purchases_data = handler.retrvie_purchases_from_user(self._user)
+        raw_purchases_data = handler.retrvie_raw_purchases_from_user(self._user)
 
         logger.debug(
             "// User's purchases by component (ID): \n%s",
