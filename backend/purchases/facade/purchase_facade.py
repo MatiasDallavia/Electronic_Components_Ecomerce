@@ -60,7 +60,12 @@ class PaypalPurchaseFacade:
         return components_purchased
 
     def get_user_purchase_history(self) -> List[ProductPurchaseType]:
+        """
+        Retrives the all purchases made by the user.
 
+        Returns:
+            List[ProductPurchaseType]: List of purchased product by user.
+        """
         handler = UserPurchasesHandler()
         raw_purchases_data = handler.retrvie_purchases_from_user(self._user)
 

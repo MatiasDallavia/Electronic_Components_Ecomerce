@@ -40,9 +40,9 @@ type_mapping = {
 
 class UserPurchasesHandler:
 
-    def retrvie_purchases_from_user(self, username: str) -> dict:
+    def retrvie_raw_purchases_from_user(self, username: str) -> dict:
         """
-        Gets the information of all purchases from the user separeted by component type
+        Gets the raw information of all purchases from the user separeted by component type
 
         Args:
             username (str): User's name.

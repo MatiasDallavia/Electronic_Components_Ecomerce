@@ -24,12 +24,8 @@ components_mapping = {
     "DIODE": Diode,
 }
 
-
+#Users
 class RegisterUserMutation(Mutation):
-    """
-    Mutation for the creation of User.
-    """
-
     class Arguments:
         username = graphene.String(required=True)
         email = graphene.String(required=True)
@@ -45,11 +41,8 @@ class RegisterUserMutation(Mutation):
         return RegisterUserMutation(user=user)
 
 
+#Orders
 class CreateOrderMutation(Mutation):
-    """
-    Mutation for creating orders of payments.
-    """
-
     class Arguments:
         inputs = CreateOrderInput(required=True)
 
@@ -71,10 +64,6 @@ class CreateOrderMutation(Mutation):
 
 
 class CaptureOrderMutation(Mutation):
-    """
-    Mutation for confirming payment orders and creating ProductPurchaseType.
-    """
-
     class Arguments:
         inputs = ConfirmOrderInput(required=True)
 
