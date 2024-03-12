@@ -2,7 +2,6 @@ import graphene
 from django.contrib.auth.models import User
 from graphene_django.types import DjangoObjectType
 
-from products.models import BJT, IGBT, MOSFET, Capacitor, Diode, Inductor, Resistor
 from products.schema.types import (
     BJTType,
     CapacitorType,
@@ -11,7 +10,6 @@ from products.schema.types import (
     InductorType,
     MOSFETType,
     ResistorType,
-    check_ohm_notation,
 )
 
 

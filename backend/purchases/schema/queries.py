@@ -1,7 +1,6 @@
 import logging
 
 import graphene
-from django.contrib.auth.models import User
 from graphql import GraphQLError
 from graphql_jwt.decorators import login_required
 from products.models import BJT, IGBT, MOSFET, Capacitor, Diode, Inductor, Resistor
@@ -14,8 +13,7 @@ from products.schema.types import (
     MOSFETType,
     ResistorType,
 )
-from purchases.models import ProductPurchase
-from purchases.schema.types import ComponentUnionType, ProductPurchaseType
+from purchases.schema.types import ProductPurchaseType
 from purchases.facade.purchase_facade import PaypalPurchaseFacade
 
 logger = logging.getLogger(__name__)
